@@ -11,40 +11,29 @@
  */
 class Solution {
 public:
+    void traverse(vector<vector<int>>& res, TreeNode* node, int depth){
+        if (node == NULL) {
+            return;
+        }
+
+        if (res.size() <= depth) {
+            vector<int> list;
+            res.push_back(list);
+        } 
+
+        res[depth].push_back(node->val);
+
+        traverse(res, node->left, depth + 1);
+        traverse(res, node->right, depth + 1);
+    }
     vector<vector<int>> levelOrderBottom(TreeNode* root) {
         vector<vector<int>> res;
-        if (root == nullptr) {
+        if (root == NULL) {
             return res;
         }
 
-        deque<TreeNode*> q;
-
-        q.push_back(root);
-
-        while(!q.empty()) {
-            int size = q.size();
-            vector<int> list;
-
-            while(size > 0) {
-                TreeNode* node = q.front();
-                q.pop_front();
-                
-                list.push_back(node->val);
-
-                if (node->left != nullptr) {
-                    q.push_back(node->left);
-                }
-
-                if (node->right != nullptr) {
-                    q.push_back(node->right);
-                }
-
-                size--;
-            }
-            res.insert(res.begin(), list);
-            
-        }
-
+        traverse(res, root, 0);
+        reverse(res.begin(), res.end());
         return res;
     }
 };

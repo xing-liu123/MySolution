@@ -4,38 +4,22 @@ public:
         stack<char> myStack;
 
         for (char c : s) {
-            if (myStack.empty()) {
+            if (c == '{' || c == '[' || c == '(') {
                 myStack.push(c);
             } else {
-                 char cOnTop = myStack.top();
+                if (myStack.empty()) {
+                    return false;
+                }
 
-            switch(c) {
-               
-                case ')':
-                    if (cOnTop != '(') {
-                        return false;
-                    } else {
-                        myStack.pop();
-                    }
-                    break;
-                case ']':
-                    if (cOnTop != '[') {
-                        return false;
-                    } else {
-                        myStack.pop();
-                    }
-                    break;
-                case '}':
-                    if (cOnTop != '{') {
-                        return false;
-                    } else {
-                        myStack.pop();
-                    }
-                    break;
-                default:
-                    myStack.push(c);
+                char charOnTop = myStack.top();
+
+                if (charOnTop == '(' && c != ')') {return false;}
+                if (charOnTop == '[' && c != ']') {return false;}
+                if (charOnTop == '{' && c != '}') {return false;}
+
+                myStack.pop();
             }
-            }
+        
            
         }
         return myStack.empty();

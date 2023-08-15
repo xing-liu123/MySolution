@@ -9,9 +9,6 @@ public:
             if (i == currCover) {
                 currCover = nextCover;
                 count++;
-                if (currCover > nums.size() - 1) {
-                    return count;
-                }
             }
         }
 

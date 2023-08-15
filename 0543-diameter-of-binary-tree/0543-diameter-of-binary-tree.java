@@ -16,22 +16,22 @@
 class Solution {
     int max = 0;
     public int diameterOfBinaryTree(TreeNode root) {
-        traverse(root, 0);
+        traverse(root);
         return max;
     }
 
-    private int traverse(TreeNode curr, int depth) {
+    private int traverse(TreeNode curr) {
         if (curr == null) {
-            return depth;
+            return 0;
         } else {
-            int leftDepth = traverse(curr.left, depth + 1);
-            int rightDepth = traverse(curr.right, depth + 1);
+            int leftDepth = traverse(curr.left);
+            int rightDepth = traverse(curr.right);
 
-            if (leftDepth + rightDepth - 2*(depth + 1) > max) {
-                max = leftDepth + rightDepth - 2*(depth + 1);
+            if (leftDepth + rightDepth> max) {
+                max = leftDepth + rightDepth;
             }
 
-            return Math.max(leftDepth, rightDepth);
+            return 1 + Math.max(leftDepth, rightDepth);
         }
     }
 }

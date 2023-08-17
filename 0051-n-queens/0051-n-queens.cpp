@@ -49,7 +49,7 @@ public:
         return true;
     }
 
-    vector<string> convert(vector<vector<char>> board) {
+    vector<string> convert(vector<vector<char>>& board) {
         vector<string> list;
         for (vector<char> chars : board) {
             string str(chars.begin(), chars.end());

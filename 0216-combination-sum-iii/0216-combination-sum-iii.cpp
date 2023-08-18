@@ -9,9 +9,12 @@ public:
     }
 
     void backtracking(int start, int n, int k) {
-        if (list.size() == k && sum == n) {
-            vector<int> copy = list;
-            res.push_back(copy);
+        if (list.size() == k) {
+            if (sum == n) {
+                vector<int> copy = list;
+                res.push_back(copy);
+            }
+            
             return;
         }
 

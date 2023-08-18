@@ -17,7 +17,7 @@ class Solution {
         }
 
         for (int i = 0; i < nums.length; i++) {
-            if (i > 0 && nums[i] == nums[ i - 1] && used[i - 1] == 1) {
+            if (i > 0 && nums[i] == nums[ i - 1] && used[i - 1] == 0) {
                 continue;
             }
             if (used[i] == 0) {

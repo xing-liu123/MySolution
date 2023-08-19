@@ -9,25 +9,27 @@ class Solution {
         Collections.sort(keys);
 
         int left = 0;
-        int count = 0;
         while (left < keys.size() - groupSize + 1) {
-            int num = map.get(keys.get(left));
+            int count = map.get(keys.get(left));
             int newLeft = left;
             for (int i = left + groupSize - 1; i >= left; i--) {
-                if(i > left && keys.get(i) != keys.get(i - 1) + 1) {
+                int currKey = keys.get(i);
+
+                if(i > left && currKey != keys.get(i - 1) + 1) {
                     return false;
                 }
-                if (map.get(keys.get(i)) < num) {
+
+                if (map.get(currKey) < count) {
                     return false;
                 } else {
-                    map.put(keys.get(i), map.get(keys.get(i)) - num);
-                    if (map.get(keys.get(i)) != 0) {
+                    map.put(currKey, map.get(currKey) - count);
+
+                    if (map.get(currKey) != 0) {
                         newLeft = i;
                     }
                 }
             }
 
-            count+=num;
             if (newLeft == left) {
                 left += groupSize;
             } else {

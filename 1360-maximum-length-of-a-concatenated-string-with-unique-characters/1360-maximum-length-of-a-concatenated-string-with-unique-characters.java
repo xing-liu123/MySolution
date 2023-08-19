@@ -9,7 +9,6 @@ class Solution {
     }
 
     private void backtrack(List<String> arr, int idx) {
-        System.out.println(len);
         if (len > longest) {
             longest = len;
         }

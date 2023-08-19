@@ -15,11 +15,12 @@ class Solution {
             return true;
         }
 
-        if (res[start] != 0) {
-            return backtracking(start + 1, n);
-        } 
+        
 
         for (int i = used.length - 1; i >= 1; i--) {
+            if (res[start] != 0) {
+                return backtracking(start + 1, n);
+            }    
            if (used[i] == 0) {
                if (i == 1) {
                  used[i] = 1;

@@ -23,6 +23,10 @@ class Solution {
 
         }
 
+        if (count < stack.size()) {
+            return false;
+        }
+
         int count1 = 0;
         Stack<Character> stack1 = new Stack<>();
 
@@ -45,6 +49,6 @@ class Solution {
 
         }
 
-        return count >= stack.size() && count1 >= stack1.size();
+        return count1 >= stack1.size();
     }
 }

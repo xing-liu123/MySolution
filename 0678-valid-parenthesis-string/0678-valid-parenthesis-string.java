@@ -1,10 +1,11 @@
 class Solution {
     public boolean checkValidString(String s) {
+        char[] str = s.toCharArray();
         int count = 0;
         Stack<Character> stack = new Stack<>();
 
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
+        for (int i = 0; i < str.length; i++) {
+            char c = str[i];
 
             if (c == '(') {
                 stack.push(c);
@@ -25,8 +26,8 @@ class Solution {
         int count1 = 0;
         Stack<Character> stack1 = new Stack<>();
 
-        for (int i = s.length() - 1; i >= 0; i--) {
-            char c = s.charAt(i);
+        for (int i = str.length - 1; i >= 0; i--) {
+            char c = str[i];
 
             if (c == ')') {
                 stack1.push(c);

@@ -1,28 +1,23 @@
 class Solution {
     public int minDeletions(String s) {
-        Integer[] frequencies = new Integer[26];
-        Arrays.fill(frequencies, 0);
+        int[] frequencies = new int[26];
 
         for (int i = 0; i < s.length(); i++) {
             frequencies[s.charAt(i) - 'a']++;
         }
 
-        Arrays.sort(frequencies, (a, b) -> b - a);
+        Set<Integer> set = new HashSet<>();
 
         int count = 0;
-        for (int i = 1; i < frequencies.length; i++) {
-            if (frequencies[i] == 0) {
-                break;
+
+        for (int i : frequencies) {
+            while (i > 0 && set.contains(i)) {
+                i--;
+                count++;
             }
-            if (frequencies[i] >= frequencies[i - 1]) {
-                if (frequencies[i - 1] == 0) {
-                    count += frequencies[i];
-                    frequencies[i] = 0;
-                } else {
-                     count += (frequencies[i] - (frequencies[i - 1] - 1));
-                    frequencies[i] = frequencies[i - 1] - 1;
-                }
-               
+
+            if (i > 0) {
+                set.add(i);
             }
         }
 

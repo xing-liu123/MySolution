@@ -1,6 +1,6 @@
 class Trie {
     private static class TrieNode {
-        private HashMap<Character, TrieNode> children = new HashMap<>();
+        private TrieNode[] children = new TrieNode[26];
         private boolean isEnd;
 
         public TrieNode() {
@@ -17,8 +17,10 @@ class Trie {
         TrieNode node = root;
 
         for (char c : word.toCharArray()) {
-            node.children.putIfAbsent(c, new TrieNode());
-            node = node.children.get(c);
+            if (node.children[c - 'a'] == null) {
+                node.children[c - 'a'] = new TrieNode();
+            }
+            node = node.children[c - 'a'];
         }
 
         node.isEnd = true;
@@ -28,8 +30,8 @@ class Trie {
         TrieNode node = root;
         
         for (char c : word.toCharArray()) {
-            if (node.children.containsKey(c)) {
-                node = node.children.get(c);
+            if (node.children[c - 'a'] != null) {
+                node = node.children[c - 'a'];
             } else {
                 return false;
             }
@@ -41,8 +43,8 @@ class Trie {
         TrieNode node = root;
         
         for (char c : prefix.toCharArray()) {
-            if (node.children.containsKey(c)) {
-                node = node.children.get(c);
+            if (node.children[c - 'a'] != null) {
+                node = node.children[c - 'a'];
             } else {
                 return false;
             }

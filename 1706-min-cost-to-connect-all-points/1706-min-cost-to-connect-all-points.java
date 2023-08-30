@@ -26,14 +26,15 @@ class Solution {
                 return false;
             }
 
-            if (rank[group1] > rank[group2]) {
-                group[group2] = group1;
-            } else if(rank[group1] < rank[group2]) {
-                group[group1] = group2;
-            } else {
-                group[group1] = group2;
-                rank[group2]++;
-            }
+            // if (rank[group1] > rank[group2]) {
+            //     group[group2] = group1;
+            // } else if(rank[group1] < rank[group2]) {
+            //     group[group1] = group2;
+            // } else {
+            //     group[group1] = group2;
+            //     rank[group2]++;
+            // }
+            group[group2] = group1;
 
             return true;
 

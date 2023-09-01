@@ -1,5 +1,6 @@
 class Solution:
-    def match(self, l1: list, l2: list) -> bool:
+    @staticmethod
+    def match(l1: list, l2: list) -> bool:
         for i in range(len(l1)):
             if l1[i] != l2[i]:
                 return False

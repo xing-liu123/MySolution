@@ -37,7 +37,6 @@ class Solution {
           j--;
         }
       }
-      System.out.println(i);
       swap(nums, i, right);
       return i;
     }

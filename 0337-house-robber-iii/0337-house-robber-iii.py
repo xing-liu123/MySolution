@@ -9,7 +9,7 @@ class Solution:
         dp = self.traverse(root)
         return max(dp[0], dp[1])
     
-    def traverse(self, curr:Optional[TreeNode]) -> list:
+    def traverse(self, curr:Optional[TreeNode]) -> List:
         dp = [0] * 2
         if curr == None:
             return dp

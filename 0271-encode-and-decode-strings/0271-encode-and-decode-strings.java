@@ -4,8 +4,7 @@ public class Codec {
     public String encode(List<String> strs) {
         StringBuilder sb = new StringBuilder();
         for (String str : strs) {
-            sb.append("/" + str.length() + "/");
-            sb.append(str);
+            sb.append("/").append(str.length()).append("/").append(str);
         }
 
         return sb.toString();
@@ -13,22 +12,17 @@ public class Codec {
 
     // Decodes a single string to a list of strings.
     public List<String> decode(String s) {
-        StringBuilder sb = new StringBuilder(s);
+       
         List<String> list = new ArrayList<>();
 
-        while(!sb.isEmpty()) {
-            if (sb.charAt(0) == '/') {
-                sb.deleteCharAt(0);
-                String num = "";
-                while (sb.charAt(0) != '/') {
-                    num += sb.charAt(0);
-                    sb.deleteCharAt(0);
-                }
-                sb.deleteCharAt(0);
-                int len = Integer.valueOf(num);
-                list.add(sb.substring(0, len));
-                sb.delete(0, len);
-            }
+        int i = 0, n = s.length();
+        while(i < n) {
+            int idx_start = s.indexOf('/', i);
+            int idx_end = s.indexOf('/', i + 1);
+
+            int len = Integer.valueOf(s.substring(idx_start + 1, idx_end));
+            list.add(s.substring(idx_end + 1, idx_end + len + 1));
+            i = idx_end + len + 1;
         }
 
         return list;

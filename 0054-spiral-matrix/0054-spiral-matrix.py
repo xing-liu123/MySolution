@@ -8,11 +8,8 @@ class Solution:
             return matrix[0]
         
         if n == 1:
-            for l in (matrix):
-                list.append(l[0])
+            list = [item for row in matrix for item in row]
             return list
-        
-
 
         status = 0
 

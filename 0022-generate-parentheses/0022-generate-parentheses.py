@@ -2,38 +2,30 @@ class Solution:
     
     
     def generateParenthesis(self, n: int) -> List[str]:
-        global left
-        global right
-        global path
-        global res
-        left = 0
-        right = 0
-        path = ""
-        res = []
-        self.generate(n)
+        self.left = 0
+        self.right = 0
+        self.path = ""
+        self.res = []
+        self.max = n
+        self.generate()
 
-        return res
+        return self.res
 
-    def generate(self, n: int):
-        global left
-        global right
-        global path
-        global res
-
-        if len(path) == 2 * n:
-            res.append(path)
+    def generate(self):
+        if len(self.path) == 2 * self.max:
+            self.res.append(self.path)
             return
         
-        if (left < n):
-            path += "("
-            left += 1
-            self.generate(n)
-            left -= 1
-            path = path[:-1]
+        if (self.left < self.max):
+            self.path += "("
+            self.left += 1
+            self.generate()
+            self.left -= 1
+            self.path = self.path[:-1]
         
-        if (right < left):
-            path += ")"
-            right += 1
-            self.generate(n)
-            right -= 1
-            path = path[:-1]
+        if (self.right < self.left):
+            self.path += ")"
+            self.right += 1
+            self.generate()
+            self.right -= 1
+            self.path = self.path[:-1]

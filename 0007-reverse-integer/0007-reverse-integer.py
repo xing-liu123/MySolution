@@ -3,7 +3,7 @@ class Solution:
         res = 0
         maxValue = 2**31 - 1
         minValue = -2**31
- 
+
         while x != 0:
             digit = int(math.fmod(x, 10)) 
             

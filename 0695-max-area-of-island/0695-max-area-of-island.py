@@ -1,9 +1,10 @@
 class Solution:
+    dr = [1, -1, 0, 0]
+    dc = [0, 0, 1, -1]
     def __init__(self):
         self.res = 0
         self.currMax = 0
-        self.dr = [1, -1, 0, 0]
-        self.dc = [0, 0, 1, -1]
+        
 
 
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:

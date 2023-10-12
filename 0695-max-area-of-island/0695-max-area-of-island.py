@@ -6,7 +6,6 @@ class Solution:
         self.currMax = 0
         
 
-
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         for i in range(len(grid)):
             for j in range(len(grid[0])):
@@ -14,6 +13,7 @@ class Solution:
                 if grid[i][j] == 1:
                     self.currMax = 0
                     self.dfs(grid, i, j) 
+                    self.res = max(self.res, self.currMax)
         
         return self.res
     
@@ -23,7 +23,7 @@ class Solution:
         
         grid[i][j] = 0
         self.currMax += 1
-        self.res = max(self.res, self.currMax)
+        
 
         for k in range(4):
             self.dfs(grid, i + self.dr[k], j + self.dc[k]) 

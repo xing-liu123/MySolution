@@ -4,6 +4,8 @@ class Solution {
             return 0;
         }
         
+        threshold *= k;
+
         int sum = 0;
         int count = 0;
         int i = 0;
@@ -11,14 +13,14 @@ class Solution {
             sum += arr[i];
         }
 
-        if (sum / k >= threshold) {
+        if (sum >= threshold) {
             count++;
         }
 
         for (; i < arr.length; i++) {
             sum -= arr[i - k];
             sum += arr[i];
-            if (sum / k >= threshold) {
+            if (sum >= threshold) {
                 count++;
             }
         }

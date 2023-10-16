@@ -20,7 +20,7 @@ class Solution {
 
         for (int i = start; i < candidates.length; i++) {
             if (sum + candidates[i] > target) {
-                break;
+                return;
             }
             list.add(candidates[i]);
             sum += candidates[i];

@@ -15,7 +15,7 @@ class Solution:
         
         for i in range(start, len(candidates)):
             if self.sum + candidates[i] > target:
-                break
+                return
             self.path.append(candidates[i])
             self.sum += candidates[i]
             self.backtracking(candidates, target, i)

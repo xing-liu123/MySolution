@@ -21,10 +21,6 @@ class Solution:
     def backtracking(self, matchsticks: List[int], idx: int) -> bool:
         if idx == len(matchsticks):
             return self.sums[0] == self.target and self.sums[1] == self.target and self.sums[2] == self.target
-               
-        
-        # if matchsticks[idx] > self.target:
-        #     return False
 
         for i in range(4):
             if self.sums[i] + matchsticks[idx] > self.target:

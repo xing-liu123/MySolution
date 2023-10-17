@@ -20,20 +20,23 @@ class Solution:
     
     def backtracking(self, matchsticks: List[int], idx: int) -> bool:
         if idx == len(matchsticks):
-            return self.sums[0] == self.target and self.sums[1] == self.target and self.sums[2] == self.target and self.sums[3] == self.target
+            return self.sums[0] == self.target and self.sums[1] == self.target and self.sums[2] == self.target
                
-        if idx < len(matchsticks):
-            if matchsticks[idx] > self.target:
-                return False
+        
+        if matchsticks[idx] > self.target:
+            return False
 
-            for i in range(4):
-                if self.sums[i] + matchsticks[idx] > self.target:
-                    continue
-                self.sums[i] += matchsticks[idx]
-                if self.backtracking(matchsticks, idx + 1):
-                    return True
-                self.sums[i] -= matchsticks[idx]
+        for i in range(4):
+            if self.sums[i] + matchsticks[idx] > self.target:
+                continue
 
+            self.sums[i] += matchsticks[idx]
+            if self.backtracking(matchsticks, idx + 1):
+                return True
+            self.sums[i] -= matchsticks[idx]
+
+            if self.sums[i] == 0 or self.sums[i] + matchsticks[idx] == self.target:
+                break
             
         return False
         

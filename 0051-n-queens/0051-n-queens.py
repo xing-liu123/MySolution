@@ -1,18 +1,18 @@
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         res = []
-        board = ['.' * n for _ in range(n)]
+        board = [['.'] * n for _ in range(n)]
 
         def backtrack(row: int):
             if row == n:
-                res.append(copy.copy(board))
+                res.append([''.join(row) for row in board])
                 return
             
             for col in range(n):
                 if isValid(row, col):
-                    board[row] = board[row][0 : col] + 'Q' + board[row][col + 1:]
+                    board[row][col] = 'Q'
                     backtrack(row + 1)
-                    board[row] = board[row][0 : col] + '.' + board[row][col + 1:]
+                    board[row][col] = '.'
         
         def isValid(row: int, col: int) -> bool:
             for i in range(0, row):

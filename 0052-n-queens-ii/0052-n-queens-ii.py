@@ -1,11 +1,12 @@
 class Solution:
     def totalNQueens(self, n: int) -> int:
-        res = []
+        count = 0
         board = [['.'] * n for _ in range(n)]
 
         def backtrack(row: int):
+            nonlocal count
             if row == n:
-                res.append([''.join(row) for row in board])
+                count += 1
                 return
             
             for col in range(n):
@@ -41,4 +42,4 @@ class Solution:
         
         backtrack(0)
 
-        return len(res)
+        return count

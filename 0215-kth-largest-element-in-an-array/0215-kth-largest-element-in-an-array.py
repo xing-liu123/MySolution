@@ -1,12 +1,21 @@
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        heap = []
+      
+        def quickselect(nums: List[int], k: int) -> int:
+            pivotVal = random.choice(nums)  # randomly select a pivot
 
-        for num in nums:
+            left = [num for num in nums if num > pivotVal]
+            mid = [num for num in nums if num == pivotVal]
+            right = [num for num in nums if num < pivotVal]
 
-          heapq.heappush(heap, num)
+            if k <= len(left):
+                return quickselect(left, k)
+            
+            if k > len(left) + len(mid):
+                return quickselect(right, k - len(left) - len(mid))
+            
+            return pivotVal
+        
+        return quickselect(nums, k)
+    
 
-          if len(heap) > k:
-            heapq.heappop(heap)
-          
-        return heap[0]

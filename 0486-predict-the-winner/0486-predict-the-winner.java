@@ -8,10 +8,16 @@ class Solution {
             dp[i][i] = nums[i];
         }
 
-        for (int len = 2; len <= n; len++) {
-            for (int i = 0; i <= n - len; i++) {
-                int j = i + len - 1;
-                dp[i][j] = Math.max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1]); 
+        // for (int len = 2; len <= n; len++) {
+        //     for (int i = 0; i <= n - len; i++) {
+        //         int j = i + len - 1;
+        //         dp[i][j] = Math.max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1]); 
+        //     }
+        // }
+
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
+                dp[i][j] = Math.max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1]);
             }
         }
 

@@ -22,18 +22,16 @@ class Solution {
 
     public List<Integer> preorder(Node root) {
         List<Integer> res = new ArrayList<>();
-        traverse(root, res);
+        if (root != null) {
+            res.add(root.val);
+            for (Node child : root.children) {
+                res.addAll(preorder(child));
+            }
+        }
+        
         return res;
     }
 
-    private void traverse(Node curr, List<Integer> res) {
-        if (curr != null) {
-            res.add(curr.val);
 
-            for (Node child : curr.children) {
-                traverse(child, res);
-            }
-        }
-    }
 
 }

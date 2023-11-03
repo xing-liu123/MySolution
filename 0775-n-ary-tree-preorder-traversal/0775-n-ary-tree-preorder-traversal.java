@@ -18,19 +18,20 @@ class Node {
 */
 
 class Solution {
-    List<Integer> res = new ArrayList<>();
+    
 
     public List<Integer> preorder(Node root) {
-        traverse(root);
+        List<Integer> res = new ArrayList<>();
+        traverse(root, res);
         return res;
     }
 
-    private void traverse(Node curr) {
+    private void traverse(Node curr, List<Integer> res) {
         if (curr != null) {
             res.add(curr.val);
 
             for (Node child : curr.children) {
-                traverse(child);
+                traverse(child, res);
             }
         }
     }

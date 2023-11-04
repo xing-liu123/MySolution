@@ -1,18 +1,18 @@
 class Solution {
     public String optimalDivision(int[] nums) {
-        String res = "";
+        StringBuilder sb = new StringBuilder();;
         if (nums.length == 1) {
-            res += nums[0];
+            sb.append(nums[0]);
         } else if (nums.length == 2) {
-            res += nums[0] + "/" + nums[1];
+            sb.append(nums[0]).append("/").append(nums[1]);
         } else {
-            res += nums[0] + "/" + "(";
+            sb.append(nums[0]).append("/(");
             for (int i = 1; i < nums.length - 1; i++) {
-                res += nums[i] + "/";
+                sb.append(nums[i]).append("/");
             }
-            res += nums[nums.length - 1] + ")";
+            sb.append(nums[nums.length - 1]).append(")"); 
         }
 
-        return res;
+        return sb.toString();
     }
 }

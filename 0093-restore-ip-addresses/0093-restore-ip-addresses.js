@@ -7,8 +7,10 @@ var restoreIpAddresses = function(s) {
     
     function backtrack(start, path, dotCount) {
         // When we have placed 3 dots and reached the end of the string
-        if (dotCount === 3 && isValid(start, s.length - 1)) {
-            res.push(path + s.substring(start));
+        if (dotCount === 3 ){ 
+            if (isValid(start, s.length - 1)) {
+                res.push(path + s.substring(start));
+            }
             return;
         }
         

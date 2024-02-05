@@ -7,7 +7,7 @@ var permute = function(nums) {
     const permutation = [];
     const used = new Array(nums.length).fill(false);
     
-    function backtrack(start) {
+    function backtrack() {
         if (permutation.length === nums.length) {
             res.push([...permutation]);
             return;
@@ -17,13 +17,13 @@ var permute = function(nums) {
             if (!used[i]) {
                 used[i] = true;
                 permutation.push(nums[i]);
-                backtrack(i + 1);
+                backtrack();
                 permutation.pop();
                 used[i] = false;
             }
         }
     }
     
-    backtrack(0);
+    backtrack();
     return res;
 };

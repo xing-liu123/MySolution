@@ -14,35 +14,33 @@
  * }
  */
 class Solution {
-    public List<Integer> path;
-    public List<List<Integer>> res;
+
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        path = new ArrayList<>();
-        res = new ArrayList<>();
-        if (root == null) {
-            return res;
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+        
+        if (root != null) {
+            backtrack(root, targetSum, path, res);
         }
-        path.add(root.val);
-        backtrack(root, targetSum - root.val);
+        
         return res;
     }
     
-    private void backtrack(TreeNode node, int targetSum) {
-        if (node.left == null && node.right == null && targetSum == 0) {
+    private void backtrack(TreeNode node, int targetSum, List<Integer> path, List<List<Integer>> res) {
+        path.add(node.val);
+        
+        if (node.left == null && node.right == null && node.val == targetSum) {
             res.add(new ArrayList<>(path));
-            return;
+        } else {
+            if (node.left != null) {
+                backtrack(node.left, targetSum - node.val, path, res);
+            }
+            
+            if (node.right != null) {
+                backtrack(node.right, targetSum - node.val, path, res);
+            }
         }
         
-        if (node.left != null) {
-            path.add(node.left.val);
-            backtrack(node.left, targetSum - node.left.val);
-            path.remove(path.size() - 1);
-        }
-        
-        if (node.right != null) {
-            path.add(node.right.val);
-            backtrack(node.right, targetSum - node.right.val);
-            path.remove(path.size() - 1);
-        }
+        path.remove(path.size() - 1);
     }
 }

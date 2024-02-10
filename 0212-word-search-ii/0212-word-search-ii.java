@@ -1,60 +1,67 @@
 class Solution {
-    public List<String> findWords(char[][] board, String[] words) {
-        Set<String> set = new HashSet<>();
-        int length = 0;
+    private class TrieNode  {
+        TrieNode[] children = new TrieNode[26];
+        String word = null;
+    }
+    
+    private TrieNode buildNode(String[] words) {
+        TrieNode root = new TrieNode();
         
         for (String word : words) {
-            length = Math.max(length, word.length());
-            set.add(word);
+            TrieNode node = root;
+            
+            for (char c : word.toCharArray()) {
+                if (node.children[c - 'a'] == null) {
+                    node.children[c - 'a'] = new TrieNode();
+                }
+                
+                node = node.children[c - 'a'];
+            }
+            node.word = word;
         }
         
-        boolean[][] used = new boolean[board.length][board[0].length];
+        return root;
+    }
+    
+    public List<String> findWords(char[][] board, String[] words) {
+       TrieNode root = buildNode(words);
         
         Set<String> res = new HashSet<>();
-        StringBuilder sb = new StringBuilder();
+        
+        boolean[][] visited = new boolean[board.length][board[0].length];
         
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                backtrack(board, sb, i, j, set, used, length, res);
+                dfs(board, i, j, root, visited, res);
             }
         }
         
         return new ArrayList<>(res);
     }
     
-    private void backtrack(char[][] board, StringBuilder sb, int i , int j, Set<String> set, boolean[][] used, int length, Set<String> res) {
-        if (used[i][j]) {
+    private void dfs(char[][] board, int i, int j, TrieNode root, boolean[][] visited, Set<String> res) {
+        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || visited[i][j]) return;
+        
+        char c = board[i][j];
+        TrieNode node = root.children[c - 'a'];
+        
+        if (node == null) {
             return;
         }
         
-        if (sb.length() == length) {
-            return;
+        visited[i][j] = true;
+        
+        if (node.word != null) {
+            res.add(node.word);
         }
         
-        sb.append(board[i][j]);
-        used[i][j] = true;
+        dfs(board, i + 1, j, node, visited, res);
+        dfs(board, i - 1, j, node, visited, res);
+        dfs(board, i, j + 1, node, visited, res);
+        dfs(board, i, j - 1, node, visited, res);
         
-        if (set.contains(sb.toString())) {
-            res.add(sb.toString());
-        }
-            
-        if (i > 0) {
-            backtrack(board, sb, i - 1, j, set, used, length, res);
-        }
-            
-        if (i < board.length - 1) {
-            backtrack(board, sb, i + 1, j, set, used, length, res);
-        }
-            
-        if (j > 0) {
-            backtrack(board, sb, i, j - 1, set, used, length, res);
-        }
-        
-        if (j < board[0].length - 1) {
-            backtrack(board, sb, i, j + 1, set, used, length, res);
-        }
-        
-        sb.deleteCharAt(sb.length() - 1);
-        used[i][j] = false;
+        visited[i][j] = false;
     }
+    
+   
 }

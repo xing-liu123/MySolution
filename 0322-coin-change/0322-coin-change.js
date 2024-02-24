@@ -11,10 +11,10 @@ var coinChange = function(coins, amount) {
     let dp = Array(amount + 1).fill(Number.MAX_SAFE_INTEGER);
     dp[0] = 0;
     
-    for (let i = 1; i <= amount; i++) {
-        for (let j = 0; j < coins.length; j++) {
-            if (i >= coins[j]) {
-                dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+    for (let i = 0; i < coins.length; i++) {
+        for (let j = 1; j <= amount; j++) {
+            if (j >= coins[i]) {
+                dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
             }
         }
     }

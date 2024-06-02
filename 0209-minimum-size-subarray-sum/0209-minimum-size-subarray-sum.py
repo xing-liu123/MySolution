@@ -3,10 +3,9 @@ class Solution:
         minLen = sys.maxsize
         
         left = 0
-        right = 0
         currSum = 0
         
-        while right < len(nums):
+        for right in range(len(nums)):
             if nums[right] >= target:
                 return 1
             
@@ -16,8 +15,6 @@ class Solution:
                 minLen = min(minLen, right - left + 1)
                 currSum -= nums[left]
                 left += 1
-            
-            right += 1
         
         return minLen if minLen != sys.maxsize else 0
         

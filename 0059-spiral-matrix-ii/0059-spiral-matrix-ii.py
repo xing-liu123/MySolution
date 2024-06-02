@@ -1,7 +1,7 @@
 class Solution:
     def generateMatrix(self, n: int) -> List[List[int]]:
         
-        matrix = [[0 for _ in range(n)] for _ in range(n)]
+        matrix = [[0] * n for _ in range(n)]
         i = 0
         j = 0
         

@@ -28,5 +28,5 @@ class Solution:
             newA = newA.next
             newB = newB.next
         
-        return newA if newA == newB else null
+        return newA if newA == newB else None
         

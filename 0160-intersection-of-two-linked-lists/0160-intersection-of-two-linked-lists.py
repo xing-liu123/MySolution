@@ -16,7 +16,6 @@ class Solution:
         newA = headA
         newB = headB
         
-        
         while currA:
             currA = currA.next
             newA = newA.next
@@ -29,5 +28,5 @@ class Solution:
             newA = newA.next
             newB = newB.next
         
-        return newA if newA == newB else null
+        return newA if newA == newB else None
         

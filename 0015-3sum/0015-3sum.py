@@ -10,28 +10,18 @@ class Solution:
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
             
-            left = i + 1
-            right = len(nums) - 1
+            nums_map = set()
             
-            while left < right:
-                sum = nums[i] + nums[left] + nums[right]
+            for j in range(i + 1, len(nums)):
+                if j > i + 2 and nums[j] == nums[j - 1] == nums[j - 2]:
+                    continue
                 
-                if sum == 0:
-                    res.append([nums[i], nums[left], nums[right]])
-                    
-                    while left < right and nums[left + 1] == nums[left]:
-                        left += 1
-                        
-                    while left < right and nums[right - 1] == nums[right]:
-                        right -= 1
-                    
-                    left += 1
-                    right -= 1
-                    
-                elif sum > 0:
-                    right -= 1
+                num = -nums[i] - nums[j]
+                
+                if num in nums_map:
+                    res.append([nums[i], num, nums[j]])
+                    nums_map.remove(num)
                 else:
-                    left += 1
-                    
-            
+                    nums_map.add(nums[j])
+                
         return res

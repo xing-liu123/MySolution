@@ -15,7 +15,8 @@ class Solution:
                 if j > i + 1 and nums[j] == nums[j - 1]:
                     continue
                 
-                left, right = j + 1, len(nums) - 1
+                left = j + 1
+                right = len(nums) - 1
                 
                 while left < right:
                     sum = nums[i] + nums[j] + nums[left] + nums[right]
@@ -35,7 +36,5 @@ class Solution:
                         
                         left += 1
                         right -= 1
-            
+        
         return res
-
-

@@ -49,7 +49,7 @@ class Solution:
         while i <= len(haystack) - len(needle):
             j = len(needle) - 1
             
-            while j >= 0 and needle[j] == haystack[i + j]:
+            while j >= 0 and haystack[i + j] == needle[j]:
                 j -= 1
             
             if j == -1:
@@ -61,7 +61,7 @@ class Solution:
                     i = i + j - shift
                 else:
                     i += 1
-        
+                    
         return -1
         
     def buildLastOccurenceTable(self, needle: str) -> List[str]:

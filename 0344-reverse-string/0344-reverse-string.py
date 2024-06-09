@@ -3,7 +3,8 @@ class Solution:
         """
         Do not return anything, modify s in-place instead.
         """
-        left, right = 0, len(s) - 1
+        left = 0
+        right = len(s) - 1
         
         while left < right:
             temp = s[right]
@@ -12,5 +13,4 @@ class Solution:
             left += 1
             right -= 1
         
-        return s
             

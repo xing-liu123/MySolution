@@ -43,10 +43,12 @@ class FileSystem:
         self.trie = Trie()
 
     def createPath(self, path: str, value: int) -> bool:
-        return self.trie.insert([p for p in path.split('/') if p], value)
+        arr = path.split('/')
+        return self.trie.insert([p for p in arr if p], value)
 
     def get(self, path: str) -> int:
-        return self.trie.search([p for p in path.split('/') if p])
+        arr = path.split('/')
+        return self.trie.search([p for p in arr if p])
 
 
 # Your FileSystem object will be instantiated and called as such:

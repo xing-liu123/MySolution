@@ -9,6 +9,5 @@ class Solution:
                 map[num] = 1
         
         
-        
         return [item[0] for item in sorted(map.items(), key=lambda item: item[1], reverse=True)[:k]] 
         

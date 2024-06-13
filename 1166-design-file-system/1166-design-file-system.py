@@ -10,19 +10,21 @@ class Trie:
     def insert(self, path: list[str], val: int) -> bool:
         node = self.root
         
-        for i in range(len(path)):
-            if path[i] not in node.children:
+        for i, p in enumerate(path):
+            if p not in node.children:
                 if i == len(path) - 1:
                     node.children[path[i]] = TrieNode()
-                    node = node.children[path[i]]
-                    node.val = val
-                    return True
                 else:
                     return False
                 
-            node = node.children[path[i]]
+            node = node.children[p]
         
-        return False
+        if node.val != -1:
+            return False
+        
+        node.val = val
+        
+        return True
     
     def search(self, path: list[str]) -> int:
         node = self.root

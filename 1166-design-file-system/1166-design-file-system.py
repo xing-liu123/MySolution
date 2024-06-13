@@ -6,7 +6,6 @@ class TrieNode:
 class Trie:
     def __init__(self):
         self.root = TrieNode()
-        self.vals = set()
     
     def insert(self, path: list[str], val: int) -> bool:
         node = self.root
@@ -17,7 +16,6 @@ class Trie:
                     node.children[path[i]] = TrieNode()
                     node = node.children[path[i]]
                     node.val = val
-                    self.vals.add(val)
                     return True
                 else:
                     return False

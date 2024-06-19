@@ -9,7 +9,23 @@ class Node:
 
 class Solution:
     def levelOrder(self, root: 'Node') -> List[List[int]]:
-#         res = []
+        res = []
+        self.order(root, res, 0)
+        return res
+    
+    def order(self, curr: 'Node', res: [], depth: int):
+        if not curr:
+            return
+        
+        if len(res) < depth + 1:
+            res.append([curr.val])
+        else:
+            res[depth].append(curr.val)
+        
+        for c in curr.children:
+            self.order(c, res, depth + 1)
+        
+        #         res = []
 #         if not root:
 #             return res
         
@@ -31,18 +47,3 @@ class Solution:
 #             res.append(level)
         
 #         return res
-        res = []
-        self.order(root, res, 0)
-        return res
-    
-    def order(self, curr: 'Node', res: [], depth: int):
-        if not curr:
-            return
-        
-        if len(res) < depth + 1:
-            res.append([curr.val])
-        else:
-            res[depth].append(curr.val)
-        
-        for c in curr.children:
-            self.order(c, res, depth + 1)

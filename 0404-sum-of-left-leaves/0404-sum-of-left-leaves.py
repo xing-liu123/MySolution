@@ -9,9 +9,6 @@ class Solution:
         return self.sumOfLeft(root, False)
     
     def sumOfLeft(self, curr, isLeft) -> int:
-        if not curr:
-            return 0
-        
         if not curr.left and not curr.right:
             if isLeft:
                 return curr.val

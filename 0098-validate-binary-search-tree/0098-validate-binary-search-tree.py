@@ -21,7 +21,7 @@ class Solution:
             
             if not traverse(curr.right):
                 return False
-            
-            return True
+            else:
+                return True
         
         return traverse(root)

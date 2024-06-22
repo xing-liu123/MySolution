@@ -11,7 +11,7 @@ class Solution:
             if left > right:
                 return None
             
-            mid = left + (right - left) // 2
+            mid = left + (right - left + 1) // 2
             root = TreeNode(nums[mid])
             
             root.left = arrToBST(left, mid - 1)

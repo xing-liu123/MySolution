@@ -12,7 +12,7 @@ class Solution:
             self.res.append(self.path.copy())
             return 
         
-        for i in range(start, n + 1):
+        for i in range(start, n - (k - len(self.path)) + 2):
             self.path.append(i)
             self.backtracking(n, k, i + 1)
             self.path.pop()

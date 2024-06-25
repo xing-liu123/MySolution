@@ -9,7 +9,7 @@ class Solution:
        
     def backtracking(self, n: int, k: int, start: int):
         if len(self.path) == k:
-            self.res.append(list(self.path))
+            self.res.append(self.path.copy())
             return 
         
         for i in range(start, n + 1):

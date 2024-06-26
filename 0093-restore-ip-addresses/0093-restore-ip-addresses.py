@@ -1,33 +1,38 @@
 class Solution:
-    def __init__(self):
-        self.ip = ""
-        self.res = []
-
     def restoreIpAddresses(self, s: str) -> List[str]:
-        self.ip = s
-        self.backtracking(0, 0)
-        return self.res
-    
-    def backtracking(self, countDot: int, idx: int):
-        if countDot == 3:
-            if self.isValid(idx, len(self.ip) - 1):
-                self.res.append(copy.copy(self.ip))
-            return
+        res = []
+        path = []
         
-        for i in range(idx, len(self.ip)):
-            if self.isValid(idx, i):
-                self.ip = self.ip[: i+1] + "." + self.ip[i+1:]
-                self.backtracking(countDot + 1, i + 2)
-                self.ip = self.ip[: i+1] + self.ip[i+2 :]
-            else:
-                break
-    
-    def isValid(self, start: int, end: int) -> bool:
-        if start > end:
-            return False
+        if len(s) < 4 or len(s) > 12:
+            return res
         
-        if self.ip[start] == '0' and start != end:
-            return False
+        def backtracking(start):
+            if start == len(s) and len(path) == 4:
+                res.append('.'.join(path))
+                return
+            
+            if start == len(s) or len(path) == 4:
+                return
         
-        return int(self.ip[start: end + 1]) >= 0 and int(self.ip[start: end + 1]) <= 255
-        
+            
+            for length in range(1, 4):
+                if start + length > len(s):
+                    return
+                
+                segment = s[start: start + length]
+                
+                if isValid(segment):
+                    path.append(segment)
+                    backtracking(start + length)
+                    path.pop()
+          
+        def isValid(num: str) -> bool:
+            if len(num) > 1 and num[0] == '0':
+                return False
+            
+            num_int = int(num)
+            return 0 <= num_int <= 255
+            
+        backtracking(0)
+        return res
+ 

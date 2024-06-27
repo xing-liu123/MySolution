@@ -10,8 +10,6 @@ class Solution:
             
         res = []
         
-        
-        
         def dfs(airport):
             while graph[airport]:
                 dfs(graph[airport].pop())

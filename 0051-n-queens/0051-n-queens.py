@@ -41,4 +41,4 @@ class Solution:
         
         backtracking(0)
         
-        return [[''.join(row) for row in rows] for rows in res]
+        return res

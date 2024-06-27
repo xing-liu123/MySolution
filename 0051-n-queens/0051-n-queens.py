@@ -1,6 +1,6 @@
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
-        path = [['.'] * n for _ in range(n)]
+        path = ['.' * n for _ in range(n)]
         
         res = []
         
@@ -9,12 +9,12 @@ class Solution:
                 res.append(copy.deepcopy(path))
                 return
             
-            for i in range(0, n):
-                if isValid(row, i):
-                    path[row][i] = 'Q'
+            for j in range(0, n):
+                if isValid(row, j):
+                    path[row] = path[row][:j] + 'Q' + path[row][j + 1:]
                     backtracking(row + 1)
-                    path[row][i] = '.'
-            
+                    path[row] = path[row][:j] + '.' + path[row][j + 1:]
+                
         def isValid(row, col):
             for i in range(row - 1, -1, -1):
                 if path[i][col] == 'Q':

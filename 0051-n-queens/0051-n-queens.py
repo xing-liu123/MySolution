@@ -6,7 +6,7 @@ class Solution:
         
         def backtracking(row):
             if row == n:
-                res.append(copy.deepcopy(path))
+                res.append(path.copy())
                 return
             
             for j in range(0, n):

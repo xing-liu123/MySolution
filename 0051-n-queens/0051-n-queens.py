@@ -1,44 +1,44 @@
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
+        path = [['.'] * n for _ in range(n)]
+        
         res = []
-        board = [['.'] * n for _ in range(n)]
-
-        def backtrack(row: int):
+        
+        def backtracking(row):
             if row == n:
-                res.append([''.join(row) for row in board])
+                res.append(copy.deepcopy(path))
                 return
             
-            for col in range(n):
-                if isValid(row, col):
-                    board[row][col] = 'Q'
-                    backtrack(row + 1)
-                    board[row][col] = '.'
-        
-        def isValid(row: int, col: int) -> bool:
-            for i in range(0, row):
-                if board[i][col] == 'Q':
-                    return False
+            for i in range(0, n):
+                if isValid(row, i):
+                    path[row][i] = 'Q'
+                    backtracking(row + 1)
+                    path[row][i] = '.'
             
+        def isValid(row, col):
+            for i in range(row - 1, -1, -1):
+                if path[i][col] == 'Q':
+                    return False
+
             i = row - 1
             j = col - 1
-
             while i >= 0 and j >= 0:
-                if board[i][j] == 'Q':
+                if path[i][j] == 'Q':
                     return False
-                i -= 1
                 j -= 1
+                i -= 1
             
             i = row - 1
             j = col + 1
-
-            while i >= 0 and j < n:
-                if board[i][j] == 'Q':
-                    return False
-                i -= 1
-                j += 1
             
+            while i >= 0 and j < n:
+                if path[i][j] == 'Q':
+                    return False
+                j += 1
+                i -= 1
+
             return True
         
-        backtrack(0)
-
-        return res
+        backtracking(0)
+        
+        return [[''.join(row) for row in rows] for rows in res]

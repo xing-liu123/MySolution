@@ -1,24 +1,23 @@
 class Solution:
     def solveSudoku(self, board: List[List[str]]) -> None:
-        """
-        Do not return anything, modify board in-place instead.
-        """
-       
-        def solve() -> bool:
+        
+        def solve():
             for i in range(9):
                 for j in range(9):
-                    if board[i][j] != ".":
+                    if board[i][j] != '.':
                         continue
-                    for val in range(1, 10):
-                        if isValid(i, j, str(val)):
-                            board[i][j] = str(val)
+                    
+                    for k in range(1, 10):
+                        val = str(k)
+                        if isValid(i, j, val):
+                            board[i][j] = val
                             if solve():
                                 return True
-                            board[i][j] = "."
-                            
+                            board[i][j] = '.'
+                    
                     return False
+            
             return True
-        
         
         def isValid(row, col, val) -> bool:
             for i in range(9):
@@ -37,7 +36,3 @@ class Solution:
             return True
         
         solve()
-                
-                        
-
-        

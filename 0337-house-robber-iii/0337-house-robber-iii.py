@@ -6,18 +6,26 @@
 #         self.right = right
 class Solution:
     def rob(self, root: Optional[TreeNode]) -> int:
-        dp = self.traverse(root)
-        return max(dp[0], dp[1])
+        nodes = dict()
+        return self.traverse(root, nodes)
     
-    def traverse(self, curr:Optional[TreeNode]):
-        dp = [0] * 2
-        if curr == None:
-            return dp
+    def traverse(self, curr, nodes) -> int:
+        if not curr:
+            return 0            
+        
+        if curr in nodes:
+            return nodes[curr]
+        
+        val1 = curr.val
+        
+        if curr.left:
+            val1 += self.traverse(curr.left.left, nodes) + self.traverse(curr.left.right, nodes)
             
-        leftDp = self.traverse(curr.left)
-        rightDp = self.traverse(curr.right)
-
-        dp[0] = max(leftDp[0], leftDp[1]) + max(rightDp[0], rightDp[1])
-        dp[1] = leftDp[0] + rightDp[0] + curr.val
-
-        return dp
+        if curr.right:
+            val1 += self.traverse(curr.right.left, nodes) + self.traverse(curr.right.right, nodes)
+        
+        val2 = self.traverse(curr.left, nodes) + self.traverse(curr.right, nodes)
+        
+        nodes[curr] = max(val1, val2)
+        
+        return max(val1, val2)

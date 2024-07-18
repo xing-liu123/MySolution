@@ -1,14 +1,20 @@
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
-        dp = [[0] * (2 * k + 1) for _ in range(len(prices))]
+        if len(prices) == 1:
+            return 0
 
+        dp = [[0]*(2 * k) for _ in range(len(prices))]
 
-        for j in range(1, 2 * k + 1, 2):
-            dp[0][j] = -prices[0]
+        for i in range(k):
+            dp[0][2 * i] = -prices[0]
         
         for i in range(1, len(prices)):
-            for j in range(0, 2 * k - 1, 2):
-                dp[i][j + 1] += max(dp[i - 1][j + 1], dp[i - 1][j] - prices[i]) 
-                dp[i][j + 2] += max(dp[i - 1][j + 2], dp[i - 1][j + 1] + prices[i])
+            for j in range(2 * k):
+                if j == 0:
+                    dp[i][j] = max(dp[i - 1][j], -prices[i])
+                elif j % 2 == 0:
+                    dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - 1] - prices[i])
+                else:
+                    dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - 1] + prices[i])
         
-        return max(dp[len(prices) - 1])
+        return dp[-1][-1]

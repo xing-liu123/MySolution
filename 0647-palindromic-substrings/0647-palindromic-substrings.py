@@ -1,16 +1,22 @@
 class Solution:
     def countSubstrings(self, s: str) -> int:
-        n = len(s)
-
-        dp = [[False] * (n) for _ in range(n)]
+        dp = [[False] * len(s) for _ in range(len(s))]
 
         count = 0
+        for i in range(len(s)):
+            dp[i][i] = True
+            count += 1
+        
 
-        for i in range(n - 1, -1, -1):
-            for j in range(i, n):
-                if  s[i] == s[j]:
-                    if j - i <= 1 or dp[i + 1][j - 1]:
-                        count += 1
+        for i in range(len(s) - 2, -1, -1):
+            for j in range(i + 1, len(s)):
+                if i == j - 1:
+                    if s[i] == s[j]:
                         dp[i][j] = True
-
+                        count += 1
+                elif j - i > 1:
+                    if s[i] == s[j] and dp[i + 1][j - 1]:
+                        dp[i][j] = True
+                        count += 1
+        
         return count

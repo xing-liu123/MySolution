@@ -7,8 +7,12 @@ class Solution:
         stack = [0]
 
         for i in range(1, len(heights)):
-            if heights[i] >= heights[stack[-1]]:
+            if heights[i] > heights[stack[-1]]:
                 stack.append(i)
+            elif heights[i] == heights[stack[-1]]:
+                stack.pop()
+                stack.append(i)
+
             else:
 
                 while stack and heights[i] < heights[stack[-1]]:
@@ -21,6 +25,6 @@ class Solution:
                         a = h * w
                         res = max(res, a)
                 stack.append(i)
-        
+
         return res
 

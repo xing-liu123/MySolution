@@ -1,29 +1,29 @@
 class Solution:
-    dr = [1, -1, 0, 0]
-    dc = [0, 0, 1, -1]
-    def __init__(self):
-        self.res = 0
-        self.currMax = 0
-        
-
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                
-                if grid[i][j] == 1:
-                    self.currMax = 0
-                    self.dfs(grid, i, j) 
-                    self.res = max(self.res, self.currMax)
-        
-        return self.res
-    
-    def dfs(self, grid: List[List[int]], i: int, j: int):
-        if i < 0 or j < 0 or i >= len(grid) or j >= len(grid[0]) or grid[i][j] == 0:
-            return
-        
-        grid[i][j] = 0
-        self.currMax += 1
-        
+        m, n = len(grid), len(grid[0])
+        visited = [[False] * n for _ in range(m)]
+        max_area = 0
+        dr = [0, 0, 1, -1]
+        dc = [1, -1, 0, 0]
 
-        for k in range(4):
-            self.dfs(grid, i + self.dr[k], j + self.dc[k]) 
+        def dfs(row, col):
+            nonlocal max_area
+            nonlocal curr_area
+            visited[row][col] = True
+            curr_area += 1
+            max_area = max(max_area, curr_area)
+
+            for k in range(4):
+                x = row + dr[k]
+                y = col + dc[k]
+
+                if x >= 0 and x < m and y >= 0 and y < n and not visited[x][y] and grid[x][y] == 1:
+                    dfs(x, y)
+        
+        for i in range(m):
+            for j in range(n):
+                if not visited[i][j] and grid[i][j] == 1:
+                    curr_area = 0
+                    dfs(i, j)
+        
+        return max_area

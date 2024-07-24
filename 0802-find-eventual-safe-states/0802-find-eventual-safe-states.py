@@ -7,6 +7,7 @@ class Solution:
             if not graph[curr]:
                 visited[curr] = True
                 return
+                
             visited[curr] = False
             count = 0
 

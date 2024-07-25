@@ -4,25 +4,23 @@ class Solution:
         other_color = "W" if color == "B" else "B"
 
         # up
-        if rMove > 1:
-            i = rMove - 1
-            count = 0
+        if rMove > 1 and board[rMove - 1][cMove] == other_color :
+            i = rMove - 2
+
             while i > 0 and board[i][cMove] == other_color:
-                count += 1
                 i -= 1
             
-            if board[i][cMove] == color and count >= 1:
+            if board[i][cMove] == color:
                 return True
 
         # left
-        if cMove > 1:
-            j = cMove - 1
-            count = 0
+        if cMove > 1 and board[rMove][cMove - 1] == other_color:
+            j = cMove - 2
+
             while j > 0 and board[rMove][j] == other_color:
-                count += 1
                 j -= 1
 
-            if board[rMove][j] == color and count >= 1:
+            if board[rMove][j] == color:
                 return True
 
         # up left

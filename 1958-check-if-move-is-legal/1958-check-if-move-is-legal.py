@@ -24,79 +24,71 @@ class Solution:
                 return True
 
         # up left
-        if rMove > 1 and cMove > 1:
-            i = rMove - 1
-            j = cMove - 1
-            count = 0
+        if rMove > 1 and cMove > 1 and board[rMove - 1][cMove - 1] == other_color:
+            i = rMove - 2
+            j = cMove - 2
+
             while i > 0 and j > 0 and board[i][j] == other_color:
-                count += 1
                 i -= 1
                 j -= 1
             
-            if board[i][j] == color and count >= 1:
+            if board[i][j] == color:
                 return True
 
         # up right 
-        if rMove > 1 and n - cMove >= 3:
-            i = rMove - 1
-            j = cMove + 1
-            count = 0
+        if rMove > 1 and n - cMove >= 3 and board[rMove - 1][cMove + 1] == other_color:
+            i = rMove - 2
+            j = cMove + 2
+
             while i > 0 and j < n - 1 and board[i][j] == other_color:
-                count += 1
                 i -= 1
                 j += 1
             
-            if board[i][j] == color and count >= 1:
+            if board[i][j] == color:
                 return True
 
         # down
-        if n - rMove >= 3:
-            i = rMove + 1
-            count = 0
+        if n - rMove >= 3 and board[rMove + 1][cMove] == other_color:
+            i = rMove + 2
+
             while i < n - 1 and board[i][cMove] == other_color:
-                count += 1
                 i += 1
             
-            if board[i][cMove] == color and count >= 1:
+            if board[i][cMove] == color:
                 return True
 
         # down left
-        if n - rMove >= 3 and cMove > 1:
-            i = rMove + 1
-            j = cMove - 1
-            count = 0
+        if n - rMove >= 3 and cMove > 1 and board[rMove + 1][cMove - 1] == other_color:
+            i = rMove + 2
+            j = cMove - 2
             while i < n - 1 and j > 0 and board[i][j] == other_color:
-                count += 1
                 i += 1
                 j -= 1
             
-            if board[i][j] == color and count >= 1:
+            if board[i][j] == color:
                 return True
 
         # down right
-        if n - rMove >= 3 and n - cMove >= 3:
-            i = rMove + 1
-            j = cMove + 1
-            count = 0
+        if n - rMove >= 3 and n - cMove >= 3 and board[rMove + 1][cMove + 1] == other_color:
+            i = rMove + 2
+            j = cMove + 2
+
             while i < n - 1 and j < n - 1 and board[i][j] == other_color:
-                count += 1
                 i += 1
                 j += 1
             
-            if board[i][j] == color and count >= 1:
+            if board[i][j] == color:
                 return True
 
 
         # right
-        if n - cMove >= 3:
-            j = cMove + 1
-            count = 0
+        if n - cMove >= 3 and board[rMove][cMove + 1] == other_color:
+            j = cMove + 2
+
             while j < n - 1 and board[rMove][j] == other_color:
-                print(j, board[rMove][j])
-                count += 1
                 j += 1
 
-            if board[rMove][j] == color and count >= 1:
+            if board[rMove][j] == color:
                 return True
 
         return False

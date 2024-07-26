@@ -3,32 +3,38 @@ class Solution:
     def shortestBridge(self, grid: List[List[int]]) -> int:
         n = len(grid)
         dr, dc = [1, -1, 0, 0], [0, 0, 1, -1]
-        marker = 2
-        step = 0
+        island1 = []
+        found = False
 
         def dfs(row, col):
-            grid[row][col] = marker
+            grid[row][col] = 2
 
             for k in range(4):
                 x = row + dr[k]
                 y = col + dc[k]
 
-
                 if 0 <= x < n and 0 <= y < n:
-                    if grid[x][y] == 0:
-                        grid[row][col] = 2 * marker
+                    if grid[x][y] == 0:   
+                        island1.append((row, col))
+                
                     if grid[x][y] == 1:
                         dfs(x, y)
+        
+
 
         for i in range(n):
             for j in range(n):
                 if grid[i][j] == 1:
                     dfs(i, j)
-                    marker += 1
-
-        def bfs(row, col):
-            nonlocal step
-            queue = deque([(row, col)])
+                    found = True
+                    break
+            
+            if found:
+                break
+        
+        def bfs() -> int:
+            step = 0
+            queue = deque(island1)
             visited = set()
 
             while queue:
@@ -46,25 +52,13 @@ class Solution:
                                 if grid[x][y] == 0:
                                     visited.add((x, y))
                                     queue.append((x, y))
-                                elif grid[x][y] == 6:
-                                    return True
-                    
+                                elif grid[x][y] == 1:
+                                    return step
                 step += 1
-                            
-            return False
-                    
-        length = sys.maxsize
-         
-        for i in range(n):
-            for j in range(n):
-                if grid[i][j] == 4:
-                    step = 0
-                    if bfs(i, j):
-                        length = min(length, step)
 
-                    
+            return -1                        
 
-        return length
+        return bfs()
 
 
 

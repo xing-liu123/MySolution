@@ -9,62 +9,37 @@ class Solution:
         for u, v in blueEdges:
             buleGraph[u].append(v)
 
-        def bfs(color, answer):
-            queue = deque([0])
-            answer[0] = 0
-            visitedR = set()
-            visitedB = set()
+        distances = [[-1] * n for _ in range(2)]
+        distances[0][0] = distances[1][0] = 0
 
-            if color == "r":
-                visitedB.add(0)
+        queue = deque([(0, 0), (0, 1)])
+
+        while queue:
+            node, color = queue.popleft()
+            next_color = 1 - color
+
+            if color == 0:
+                for next_node in redGraph[node]:
+                    if distances[1][next_node] == -1:
+                        distances[1][next_node] = distances[0][node] + 1
+                        queue.append((next_node, 1))
             else:
-                visitedR.add(0)
-
-            length = 0
-
-            while queue:
-                size = len(queue)
-                length += 1
-                
-                for _ in range(size):
-                    curr = queue.popleft()
-
-                    if color == "b":
-                        for next_node in buleGraph[curr]:
-                            if not next_node in visitedB:
-                                visitedB.add(next_node)
-                                queue.append(next_node)
-                                if answer[next_node] == -1:
-                                    answer[next_node] = length
-                                    
-                    elif color == "r":
-                        for next_node in redGraph[curr]:
-                            if not next_node in visitedR:
-                                visitedR.add(next_node)
-                                queue.append(next_node)
-                                if answer[next_node] == -1:
-                                    answer[next_node] = length
-                    
-                color = "b" if color == "r" else "r"
-
-        redRes = [-1] * n
-        blueRes = [-1] * n
-
-        bfs("r", redRes)
-        
-        bfs("b", blueRes)
+                for next_node in buleGraph[node]:
+                    if distances[0][next_node] == -1:
+                        distances[0][next_node] = distances[1][node] + 1
+                        queue.append((next_node, 0))
 
         res = []
 
         for i in range(n):
-            if redRes[i] == -1 and blueRes[i] == -1:
+            if distances[0][i] == -1 and distances[1][i] == -1:
                 res.append(-1)
-            elif redRes[i] == -1:
-                res.append(blueRes[i])
-            elif blueRes[i] == -1:
-                res.append(redRes[i])
+            elif distances[0][i] == -1:
+                res.append(distances[1][i])
+            elif distances[1][i] == -1:
+                res.append(distances[0][i])
             else:
-                res.append(min(redRes[i], blueRes[i]))
+                res.append(min(distances[0][i], distances[1][i]))
         
         return res
                     

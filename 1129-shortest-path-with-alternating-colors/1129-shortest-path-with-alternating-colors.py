@@ -53,8 +53,7 @@ class Solution:
         bfs("r", redRes)
         
         bfs("b", blueRes)
-        print(redRes)
-        print(blueRes)
+
         res = []
 
         for i in range(n):

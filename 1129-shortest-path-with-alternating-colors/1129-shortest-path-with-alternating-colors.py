@@ -15,7 +15,7 @@ class Solution:
             visitedR = set()
             visitedB = set()
 
-            if color == "b":
+            if color == "r":
                 visitedB.add(0)
             else:
                 visitedR.add(0)

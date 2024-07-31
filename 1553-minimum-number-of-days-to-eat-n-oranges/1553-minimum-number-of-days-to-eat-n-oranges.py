@@ -6,6 +6,7 @@ class Solution:
         queue = deque([(n, 0)])
 
         while queue:
+            print(queue)
             curr, days = queue.popleft()
 
             if curr in visited:

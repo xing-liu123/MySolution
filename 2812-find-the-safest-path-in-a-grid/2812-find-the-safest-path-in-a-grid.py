@@ -21,7 +21,6 @@ class Solution:
 
         while queue:
             size = len(queue)
-            print(queue)
             for _ in range(size):
                 x, y = queue.popleft()
 

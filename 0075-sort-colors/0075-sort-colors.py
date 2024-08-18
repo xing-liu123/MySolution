@@ -9,17 +9,19 @@ class Solution:
         def partition(left, right):
             pivot = nums[right]
             i = left - 1
+
             for j in range(left, right):
                 if nums[j] < pivot:
                     i += 1
                     switch(i, j)
             switch(i + 1, right)
+
             return i + 1
 
-        def quickSort(left, right):
+        def quicksort(left, right):
             if left < right:
-                pi = partition(left, right)
-                quickSort(left, pi - 1)
-                quickSort(pi + 1, right)
-
-        quickSort(0, len(nums) - 1)
+                mid = partition(left, right)
+                quicksort(left, mid - 1)
+                quicksort(mid + 1, right)
+        
+        quicksort(0, len(nums) - 1)

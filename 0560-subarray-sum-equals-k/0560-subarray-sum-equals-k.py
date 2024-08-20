@@ -6,7 +6,6 @@ class Solution:
             preSums.append(num + preSums[-1])
 
 
-        print(preSums)
         sum_map = defaultdict(lambda: 0)
         sum_map[0] = 1
 

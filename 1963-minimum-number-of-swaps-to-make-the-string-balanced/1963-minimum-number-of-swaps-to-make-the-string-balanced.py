@@ -12,8 +12,8 @@ class Solution:
                 rightCount += 1
             
             if leftCount < rightCount:  
-                while left < right and s[right] == "]":
-                    right -= 1
+                # while left < right and s[right] == "]":
+                #     right -= 1
                 count += 1
                 leftCount += 1
                 rightCount -= 1

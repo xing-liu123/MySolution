@@ -8,8 +8,6 @@ class Solution:
         currSum = 0
 
         for i, num in enumerate(nums):
-            if i > 0 and num == 0 and nums[i - 1] == 0:
-                return True
 
             currSum += num
             r = currSum % k

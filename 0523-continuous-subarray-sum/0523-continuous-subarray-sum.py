@@ -4,21 +4,15 @@ class Solution:
         if n < 2:
             return False
         
-        preSums = [0] * n
-        preSums[0] = nums[0]
+        remainder_map = {0: -1}
+        currSum = 0
 
-        remainder_map = {}
-        remainder_map[nums[0] % k] = 0
-
-        for i in range(1, n):
-            if nums[i] == 0 and nums[i - 1] == 0:
+        for i, num in enumerate(nums):
+            if i > 0 and num == 0 and nums[i - 1] == 0:
                 return True
 
-            preSums[i] = preSums[i - 1] + nums[i]
-            r = preSums[i] % k
-
-            if r == 0:
-                return True
+            currSum += num
+            r = currSum % k
             
             if r in remainder_map and remainder_map[r] < i - 1:
                 return True

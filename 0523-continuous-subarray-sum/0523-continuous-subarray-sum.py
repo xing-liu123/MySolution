@@ -1,18 +1,22 @@
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        if len(nums) < 2:
+        n = len(nums)
+        if n < 2:
             return False
         
-        preSums = [nums[0]]
+        preSums = [0] * n
+        preSums[0] = nums[0]
+
         remainder_map = {}
         remainder_map[nums[0] % k] = 0
 
-        for i in range(1, len(nums)):
+        for i in range(1, n):
             if nums[i] == 0 and nums[i - 1] == 0:
                 return True
 
-            preSums.append(preSums[-1] + nums[i])
-            r = preSums[-1] % k
+            preSums[i] = preSums[i - 1] + nums[i]
+            r = preSums[i] % k
+
             if r == 0:
                 return True
             

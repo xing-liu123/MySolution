@@ -2,7 +2,6 @@ class Solution:
     def hasAllCodes(self, s: str, k: int) -> bool:
         size = 2 ** k
 
-        
         if len(s) - k + 1 < size:
             return False
             
@@ -22,6 +21,5 @@ class Solution:
             if len(s) - i - 1 < size - len(code_set):
                 return False
 
-        if len(code_set) == size:
-                return True 
+        return len(code_set) == size
         

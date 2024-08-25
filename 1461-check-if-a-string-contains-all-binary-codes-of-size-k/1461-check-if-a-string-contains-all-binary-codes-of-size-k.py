@@ -7,13 +7,10 @@ class Solution:
             
         code_set = set()
 
-        curr = s[:k]
-        code_set.add(curr)
 
-        for i in range(k, len(s)):
-            curr = curr[1:] + s[i]
+        for i in range(len(s) - k + 1):
 
-            code_set.add(curr)
+            code_set.add(s[i : i + k])
 
             if len(code_set) == size:
                 return True

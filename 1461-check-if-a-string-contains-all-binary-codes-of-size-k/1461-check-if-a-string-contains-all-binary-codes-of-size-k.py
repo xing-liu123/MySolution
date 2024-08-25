@@ -14,9 +14,6 @@ class Solution:
 
             if len(code_set) == size:
                 return True
-            
-            if len(s) - i - 1 < size - len(code_set):
-                return False
 
         return len(code_set) == size
         

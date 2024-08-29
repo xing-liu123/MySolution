@@ -8,18 +8,11 @@ class Solution:
         for i in range(1, n):
             preSum[i] = preSum[i - 1] + nums[i]
 
-        res = preSum[2] if nums[0] < preSum[2] - nums[0] else -1
-        left = 0
-
-        for right in range(3, len(nums)):
+        for i in range(n - 2):
+            if preSum[n - 1] - preSum[i] > nums[i]:
+                return preSum[n - 1] - preSum[i] + nums[i]
             
-            while left + 1 < right - 1 and preSum[right] - preSum[left] <= nums[left]:
-                left += 1
-
-            if preSum[right] - preSum[left] > nums[left]:
-                res = max(res, preSum[right] - preSum[left] + nums[left])
-            
-        return res
+        return -1
 
 
 

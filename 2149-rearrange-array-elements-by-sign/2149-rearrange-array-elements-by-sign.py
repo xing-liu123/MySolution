@@ -6,12 +6,12 @@ class Solution:
         pos, neg = 0, 0
 
         for i in range(0, n, 2):
-            while pos < n and nums[pos] <= 0:
+            while nums[pos] <= 0:
                 pos += 1
 
             res[i] = nums[pos]
             pos += 1
-            while neg < n and nums[neg] >= 0:
+            while nums[neg] >= 0:
                 neg += 1
             
             res[i + 1] = nums[neg]

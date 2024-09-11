@@ -4,20 +4,18 @@ class Solution:
 
         left = 0
 
-        ones, oneMost = 0, 0
+        curr_sum, max_sum = 0, 0
 
         for right in range(len(data)):
-            if data[right] == 1:
-                ones += 1
+            curr_sum += data[right]
 
             if right - left + 1 > oneCount:
-                if data[left] == 1:
-                    ones -= 1
+                curr_sum -= data[left]
                 left += 1
             
-            oneMost = max(oneMost, ones)
+            max_sum = max(max_sum, curr_sum)
 
-        return oneCount - oneMost
+        return oneCount - max_sum
             
 
 

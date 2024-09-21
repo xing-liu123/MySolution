@@ -3,7 +3,7 @@ class Solution:
         words.sort(key=lambda x: len(x))
 
         def isPredecessor(s1, s2):
-
+            
             idx1, idx2 = 0, 0
 
             while idx1 < len(s1) and idx2 < len(s2):
@@ -17,12 +17,16 @@ class Solution:
             return idx1 == len(s1)
 
 
-        dp = [1] * len(words)
+        dp = {}
+        max_chain_length = 1
 
-        for i in range(1, len(words)):
-            for j in range(i):
-                if len(words[i]) == len(words[j]) + 1:
-                    if isPredecessor(words[j], words[i]):
-                        dp[i] = max(dp[i], dp[j] + 1)
+        for word in words:
+            dp[word] = 1
+            for i in range(len(word)):
+                predecessor = word[:i] + word[i + 1:]
+                if predecessor in dp:
+                    dp[word] = max(dp[word], dp[predecessor] + 1)
 
-        return max(dp)
+            max_chain_length = max(max_chain_length, dp[word])
+
+        return max_chain_length

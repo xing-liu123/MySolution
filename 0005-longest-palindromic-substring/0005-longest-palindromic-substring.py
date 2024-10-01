@@ -3,16 +3,13 @@ class Solution:
         n = len(s)
         dp = [[False] * n for _ in range(n)]
 
-        for i in range(n):
-            dp[i][i] = True
-
         maxLen = 1
         res = s[0]
 
         for i in range(n - 1, -1, -1):
-            for j in range(i + 1, n, 1):
+            for j in range(i, n, 1):
                 if s[i] == s[j]:
-                    if j - i == 1:
+                    if j - i <= 1:
                         dp[i][j] = True
                     elif j - i > 1:
                         dp[i][j] = dp[i + 1][j - 1]

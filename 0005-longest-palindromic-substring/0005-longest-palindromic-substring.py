@@ -9,14 +9,12 @@ class Solution:
         for i in range(n - 1, -1, -1):
             for j in range(i, n, 1):
                 if s[i] == s[j]:
-                    if j - i <= 1:
+                    if j - i <= 1 or dp[i + 1][j - 1]:
                         dp[i][j] = True
-                    elif j - i > 1:
-                        dp[i][j] = dp[i + 1][j - 1]
-                    
-                    if dp[i][j] and j - i + 1 > maxLen:
-                        maxLen = j - i + 1
-                        res = s[i: j + 1]
+
+                        if j - i + 1 > maxLen:
+                            maxLen = j - i + 1
+                            res = s[i: j + 1]          
 
         return res
 

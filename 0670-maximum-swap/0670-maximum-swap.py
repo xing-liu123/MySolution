@@ -1,38 +1,12 @@
 class Solution:
     def maximumSwap(self, num: int) -> int:
-        idxCouldSwap = -1
+        numList = list(str(num))
+        lastOccurrence = {int(x): i for i, x in enumerate(numList)}
 
-        for idx in range(1, len(str(num))):
-            if str(num)[idx] > str(num)[idx - 1]:
-                idxCouldSwap = idx - 1
-                break
+        for i, d in enumerate(numList):
+            for x in range(9, int(d), -1):
+                if lastOccurrence.get(x, -1) > i:
+                    numList[i], numList[lastOccurrence[x]] = numList[lastOccurrence[x]], numList[i]
+                    return int(''.join(numList))
 
-        if idxCouldSwap == -1:
-            return num
-
-        currMaxIdx = idxCouldSwap + 1
-
-        for idx in range(idxCouldSwap + 2, len(str(num))):
-            if str(num)[idx] >= str(num)[currMaxIdx]:
-                currMaxIdx = idx
-
-        idxToSwap = idxCouldSwap
-        for idx in range(idxCouldSwap + 1):
-            if str(num)[idx] < str(num)[currMaxIdx]:
-                idxToSwap = idx
-                break
-
-        res = 0
-        mul = 1
-
-        for idx in range(len(str(num)) - 1, -1, -1):
-            if idx == currMaxIdx:
-                res += int(str(num)[idxToSwap]) * mul
-            elif idx == idxToSwap:
-                res += int(str(num)[currMaxIdx]) * mul
-            else:
-                res += int(str(num)[idx]) * mul
-            
-            mul *= 10
-
-        return res
+        return num

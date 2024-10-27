@@ -9,28 +9,50 @@ class Solution:
 
         heapq.heapify(maxHeap)
         res = ""
+        temp = None
 
         while maxHeap:
-            count, char = heapq.heappop(maxHeap)
             
-            if len(res) > 0 and res[-1] == char:
-                if maxHeap:
-                    nextCount, nextChar = heapq.heappop(maxHeap)
-                    res += nextChar
-                    nextCount += 1
+            count, char = heapq.heappop(maxHeap)
 
-                    if nextCount < 0:
-                        heapq.heappush(maxHeap, (nextCount, nextChar))
-                    heapq.heappush(maxHeap, (count, char))
-                else:
+            res += char
+            count += 1
+
+            if temp:
+                heapq.heappush(maxHeap, temp)
+
+            if count < 0:
+                if not maxHeap:
                     return ""
 
+                temp = (count, char)
             else:
-                res += char
-                count += 1
+                temp = None
+        
 
-                if count < 0:
-                    heapq.heappush(maxHeap, (count, char))
+        if temp:
+            return ""
+
+            # count, char = heapq.heappop(maxHeap)
+            
+            # if len(res) > 0 and res[-1] == char:
+            #     if maxHeap:
+            #         nextCount, nextChar = heapq.heappop(maxHeap)
+            #         res += nextChar
+            #         nextCount += 1
+
+            #         if nextCount < 0:
+            #             heapq.heappush(maxHeap, (nextCount, nextChar))
+            #         heapq.heappush(maxHeap, (count, char))
+            #     else:
+            #         return ""
+
+            # else:
+            #     res += char
+            #     count += 1
+
+            #     if count < 0:
+            #         heapq.heappush(maxHeap, (count, char))
 
         return res
             

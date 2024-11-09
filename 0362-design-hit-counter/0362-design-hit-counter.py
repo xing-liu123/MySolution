@@ -6,10 +6,13 @@ class HitCounter:
 
     def hit(self, timestamp: int) -> None:
         if self.queue:
-            _, count = self.queue[-1]
-            self.queue.append((timestamp, count + 1))
+            prev, count = self.queue[-1]
+            if prev == timestamp:
+                self.queue[-1][1] = count + 1
+            else:
+                self.queue.append([timestamp, count + 1])
         else:
-            self.queue.append((timestamp, 1))
+            self.queue.append([timestamp, 1])
         
 
     def getHits(self, timestamp: int) -> int:

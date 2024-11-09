@@ -5,33 +5,22 @@ class HitCounter:
         self.queue = deque()
 
     def hit(self, timestamp: int) -> None:
-        if self.queue:
-            prev, count = self.queue[-1]
-            if prev == timestamp:
-                self.queue[-1][1] = count + 1
-            else:
-                self.queue.append([timestamp, count + 1])
+        # Check if the queue has hits recorded for the same timestamp
+        if self.queue and self.queue[-1][0] == timestamp:
+            # Update the count for the last recorded timestamp
+            self.queue[-1][1] += 1
         else:
+            # Append a new timestamp with count 1
             self.queue.append([timestamp, 1])
         
 
     def getHits(self, timestamp: int) -> int:
-        if not self.queue:
-            return 0
-        else:
-            if self.queue[-1][0] + 300 <= timestamp:
-                self.queue = deque()
-                return 0
-            
-            while len(self.queue) >= 2 and self.queue[1][0] + 300 <= timestamp:
-                self.queue.popleft()
-
-            if len(self.queue) == 1:
-                return self.queue[0][1]
-            elif self.queue[0][0] + 300 > timestamp:
-                return self.queue[-1][1]
-            else:
-                return self.queue[-1][1] - self.queue[0][1]
+        # Remove timestamps older than 300 seconds from the current timestamp
+        while self.queue and self.queue[0][0] <= timestamp - 300:
+            self.queue.popleft()
+        
+        # Sum the counts of the remaining timestamps in the window
+        return sum(count for _, count in self.queue)
 
             
 

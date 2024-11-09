@@ -4,37 +4,32 @@ class Solution:
         Do not return anything, modify board in-place instead.
         """
         
-        dr = [1, 1, 1, 0]
-        dc = [1, 0, -1, 1]
+        dr = [1, 1, 1, 0, 0, -1, -1, -1]
+        dc = [-1, 0, 1, 1, -1, -1, 0, 1]
         m, n = len(board), len(board[0])
 
-        lastRowCopy = None
-        leftValue = 0
+        for r in range(m):
+            for c in range(n):
+                live_neighbors = 0
 
-        for i in range(m):
-            rowCopy = copy.copy(board[i])
-            for j in range(n):
-                surroundingSum = 0
-                for k in range(4):
-                    x = i + dr[k]
-                    y = j + dc[k]
+                for d in range(8):
+                    nr = r + dr[d]
+                    nc = c + dc[d]
 
-                    if 0 <= x < m and 0 <= y < n:
-                        surroundingSum += board[x][y]
+                    if 0 <= nr < m and 0 <= nc < n and abs(board[nr][nc]) == 1:
+                        live_neighbors += 1
 
-                if lastRowCopy:
-                    for col in range(j - 1, j + 2):
-                        if 0 <= col < n:
-                             surroundingSum += lastRowCopy[col]
-                if j != 0:
-                    surroundingSum += leftValue
-                leftValue = board[i][j]
-
-                if board[i][j] == 0:
-                    if surroundingSum == 3:
-                        board[i][j] = 1
+                if board[r][c] == 1:
+                    if live_neighbors < 2 or live_neighbors > 3:
+                        board[r][c] = -1
                 else:
-                    if surroundingSum < 2 or surroundingSum > 3:
-                        board[i][j] = 0
-
-            lastRowCopy = copy.copy(rowCopy)
+                    if live_neighbors == 3:
+                        board[r][c] = 2
+        
+        for r in range(m):
+            for c in range(n):
+                if board[r][c] == -1:
+                    board[r][c] = 0
+                elif board[r][c] == 2:
+                    board[r][c] = 1
+        

@@ -12,9 +12,9 @@ class Solution:
         curr = dummy
 
         while curr:
-            while curr.next and curr.next.val == val:
+            if curr.next and curr.next.val == val:
                 curr.next = curr.next.next
-            
-            curr = curr.next
+            else:
+                curr = curr.next
 
         return dummy.next

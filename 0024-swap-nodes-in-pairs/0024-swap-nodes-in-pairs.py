@@ -8,8 +8,8 @@ class Solution:
         if not head or not head.next:
             return head
         
-        temp = head.next
+        newHead = head.next
         head.next = self.swapPairs(head.next.next)
-        temp.next = head
-        
-        return temp
+        newHead.next = head
+
+        return newHead

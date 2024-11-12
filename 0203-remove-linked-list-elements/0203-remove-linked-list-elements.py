@@ -11,7 +11,7 @@ class Solution:
         dummy = ListNode(-1, head)
         curr = dummy
 
-        while curr and curr.next:
+        while curr:
             while curr.next and curr.next.val == val:
                 curr.next = curr.next.next
             

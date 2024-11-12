@@ -6,40 +6,38 @@
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-#         currA = headA
-#         currB = headB
-        
-#         while currA and currB:
-#             currA = currA.next
-#             currB = currB.next
-            
-#         newA = headA
-#         newB = headB
-        
-#         while currA:
-#             currA = currA.next
-#             newA = newA.next
-            
-#         while currB:
-#             currB = currB.next
-#             newB = newB.next
-            
-#         while newA != newB:
-#             newA = newA.next
-#             newB = newB.next
-        
-#         return newA if newA == newB else None
-        if not headA or not headB:
-            return None
+        lengthA = 0
 
-        pointerA = headA
-        pointerB = headB
+        currA = headA
+        
+        while currA:
+            currA = currA.next
+            lengthA += 1
 
-        while pointerA != pointerB:
-            # If pointerA reaches the end of its list, redirect it to headB
-            pointerA = pointerA.next if pointerA else headB
-            # If pointerB reaches the end of its list, redirect it to headA
-            pointerB = pointerB.next if pointerB else headA
+        lengthB = 0
+        currB = headB
 
-        return pointerA  # or pointerB, they are the same at this point
+        while currB:
+            currB = currB.next
+            lengthB += 1
+
+        currA, currB = headA, headB
+
+        if lengthA > lengthB:
+            for i in range(lengthA - lengthB):
+                currA = currA.next
+
+        elif lengthB > lengthA:
+            for i in range(lengthB - lengthA):
+                currB = currB.next
+
+        while currA and currB:
+            if currA == currB:
+                return currA
+            
+            currA = currA.next
+            currB = currB.next
+
+        return None
+        
         

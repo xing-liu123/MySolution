@@ -57,6 +57,13 @@ class Solution:
                 index += 1
             
         def mergeSort(left, right):
+            if right - left < 10:
+                for i in range(left + 1, right + 1):
+                    j = i
+                    while j > 0 and nums[j] > nums[j - 1]:
+                        nums[j], nums[j - 1] = nums[j - 1], nums[j]
+
+
             if left < right:
                 
                 mid = (left + right) // 2

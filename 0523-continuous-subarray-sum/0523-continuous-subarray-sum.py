@@ -16,6 +16,10 @@ class Solution:
 
             r = currSum % k
 
+            if i > 0 and r == 0:
+                return True
+
+
             if r in remainderMap and remainderMap[r] < i - 1:
                 return True
             

@@ -31,39 +31,38 @@ class Solution:
             rightIndex = mid + 1
             index = 0
 
+            for i in range(left, right + 1):
+                arr[i] = nums[i]
+
             while leftIndex <= mid and rightIndex <= right:
         
-                while leftIndex <= mid and nums[leftIndex] <= nums[rightIndex]:
-                    arr[left + index] = nums[leftIndex]
+                while leftIndex <= mid and arr[leftIndex] <= arr[rightIndex]:
+                    nums[left + index] = arr[leftIndex]
                     leftIndex += 1
                     index += 1
 
-                while rightIndex <= right and nums[rightIndex] < nums[leftIndex]:
-                    arr[left + index] = nums[rightIndex]
+                while rightIndex <= right and arr[rightIndex] < arr[leftIndex]:
+                    nums[left + index] = arr[rightIndex]
                     rightIndex += 1
                     index += 1
 
             while leftIndex <= mid:
-                arr[left + index] = nums[leftIndex]
+                nums[left + index] = arr[leftIndex]
                 leftIndex += 1
                 index += 1
 
             while rightIndex <= right:
-                arr[left + index] = nums[rightIndex]
+                nums[left + index] = arr[rightIndex]
                 rightIndex += 1
                 index += 1
-
-            for i in range(left, left + index):
-                nums[i] = arr[i]
             
-
         def mergeSort(left, right):
-            if left >= right:
-                return
-            mid = (left + right) // 2
-            mergeSort(left, mid)
-            mergeSort(mid + 1, right)
-            merge(left, mid, right)
+            if left < right:
+                
+                mid = (left + right) // 2
+                mergeSort(left, mid)
+                mergeSort(mid + 1, right)
+                merge(left, mid, right)
 
         mergeSort(0, n - 1)
 

@@ -5,28 +5,25 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def findMaximum(self, arr):
-        max_idx, max_val = 0, arr[0]
-
-        for idx, val in enumerate(arr):
-            if val > max_val:
-                max_idx, max_val = idx, val
-
-        return max_idx, max_val
+        
 
     def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
-        
-        
-        if not nums:
-            return None
-        
-        idx, val = self.findMaximum(nums)
+        def buildTree(left, right):
+            if left > right:
+                return None
+            
+            max_idx = left
 
-        node = TreeNode(val)
+            for i in range(left, right + 1):
+                if nums[i] > nums[max_idx]:
+                    max_idx = i
+        
+            node = TreeNode(nums[max_idx])
+            node.left = buildTree(left, max_idx - 1)
+            node.right = buildTree(max_idx + 1, right)
+        
+            return node
 
-        node.left = self.constructMaximumBinaryTree(nums[:idx])
-        node.right = self.constructMaximumBinaryTree(nums[idx + 1:])
-
-        return node
+        return buildTree(0, len(nums) - 1)
 
         

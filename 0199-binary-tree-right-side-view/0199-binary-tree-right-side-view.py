@@ -7,41 +7,29 @@ from collections import deque
 #         self.right = right
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
-#         res = []
-        
-#         if not root:
-#             return res
-        
-#         queue = deque([root])
-        
-#         while queue:
-#             size = len(queue)
-            
-#             while size > 0:
-#                 node = queue.popleft()
-#                 if node.left:
-#                     queue.append(node.left)
-                
-#                 if node.right:
-#                     queue.append(node.right)
-            
-#                 if size == 1:
-#                     res.append(node.val)
-                
-#                 size -= 1
         res = []
-        self.order(res, root, 0)
+
+        if not root:
+            return res
+
+        queue = deque([root])
+
+        while queue:
+            size = len(queue)
+
+            for i in range(size):
+                node = queue.popleft()
+
+                if i == size - 1:
+                    res.append(node.val)
+
+                if node.left:
+                    queue.append(node.left)
+
+                if node.right:
+                    queue.append(node.right)
+
         return res
-    
-    def order(self, res: List[int], curr: TreeNode, depth: int):
-        if not curr:
-            return
+
+
         
-        if len(res) < depth + 1:
-            res.append(curr.val)
-        
-        if curr.right:
-            self.order(res, curr.right, depth + 1)
-        
-        if curr.left:
-            self.order(res, curr.left, depth + 1)

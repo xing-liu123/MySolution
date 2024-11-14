@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/maximum-binary-tree/">654. Maximum Binary Tree</a></h2><h3>Medium</h3><hr><div><p>You are given an integer array <code>nums</code> with no duplicates. A <strong>maximum binary tree</strong> can be built recursively from <code>nums</code> using the following algorithm:</p>
+<h2><a href="https://leetcode.com/problems/maximum-binary-tree">654. Maximum Binary Tree</a></h2><h3>Medium</h3><hr><p>You are given an integer array <code>nums</code> with no duplicates. A <strong>maximum binary tree</strong> can be built recursively from <code>nums</code> using the following algorithm:</p>
 
 <ol>
 	<li>Create a root node whose value is the maximum value in <code>nums</code>.</li>
@@ -10,8 +10,9 @@
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
-<img alt="" src="https://assets.leetcode.com/uploads/2020/12/24/tree1.jpg" style="width: 302px; height: 421px;">
-<pre><strong>Input:</strong> nums = [3,2,1,6,0,5]
+<img alt="" src="https://assets.leetcode.com/uploads/2020/12/24/tree1.jpg" style="width: 302px; height: 421px;" />
+<pre>
+<strong>Input:</strong> nums = [3,2,1,6,0,5]
 <strong>Output:</strong> [6,3,5,null,2,0,null,null,1]
 <strong>Explanation:</strong> The recursive calls are as follow:
 - The largest value in [3,2,1,6,0,5] is 6. Left prefix is [3,2,1] and right suffix is [0,5].
@@ -26,8 +27,9 @@
 </pre>
 
 <p><strong class="example">Example 2:</strong></p>
-<img alt="" src="https://assets.leetcode.com/uploads/2020/12/24/tree2.jpg" style="width: 182px; height: 301px;">
-<pre><strong>Input:</strong> nums = [3,2,1]
+<img alt="" src="https://assets.leetcode.com/uploads/2020/12/24/tree2.jpg" style="width: 182px; height: 301px;" />
+<pre>
+<strong>Input:</strong> nums = [3,2,1]
 <strong>Output:</strong> [3,null,2,null,1]
 </pre>
 
@@ -39,4 +41,3 @@
 	<li><code>0 &lt;= nums[i] &lt;= 1000</code></li>
 	<li>All integers in <code>nums</code> are <strong>unique</strong>.</li>
 </ul>
-</div>

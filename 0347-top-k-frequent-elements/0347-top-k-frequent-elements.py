@@ -1,13 +1,11 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        map = {}
-        
+        counts = {}
+
         for num in nums:
-            if num in map:
-                map[num] += 1
-            else:
-                map[num] = 1
-        
-        
-        return [item[0] for item in sorted(map.items(), key=lambda item: item[1], reverse=True)[:k]] 
-        
+            counts[num] = counts.get(num, 0) + 1
+
+        if len(counts) <= k:
+            return [val for val in counts.keys()]
+
+        return sorted(counts, key=counts.get, reverse=True)[:k]

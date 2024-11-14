@@ -8,4 +8,4 @@ class Solution:
         if len(counts) <= k:
             return [val for val in counts.keys()]
 
-        return sorted(counts, key=counts.get, reverse=True)[:k]
+        return heapq.nlargest(k, counts, key=counts.get)

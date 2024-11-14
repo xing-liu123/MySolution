@@ -8,14 +8,30 @@ class Solution:
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
 
-        def traverse(curr):
-            if not curr:
-                return
+        # def traverse(curr):
+        #     if not curr:
+        #         return
             
-            traverse(curr.left)
-            traverse(curr.right)
+        #     traverse(curr.left)
+        #     traverse(curr.right)
+        #     res.append(curr.val)
+
+        # traverse(root)
+
+        if not root:
+            return res
+
+        stack = [root]
+
+        while stack:
+            curr = stack.pop()
+
+            if curr.left:
+                stack.append(curr.left)
+            
+            if curr.right:
+                stack.append(curr.right)
+
             res.append(curr.val)
 
-        traverse(root)
-
-        return res
+        return res[::-1]

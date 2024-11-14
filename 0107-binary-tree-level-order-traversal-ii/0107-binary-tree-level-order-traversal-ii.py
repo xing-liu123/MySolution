@@ -8,23 +8,27 @@ from collections import deque
 class Solution:
     def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
         res = []
+
+        if not root:
+            return res
+
+        queue = deque([root])
+
+        while queue:
+            size = len(queue)
+            level = []
+            for _ in range(size):
+                node = queue.popleft()
+
+                level.append(node.val)
+
+                if node.left:
+                    queue.append(node.left)
+
+                if node.right:
+                    queue.append(node.right)
+
+            res.append(level)
+
         
-        def traverse(node, level):
-            if not node:
-                return
-            
-            if len(res) < level + 1:
-                res.append([])
-            
-            res[level].append(node.val)
-            
-            traverse(node.left, level + 1)
-            traverse(node.right, level + 1)
-            
-        traverse(root, 0)
-        
-        res.reverse()
-        
-        return res
-        
-            
+        return res[::-1]

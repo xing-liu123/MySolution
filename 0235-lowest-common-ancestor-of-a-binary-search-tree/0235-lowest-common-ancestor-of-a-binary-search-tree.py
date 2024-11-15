@@ -12,11 +12,17 @@ class Solution:
 
         if root.val == p.val or root.val == q.val:
             return root
-        
-        left = self.lowestCommonAncestor(root.left, p, q) if p.val < root.val else self.lowestCommonAncestor(root.right, p, q)
-        right = self.lowestCommonAncestor(root.left, p, q) if q.val < root.val else self.lowestCommonAncestor(root.right, p, q)
 
-        if right and left and (right.val == p.val and left.val == q.val or right.val == q.val and left.val == p.val):
+        left = None
+        right = None
+
+        if p.val < root.val or q.val < root.val:
+            left = self.lowestCommonAncestor(root.left, p, q)
+
+        if p.val > root.val or q.val > root.val:
+            right = self.lowestCommonAncestor(root.right, p, q)
+
+        if left and right:
             return root
 
         if left:

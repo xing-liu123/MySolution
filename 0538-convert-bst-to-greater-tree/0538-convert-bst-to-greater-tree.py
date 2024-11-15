@@ -6,18 +6,18 @@
 #         self.right = right
 class Solution:
     def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        currSum = 0
         
-        def traverse(curr):
-            nonlocal currSum
+        def traverse(curr, currSum):
             if not curr:
-                return
+                return currSum
 
-            traverse(curr.right)
+            currSum = traverse(curr.right, currSum)
             currSum += curr.val
             curr.val = currSum
 
-            traverse(curr.left)
+            currSum = traverse(curr.left, currSum)
 
-        traverse(root)
+            return currSum
+
+        traverse(root, 0)
         return root

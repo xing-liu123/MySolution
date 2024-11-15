@@ -6,19 +6,20 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        arr = []
+        currVal = None
 
         def traverse(curr):
+            nonlocal currVal
             if not curr:
                 return True
             
             if not traverse(curr.left):
                 return False
 
-            if arr and curr.val <= arr[-1]:
+            if not currVal is None and curr.val <= currVal:
                 return False
 
-            arr.append(curr.val)
+            currVal = curr.val
 
             if not traverse(curr.right):
                 return False

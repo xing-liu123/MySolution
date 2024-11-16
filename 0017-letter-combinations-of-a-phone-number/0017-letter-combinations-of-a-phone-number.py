@@ -1,6 +1,6 @@
 class Solution:
     def __init__(self):
-        self.path = ""
+        self.path = []
         self.res = []
         self.map = [["a", "b", "c"], ["d", "e", "f"], ["g", "h", "i"], ["j", "k", "l"], ["m", "n", "o"], ["p", "q", "r", "s"], ["t", "u", "v"], ["w", "x", "y", "z"]] 
 
@@ -14,11 +14,10 @@ class Solution:
     
     def backtracking(self, digits: str, idx: int):
         if idx == len(digits):
-            self.res.append(copy.copy(self.path))
+            self.res.append(''.join(self.path))
             return
 
-
         for d in self.map[int(digits[idx]) - 2]:
-            self.path += d
+            self.path.append(d)
             self.backtracking(digits, idx + 1)
-            self.path = self.path[:len(self.path) - 1]
+            self.path.pop()

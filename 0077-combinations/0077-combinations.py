@@ -4,16 +4,16 @@ class Solution:
         self.res = []
 
     def combine(self, n: int, k: int) -> List[List[int]]:
-        self.backtracking(n, k, 1)
+        self.backtracking(1, k, n)
         return self.res
-       
-    def backtracking(self, n: int, k: int, start: int):
+
+    def backtracking(self, start, k, n):
         if len(self.path) == k:
-            self.res.append(self.path.copy())
-            return 
-        
-        for i in range(start, n - (k - len(self.path)) + 2):
+            self.res.append(copy.copy(self.path))
+            return
+
+        for i in range(start, n - (k - len(self.path)) + 2): # k - len(self.path)
             self.path.append(i)
-            self.backtracking(n, k, i + 1)
+            self.backtracking(i + 1, k, n)
             self.path.pop()
-        
+    

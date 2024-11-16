@@ -1,24 +1,24 @@
 class Solution:
+    def __init__(self):
+        self.subset = []
+        self.result = []
+
     def findSubsequences(self, nums: List[int]) -> List[List[int]]:
-        path = []
-        res = []
+        self.used = [False] * len(nums)
+        self.backtracking(nums, 0)
+        return self.result
         
-        def backtracking(start):
-            if len(path) >= 2:
-                res.append(path.copy())
-            
-            if start == len(nums):
-                return
-            
-            used = set()
-            for i in range(start, len(nums)):
-                    
-                if (len(path) == 0 or nums[i] >= path[-1]) and nums[i] not in used:
-                    used.add(nums[i])
-                    path.append(nums[i])
-                    backtracking(i + 1)
-                    path.pop()
-                    
-        backtracking(0)
-        
-        return res
+    def backtracking(self, nums: int, start: int):
+        if len(self.subset) > 1:
+            self.result.append(copy.copy(self.subset))
+
+        used = set()
+        for i in range(start, len(nums)):
+            if nums[i] in used:
+                continue
+
+            if not self.subset or nums[i] >= self.subset[-1]:
+                used.add(nums[i])
+                self.subset.append(nums[i])
+                self.backtracking(nums, i + 1)
+                self.subset.pop()

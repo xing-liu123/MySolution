@@ -1,25 +1,22 @@
 class Solution:
+  
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        tickets.sort(key=lambda x: x[1], reverse=True)
-
-
         graph = defaultdict(list)
-        
-        for u, v in tickets:
+
+        for u, v in sorted(tickets):
             graph[u].append(v)
 
         res = []
 
         def dfs(curr):
             while graph[curr]:
-                dfs(graph[curr].pop())
+                next_city = graph[curr].pop(0)
+                dfs(next_city)
 
             res.append(curr)
 
         dfs("JFK")
 
-        res = reversed(res)
-
+        res.reverse()
         return res
-    
-    
+             

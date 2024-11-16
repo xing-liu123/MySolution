@@ -1,29 +1,25 @@
 class Solution:
+    def __init__(self):
+        self.path = []
+        self.res = []
+
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         candidates.sort()
-        res = []
-        path = []
+        self.backtracking(candidates, target, 0, 0)
+        return self.res
+    
+    def backtracking(self, candidates: List[int], target: int, start: int, currSum: int):
+        if currSum == target:
+            self.res.append(copy.copy(self.path))
+            return
         
-        if candidates[0] > target:
-            return res
-        
-        def backtracking(start, curr_sum):
-            if curr_sum == target:
-                res.append(path.copy())
-                return
+        for i in range(start, len(candidates)):
+            if i > start and candidates[i] == candidates[i - 1]:
+                continue
             
-            for i in range(start, len(candidates)):
-                if i > start and candidates[i] == candidates[i - 1]:
-                    continue
-                
-                if candidates[i] + curr_sum > target:
-                    return
-                
-                path.append(candidates[i])
-                backtracking(i + 1, curr_sum + candidates[i])
-                path.pop()
-        
-        backtracking(0, 0)
-        
-        return res
+            if currSum + candidates[i] > target:
+                break
             
+            self.path.append(candidates[i])
+            self.backtracking(candidates, target, i + 1, currSum + candidates[i])
+            self.path.pop()

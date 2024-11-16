@@ -11,13 +11,14 @@ class Solution:
     def backtracking(self, nums: List[int]):
         if len(self.path) == len(nums):
             self.res.append(copy.copy(self.path))
-        
+            return
+
         for i in range(len(nums)):
             if self.used[i]:
                 continue
-            
+
             self.path.append(nums[i])
-            self.used[i] = 1
+            self.used[i] = True
             self.backtracking(nums)
             self.path.pop()
-            self.used[i] = 0
+            self.used[i] = False

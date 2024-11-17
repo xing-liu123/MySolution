@@ -25,13 +25,10 @@ class Solution:
                     if k % 2 == 0:
                         break
                     else:
-                        if idx == 0:
-                            nums[idx] = -nums[idx]
+                        if num > nums[idx - 1]:
+                            nums[idx - 1] = -nums[idx - 1]
                         else:
-                            if num > nums[idx - 1]:
-                                nums[idx - 1] = -nums[idx - 1]
-                            else:
-                                nums[idx] = -nums[idx]
+                            nums[idx] = -nums[idx]
                         
                         break
 

@@ -1,28 +1,18 @@
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        currCost = 0
-        currGas = 0
-        minDiff = 0
+        start = 0
+        currRemain = 0
+        totalRemain = 0
 
         for i in range(len(gas)):
-            currCost += cost[i]
-            currGas += gas[i]
-            minDiff = min(minDiff, currGas - currCost)
+            currRemain += gas[i] - cost[i]
+            totalRemain += gas[i] - cost[i]
+
+            if currRemain < 0:
+                start = i + 1
+                currRemain = 0
         
-        if currCost > currGas:
+        if totalRemain < 0:
             return -1
-        
-        if minDiff >= 0:
-            return 0
-
-        currCost = 0
-        currGas = 0
-
-        for i in range(len(gas) - 1, -1, -1):
-            currCost += cost[i]
-            currGas += gas[i]
-
-            if currGas - currCost + minDiff >= 0:
-                return i
-
-        return 0
+       
+        return start

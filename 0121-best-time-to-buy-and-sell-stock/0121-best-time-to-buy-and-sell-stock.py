@@ -1,11 +1,21 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        dp = [[0] * 2 for _ in range(len(prices))]
+        n = len(prices)
+        mins = [0] * n
 
-        dp[0][0] = -prices[0] 
+        currMin = sys.maxsize
 
-        for i in range(1, len(prices)):
-            dp[i][0] = max(dp[i - 1][0], -prices[i])
-            dp[i][1] = max(dp[i - 1][0] + prices[i], dp[i - 1][1])
+        for i in range(n):
+            mins[i] = currMin
+            currMin = min(currMin, prices[i])
+        currMax = prices[-1]
+        maxProfit = 0
+
+        for i in range(n - 1, -1, -1):
+            currMax = max(prices[i], currMax)
+            maxProfit = max(maxProfit, currMax - mins[i])
+
+        return maxProfit
+
+
         
-        return dp[-1][1]

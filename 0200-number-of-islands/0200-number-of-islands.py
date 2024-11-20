@@ -1,3 +1,4 @@
+from collections import deque
 class Solution:
 
     def numIslands(self, grid: List[List[str]]) -> int:
@@ -6,23 +7,48 @@ class Solution:
 
         count = 0
 
-        def dfs(row, col):
-            grid[row][col] = "0"
+        def bfs(x, y):
+            queue = deque([(x, y)])
+            grid[x][y] = "0"
 
-            for k in range(4):
-                newRow = row + dr[k]
-                newCol = col + dc[k]
+            while queue:
+                size = len(queue)
 
-                if 0 <= newRow < m and 0 <= newCol < n and grid[newRow][newCol] == "1":
-                    dfs(newRow, newCol)
+                for _ in range(size):
+                    x, y = queue.pop()
+                    for k in range(4):
+                        nx, ny = x + dr[k], y + dc[k]
+
+                        if 0 <= nx < m and 0 <= ny < n and grid[nx][ny] == "1":
+                            queue.appendleft((nx, ny))
+                            grid[nx][ny] = "0"
 
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == "1":
+                    bfs(i, j)
                     count += 1
-                    dfs(i, j)
 
         return count
+
+
+        # def dfs(row, col):
+        #     grid[row][col] = "0"
+
+        #     for k in range(4):
+        #         newRow = row + dr[k]
+        #         newCol = col + dc[k]
+
+        #         if 0 <= newRow < m and 0 <= newCol < n and grid[newRow][newCol] == "1":
+        #             dfs(newRow, newCol)
+
+        # for i in range(m):
+        #     for j in range(n):
+        #         if grid[i][j] == "1":
+        #             count += 1
+        #             dfs(i, j)
+
+        # return count
 
 
 

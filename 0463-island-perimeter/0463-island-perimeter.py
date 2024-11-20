@@ -3,29 +3,56 @@ class Solution:
         count = 0
 
         m, n = len(grid), len(grid[0])
-        visited = [[False] * n for _ in range(m)] 
+        # visited = [[False] * n for _ in range(m)] 
 
-        dr, dc = [1, -1, 0, 0], [0, 0, 1, -1]
+        # dr, dc = [1, -1, 0, 0], [0, 0, 1, -1]
 
-        def dfs(x, y):
-            nonlocal count
-            visited[x][y] = True
+        # def dfs(x, y):
+        #     nonlocal count
+        #     visited[x][y] = True
 
-            for k in range(4):
-                nx, ny = x + dr[k], y + dc[k]
+        #     for k in range(4):
+        #         nx, ny = x + dr[k], y + dc[k]
 
-                if 0 <= nx < m and 0 <= ny < n:
-                    if grid[nx][ny] == 0:
-                        count += 1
-                    else:
-                        if not visited[nx][ny]:
-                            dfs(nx, ny)
-                else:
-                    count += 1
+        #         if 0 <= nx < m and 0 <= ny < n:
+        #             if grid[nx][ny] == 0:
+        #                 count += 1
+        #             else:
+        #                 if not visited[nx][ny]:
+        #                     dfs(nx, ny)
+        #         else:
+        #             count += 1
+
+        # for i in range(m):
+        #     for j in range(n):
+        #         if grid[i][j] == 1 and not visited[i][j]:
+        #             dfs(i, j)
 
         for i in range(m):
             for j in range(n):
-                if grid[i][j] == 1 and not visited[i][j]:
-                    dfs(i, j)
+                if grid[i][j] == 1:
+                    if i == 0:
+                        count += 1
+
+                    if i == m - 1:
+                        count += 1
+
+                    if j == 0:
+                        count += 1
+
+                    if j == n - 1:
+                        count += 1
+
+                    if i > 0 and grid[i - 1][j] == 0:
+                        count += 1
+
+                    if i < m - 1 and grid[i + 1][j] == 0:
+                        count += 1
+
+                    if j > 0 and grid[i][j - 1] == 0:
+                        count += 1
+
+                    if j < n - 1 and grid[i][j + 1] == 0:
+                        count +=1
 
         return count

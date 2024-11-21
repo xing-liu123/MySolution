@@ -1,34 +1,39 @@
 class Solution:
     def closedIsland(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        dr = [0, 0, 1, -1]
-        dc = [1, -1, 0, 0]
 
-        res = 0
+        dr, dc = [1, -1, 0, 0], [0, 0, 1, -1]
 
-        def isClosed(row, col) -> bool:
-            if row < 0 or row >= m or col < 0 or col >= n:
-                return False
-
-            if grid[row][col] == 1:
-                return True
-
-            grid[row][col] = 1    
-            
-            closed = True
+        def dfs(x, y):
+            grid[x][y] = 1
 
             for k in range(4):
-                x = row + dr[k]
-                y = col + dc[k]
-            
-                if not isClosed(x, y):
-                    closed = False
-            
-            return closed
-            
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == 0 and isClosed(i, j):
-                    res += 1
+                nx, ny = x + dr[k], y + dc[k]
+
+                if 0 <= nx < m and 0 <= ny < n and grid[nx][ny] == 0:
+                    dfs(nx, ny)
+
         
-        return res
+        for i in range(m):
+            if grid[i][0] == 0:
+                dfs(i, 0)
+
+            if grid[i][n - 1] == 0:
+                dfs(i, n - 1)
+
+        for j in range(n):
+            if grid[0][j] == 0:
+                dfs(0, j)
+
+            if grid[m - 1][j] == 0:
+                dfs(m - 1, j)
+
+        count = 0
+
+        for i in range(1, m - 1):
+            for j in range(1, n - 1):
+                if grid[i][j] == 0:
+                    dfs(i, j)
+                    count += 1
+
+        return count

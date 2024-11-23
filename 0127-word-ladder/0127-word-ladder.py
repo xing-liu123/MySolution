@@ -2,29 +2,38 @@ from collections import deque
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         wordSet = set(wordList)
-        visited = set()
+
+        if len(wordSet) == 0 or not endWord in wordSet:
+            return 0
+
+        graph = {}
+        chars_to_try = string.ascii_lowercase
 
         queue = deque([beginWord])
+        length = 1
+        visited = set()
         visited.add(beginWord)
-        length = 0
 
         while queue:
-            size = len(queue)
             length += 1
+            size = len(queue)
+
             for _ in range(size):
                 word = queue.popleft()
 
-                if word == endWord:
-                    return length
-
                 for i in range(len(word)):
-                    for j in range(ord('a'), ord('z') + 1):
-                        newWord = word[0 : i] + chr(j) + word[i + 1:]
+                    for char in chars_to_try:
+                        new_word = word[:i] + char + word[i + 1:]
 
-                        if not newWord in visited and newWord in wordSet:
-                            visited.add(newWord)
-                            queue.append(newWord)
+                        if new_word == endWord:
+                            return length
+
+                        if new_word in wordSet and not new_word in visited:
+                            visited.add(new_word)
+                            queue.append(new_word)
 
         return 0
-                
 
+
+
+            

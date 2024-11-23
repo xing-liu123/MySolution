@@ -12,17 +12,17 @@ class Solution:
         self.nodeMap = dict()
     
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        if node is None:
-            return None
-        
+        if not node:
+            return node
+
         if node.val in self.nodeMap:
             return self.nodeMap[node.val]
-        
-        
-        copy = Node(node.val, [])
-        self.nodeMap[node.val] = copy
+
+        newNode = Node(node.val, [])
+
+        self.nodeMap[newNode.val] = newNode
 
         for neighbor in node.neighbors:
-            copy.neighbors.append(self.cloneGraph(neighbor))
-        
-        return copy
+            newNode.neighbors.append(self.cloneGraph(neighbor))
+
+        return newNode

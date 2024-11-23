@@ -11,8 +11,6 @@ class Solution:
 
         queue = deque([beginWord])
         length = 1
-        visited = set()
-        visited.add(beginWord)
 
         while queue:
             length += 1
@@ -28,8 +26,8 @@ class Solution:
                         if new_word == endWord:
                             return length
 
-                        if new_word in wordSet and not new_word in visited:
-                            visited.add(new_word)
+                        if new_word in wordSet:
+                            wordSet.remove(new_word)
                             queue.append(new_word)
 
         return 0

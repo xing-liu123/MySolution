@@ -1,19 +1,26 @@
 class Union:
         def __init__(self):
             self.parents = list(range(1005))
+            self.ranks = [1] * 1005
         
         def find(self, u):
-            parent_u = self.parents[u]
-            if parent_u == u:
-                return u
-            else:
-                return self.find(parent_u)
+            if self.parents[u] != u:
+                self.parents[u] = self.find(self.parents[u])
+
+            return self.parents[u]
 
         def join(self, u, v):
             parent_u = self.find(u)
             parent_v = self.find(v)
 
-            self.parents[parent_v] = parent_u
+            if parent_u != parent_v:
+                if self.ranks[parent_u] > self.ranks[parent_v]:
+                    self.parents[parent_v] = parent_u
+                elif self.ranks[parent_u] < self.ranks[parent_v]:
+                    self.parents[parent_u] = parent_v
+                else:
+                    self.parents[parent_v] = parent_u
+                    self.ranks[parent_u] += 1
 
         def isSame(self, u, v):
             return self.find(u) == self.find(v)

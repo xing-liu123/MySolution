@@ -1,41 +1,35 @@
-from collections import deque
-class Solution:
-    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        parents = [i for i in range(1001)]
-        rank = [0] * 1001
-
-        def find(u) -> int:
-            if parents[u] != u:
-                parents[u] = find(parents[u])
-            
-            return parents[u]
-
-        def join(u, v):
-            root_u = find(u)
-            root_v = find(v)
-
-            if root_u != root_v:
-                if rank[u] > rank[v]:
-                    parents[root_v] = root_u
-                elif rank[u] < rank[v]:
-                    parents[root_u] = root_v
-                else:
-                    parents[root_v] = root_u
-                    rank[root_u] += 1
+class Union:
+        def __init__(self):
+            self.parents = list(range(1005))
         
-        for u, v in edges:
-            if find(u) == find(v):
-                return [u, v]
+        def find(self, u):
+            parent_u = self.parents[u]
+            if parent_u == u:
+                return u
             else:
-                join(u, v)
-        
-        return None
+                return self.find(parent_u)
+
+        def join(self, u, v):
+            parent_u = self.find(u)
+            parent_v = self.find(v)
+
+            self.parents[parent_v] = parent_u
+
+        def isSame(self, u, v):
+            return self.find(u) == self.find(v)
+
+class Solution:
+    
+
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        union = Union()
+
+        for edge in edges:
+            u, v = edge
+
+            if union.isSame(u, v):
+                return edge
+            else:
+                union.join(u, v)
+
             
-
-
-        
-        
-        
-
-
-        

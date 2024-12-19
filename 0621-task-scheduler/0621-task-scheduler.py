@@ -1,35 +1,31 @@
+from collections import deque
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
-        taskCounts = defaultdict(int)
+        task_count = defaultdict(int)
 
         for task in tasks:
-            taskCounts[task] += 1
-
-        maxHeap = [(-count, -n, task) for task, count in taskCounts.items()]
-        heapq.heapify(maxHeap)
+            task_count[task] += 1
         
-        currTime = 0
+        max_heap = [(-count, task) for task, count in task_count.items()]
+        heapq.heapify(max_heap)
 
-        taskNotReady = []
-        while maxHeap:
-            currTime += 1
+        cooldown_queue = deque()
 
-            while maxHeap and currTime - maxHeap[0][1] < n + 1:
-                taskNotReady.append(heapq.heappop(maxHeap))
+        time = 0
 
-            if maxHeap:
-                count, lastExecuteTime, task = heapq.heappop(maxHeap)
+        while max_heap or cooldown_queue:
+            time += 1
+
+            if cooldown_queue and cooldown_queue[0][0] == time:
+                _, task, count = cooldown_queue.popleft()
+                heapq.heappush(max_heap, (count, task))
+            
+            if max_heap:
+                count, task = heapq.heappop(max_heap)
                 count += 1
+
                 if count < 0:
-                    heapq.heappush(maxHeap, (count, currTime, task))
-
-            if taskNotReady:
-                maxHeap.extend(taskNotReady)
-                taskNotReady = []
-                heapq.heapify(maxHeap)
-
-        return currTime
+                    cooldown_queue.append((time + n + 1, task, count))
 
 
-
-        
+        return time

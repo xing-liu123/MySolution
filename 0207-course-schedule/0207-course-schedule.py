@@ -6,21 +6,19 @@ class Solution:
         for u, v in prerequisites:
             indegree[v] += 1
             graph[u].append(v)
-
-        visited = set()
         
         def dfs(curr):
-            visited.add(curr)
+            indegree[curr] -= 1
 
             for next_course in graph[curr]:
                 indegree[next_course] -= 1
                 
-                if not next_course in visited and indegree[next_course] == 0:
+                if indegree[next_course] == 0:
                     dfs(next_course)
         
         for i in range(numCourses):
             if indegree[i] == 0:
                 dfs(i) 
 
-        return len(visited) == numCourses
+        return sum(indegree) == -numCourses
 

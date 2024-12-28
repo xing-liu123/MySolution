@@ -1,77 +1,44 @@
-# class TrieNode:
-#     def __init__(self):
-#         self.children = {}
-#         self.val = -1
-
-# class Trie:
-#     def __init__(self):
-#         self.root = TrieNode()
-    
-#     def insert(self, path: list[str], val: int) -> bool:
-#         node = self.root
-        
-#         for i, p in enumerate(path):
-#             if p not in node.children:
-#                 if i == len(path) - 1:
-#                     node.children[path[i]] = TrieNode()
-#                 else:
-#                     return False
-                
-#             node = node.children[p]
-        
-#         if node.val != -1:
-#             return False
-        
-#         node.val = val
-        
-#         return True
-    
-#     def search(self, path: list[str]) -> int:
-#         node = self.root
-        
-#         for p in path:
-#             if p in node.children:
-#                 node = node.children[p]
-#             else:
-#                 return -1
-        
-#         return node.val       
-
-# class FileSystem:
-
-#     def __init__(self):
-#         self.trie = Trie()
-
-#     def createPath(self, path: str, value: int) -> bool:
-#         arr = path.split('/')
-#         return self.trie.insert([p for p in arr if p], value)
-
-#     def get(self, path: str) -> int:
-#         arr = path.split('/')
-#         return self.trie.search([p for p in arr if p])
+class TrieNode:
+    def __init__(self, name: str, val: int):
+        self.children = {}
+        self.name = name
+        self.val = val
 
 class FileSystem:
-
+    
     def __init__(self):
-        self.paths = defaultdict()
+        self.root = TrieNode("", -1)
 
     def createPath(self, path: str, value: int) -> bool:
+        curr = self.root
+        node = path.split("/")[1:]
+        curr_idx = 0
+
+        while curr_idx < len(node) and node[curr_idx] in curr.children:
+            curr = curr.children[node[curr_idx]]
+            curr_idx += 1
         
-        # Step-1: basic path validations
-        if path == "/" or len(path) == 0 or path in self.paths:
+        if curr_idx != len(node) - 1:
             return False
         
-        # Step-2: if the parent doesn't exist. Note that "/" is a valid parent.
-        parent = path[:path.rfind('/')]
-        if len(parent) > 1 and parent not in self.paths:
-            return False
-        
-        # Step-3: add this new path and return true.
-        self.paths[path] = value
+        curr.children[node[curr_idx]] = TrieNode(node[-1], value)
         return True
 
     def get(self, path: str) -> int:
-        return self.paths.get(path, -1)
+        curr = self.root
+        node = path.split("/")[1:]
+        curr_idx = 0
+
+        while curr_idx < len(node) and node[curr_idx] in curr.children:
+            curr = curr.children[node[curr_idx]]
+            curr_idx += 1
+        
+        if curr_idx != len(node):
+            return -1
+
+        return curr.val
+
+
 
 # Your FileSystem object will be instantiated and called as such:
 # obj = FileSystem()

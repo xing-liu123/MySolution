@@ -7,7 +7,6 @@ class WordDictionary:
     def __init__(self):
         self.root = Node()
         
-
     def addWord(self, word: str) -> None:
         curr = self.root
 
@@ -20,25 +19,26 @@ class WordDictionary:
         curr.end = True
 
     def search(self, word: str) -> bool:
-        def searchFromNode(currWord, currNode):
+        stack = [(self.root, word)]
+
+        while stack:
+            currNode, currWord = stack.pop()
+
             if not currWord:
-                return currNode.end
+                if currNode.end:
+                    return True
+                continue
             
-            c = currWord[0]
-
-            if c == ".":
+            if currWord[0] == ".":
                 for nextNode in currNode.children.values():
-                    if searchFromNode(currWord[1:], nextNode):
-                        return True
-                
-                return False
-
-            if not c in currNode.children:
-                return False
+                    stack.append((nextNode, currWord[1:]))
             else:
-                return searchFromNode(currWord[1:], currNode.children[c])
-                    
-        return searchFromNode(word, self.root)
+                if currWord[0] in currNode.children:
+                    stack.append((currNode.children[currWord[0]], currWord[1:]))
+
+        return False
+        
+
 
 
 

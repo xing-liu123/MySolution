@@ -6,9 +6,6 @@ class WordDistance:
 
         for idx, word in enumerate(wordsDict):
             self.index_map[word].append(idx)
-            if idx > 0 and wordsDict[idx - 1] != word and not (word, wordsDict[idx - 1]) in self.distance_map:
-                self.distance_map[(wordsDict[idx - 1], word)] = 1
-
         
 
     def shortest(self, word1: str, word2: str) -> int:

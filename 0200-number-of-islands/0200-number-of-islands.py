@@ -1,54 +1,48 @@
-from collections import deque
 class Solution:
 
     def numIslands(self, grid: List[List[str]]) -> int:
         m, n = len(grid), len(grid[0])
-        dr, dc = [1, -1, 0, 0], [0, 0, 1, -1]
-
+        dr, dc = [1, -1, 0, 0], [0, 0, 1, -1] # right, left, up, down
         count = 0
 
-        def bfs(x, y):
-            queue = deque([(x, y)])
-            grid[x][y] = "0"
+        def dfs(row, col):
+            grid[row][col] = "0"
 
-            while queue:
-                size = len(queue)
+            for k in range(4):
+                next_row = row + dr[k]
+                next_col = col + dc[k]
 
-                for _ in range(size):
-                    x, y = queue.pop()
-                    for k in range(4):
-                        nx, ny = x + dr[k], y + dc[k]
-
-                        if 0 <= nx < m and 0 <= ny < n and grid[nx][ny] == "1":
-                            queue.appendleft((nx, ny))
-                            grid[nx][ny] = "0"
-
+                if 0 <= next_row < m and 0 <= next_col < n and grid[next_row][next_col] == "1":
+                    dfs(next_row, next_col)
+        
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == "1":
-                    bfs(i, j)
                     count += 1
+                    dfs(i, j)
 
         return count
 
 
-        # def dfs(row, col):
-        #     grid[row][col] = "0"
+        # count = 0
 
-        #     for k in range(4):
-        #         newRow = row + dr[k]
-        #         newCol = col + dc[k]
+        # def bfs(x, y):
+        #     queue = deque([(x, y)])
+        #     grid[x][y] = "0"
 
-        #         if 0 <= newRow < m and 0 <= newCol < n and grid[newRow][newCol] == "1":
-        #             dfs(newRow, newCol)
+        #     while queue:
+        #         size = len(queue)
 
-        # for i in range(m):
-        #     for j in range(n):
-        #         if grid[i][j] == "1":
-        #             count += 1
-        #             dfs(i, j)
+        #         for _ in range(size):
+        #             x, y = queue.pop()
+        #             for k in range(4):
+        #                 nx, ny = x + dr[k], y + dc[k]
 
-        # return count
+        #                 if 0 <= nx < m and 0 <= ny < n and grid[nx][ny] == "1":
+        #                     queue.appendleft((nx, ny))
+        #                     grid[nx][ny] = "0"
+
+        
 
 
 

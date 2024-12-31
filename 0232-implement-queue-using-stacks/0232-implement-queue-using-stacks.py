@@ -6,20 +6,23 @@ class MyQueue:
         
 
     def push(self, x: int) -> None:
-        while self.stackB:
-            self.stackA.append(self.stackB.pop())
         self.stackA.append(x)
 
     def pop(self) -> int:
-        while self.stackA:
-            self.stackB.append(self.stackA.pop())
-        return self.stackB.pop()
+        if self.stackB:
+            return self.stackB.pop()
+        else:
+            while self.stackA:
+                self.stackB.append(self.stackA.pop())
+            return self.stackB.pop()
 
     def peek(self) -> int:
-        while self.stackA:
-            self.stackB.append(self.stackA.pop())
-        return self.stackB[-1]
-        
+        if self.stackB:
+            return self.stackB[-1]
+        else:
+            while self.stackA:
+                self.stackB.append(self.stackA.pop())
+            return self.stackB[-1]
 
     def empty(self) -> bool:
         return not self.stackA and not self.stackB

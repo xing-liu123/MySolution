@@ -1,37 +1,27 @@
 from collections import deque
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        wordSet = set(wordList)
+        word_set = set(wordList)
+        checked_word = set()
 
-        if len(wordSet) == 0 or not endWord in wordSet:
+        if not endWord in word_set:
             return 0
 
-        graph = {}
-        chars_to_try = string.ascii_lowercase
-
-        queue = deque([beginWord])
-        length = 1
+        queue = deque([(beginWord, 1)])
+        
 
         while queue:
-            length += 1
-            size = len(queue)
+            word, length = queue.popleft()
+            checked_word.add(word)
 
-            for _ in range(size):
-                word = queue.popleft()
+            for i in range(len(word)):
+                for j in range(26):
+                    next_word = word[:i] + chr(ord('a') + j) + word[i + 1:]
 
-                for i in range(len(word)):
-                    for char in chars_to_try:
-                        new_word = word[:i] + char + word[i + 1:]
+                    if next_word == endWord:
+                        return length + 1
 
-                        if new_word == endWord:
-                            return length
-
-                        if new_word in wordSet:
-                            wordSet.remove(new_word)
-                            queue.append(new_word)
+                    if not next_word in checked_word and next_word in word_set:
+                        queue.append((next_word, length + 1))
 
         return 0
-
-
-
-            

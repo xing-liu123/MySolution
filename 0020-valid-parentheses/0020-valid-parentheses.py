@@ -3,31 +3,22 @@ class Solution:
         stack = []
 
         for c in s:
-            if c == "(" or c == "{" or c == "[":
+            if c == "[" or c == "(" or c == "{":
                 stack.append(c)
-            elif c == ")":
-                if not stack:
-                    return False
-
-                if stack[-1] == "(":
-                    stack.pop()
-                else:
-                    return False
             elif c == "]":
-                if not stack:
+                if not stack or stack[-1] != "[":
                     return False
-
-                if stack[-1] == "[":
-                    stack.pop()
                 else:
-                    return False
+                    stack.pop()
             elif c == "}":
-                if not stack:
+                if not stack or stack[-1] != "{":
                     return False
-
-                if stack[-1] == "{":
-                    stack.pop()
                 else:
+                    stack.pop()
+            elif c == ")":
+                if not stack or stack[-1] != "(":
                     return False
+                else:
+                    stack.pop()
 
         return len(stack) == 0

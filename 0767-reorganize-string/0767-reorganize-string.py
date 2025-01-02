@@ -1,59 +1,39 @@
+import heapq
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        charCounts = defaultdict(int)
+        char_counts = defaultdict(int)
 
         for c in s:
-            charCounts[c] += 1
+            char_counts[c] += 1
 
-        maxHeap = [(-count, char) for char, count in charCounts.items()]
+        max_heap = [(-count, char) for char, count in char_counts.items()]
 
-        heapq.heapify(maxHeap)
+        heapq.heapify(max_heap)
+
         res = ""
-        temp = None
+        last_char = None
 
-        while maxHeap:
-            
-            count, char = heapq.heappop(maxHeap)
+        while max_heap:
+            count, char = heapq.heappop(max_heap)
 
             res += char
+
             count += 1
 
-            if temp:
-                heapq.heappush(maxHeap, temp)
+            if last_char:
+                heapq.heappush(max_heap, last_char)
+                last_char = None
 
             if count < 0:
-                if not maxHeap:
-                    return ""
+                last_char = (count, char)
 
-                temp = (count, char)
-            else:
-                temp = None
-        
-
-        if temp:
+        if last_char:
             return ""
 
-            # count, char = heapq.heappop(maxHeap)
-            
-            # if len(res) > 0 and res[-1] == char:
-            #     if maxHeap:
-            #         nextCount, nextChar = heapq.heappop(maxHeap)
-            #         res += nextChar
-            #         nextCount += 1
-
-            #         if nextCount < 0:
-            #             heapq.heappush(maxHeap, (nextCount, nextChar))
-            #         heapq.heappush(maxHeap, (count, char))
-            #     else:
-            #         return ""
-
-            # else:
-            #     res += char
-            #     count += 1
-
-            #     if count < 0:
-            #         heapq.heappush(maxHeap, (count, char))
-
         return res
+                
+        
+
+        
             
 

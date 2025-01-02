@@ -10,13 +10,13 @@ class Solution:
 
         heapq.heapify(max_heap)
 
-        res = ""
+        res = []
         last_char = None
 
         while max_heap:
             count, char = heapq.heappop(max_heap)
 
-            res += char
+            res.append(char)
 
             count += 1
 
@@ -30,7 +30,7 @@ class Solution:
         if last_char:
             return ""
 
-        return res
+        return ''.join(res)
                 
         
 

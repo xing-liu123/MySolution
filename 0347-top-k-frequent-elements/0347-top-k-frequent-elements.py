@@ -1,11 +1,8 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        counts = {}
+        char_counts = defaultdict(int)
 
         for num in nums:
-            counts[num] = counts.get(num, 0) + 1
+            char_counts[num] += 1
 
-        if len(counts) <= k:
-            return [val for val in counts.keys()]
-
-        return heapq.nlargest(k, counts, key=counts.get)
+        return heapq.nlargest(k, char_counts, key=char_counts.get)

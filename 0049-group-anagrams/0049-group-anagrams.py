@@ -1,15 +1,13 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        groups = defaultdict(list)
-
-        def getSortedStr(s):
-            chars = list(s)
-
-            return ''.join(sorted(chars)) 
+        strings = defaultdict(list)
 
         for s in strs:
-            groups[getSortedStr(s)].append(s)
+            sorted_str = ''.join(sorted(list(s)))
 
-        return [l for l in groups.values()]
+            strings[sorted_str].append(s)
+
+        return [group for group in strings.values()]
+
 
 

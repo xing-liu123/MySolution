@@ -1,28 +1,66 @@
 from collections import deque
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        # graph = defaultdict(list)
+        # indegree = [0] * numCourses
+
+        # for u, v in prerequisites:
+        #     graph[v].append(u)
+        #     indegree[u] += 1
+
+        # queue = deque([i for i in range(numCourses) if indegree[i] == 0])
+
+        # order = []
+
+        # while queue:
+        #     course = queue.popleft()
+        #     order.append(course)
+
+        #     for next_course in graph[course]:
+        #         indegree[next_course] -= 1
+
+        #         if indegree[next_course] == 0:
+        #             queue.append(next_course)
+
+        # return order if len(order) == numCourses else []
+
         graph = defaultdict(list)
-        indegree = [0] * numCourses
 
-        for u, v in prerequisites:
-            graph[v].append(u)
-            indegree[u] += 1
+        for course, preq in prerequisites:
+            graph[preq].append(course)
 
-        queue = deque([i for i in range(numCourses) if indegree[i] == 0])
 
         order = []
+        has_cycle = False
 
-        while queue:
-            course = queue.popleft()
+        visited = [0] * numCourses # 0: unvisited, 1: visiting, 2: visited
+
+        def dfs(course):
+            nonlocal has_cycle
+
+            if visited[course] == 1:
+                has_cycle = True
+                return
+            
+            if visited[course] == 2:
+                return
+
+            visited[course] = 1
+
+            for neighbor in graph[course]:
+                dfs(neighbor)
+
             order.append(course)
+            visited[course] = 2
 
-            for next_course in graph[course]:
-                indegree[next_course] -= 1
+        
+        for i in range(numCourses):
+            if visited[i] == 0:
+                dfs(i)
+                if has_cycle:
+                    return []
 
-                if indegree[next_course] == 0:
-                    queue.append(next_course)
-
-        return order if len(order) == numCourses else []
+        return order[::-1]
 
 
         

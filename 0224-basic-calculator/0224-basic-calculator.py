@@ -1,41 +1,37 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        stack = []  # Stack to handle parentheses and intermediate results
-        current_number = 0  # Current number being processed
-        current_sign = 1  # Current sign: +1 for positive, -1 for negative
-        result = 0  # Cumulative result
+        stack = []
+        current_num = 0
+        current_sign = 1
+        result = 0
 
-        for char in s:
-            if char.isdigit():
-                # Build the current number
-                current_number = current_number * 10 + int(char)
-            elif char == '+':
-                # Apply the current number and reset
-                result += current_sign * current_number
-                current_number = 0
-                current_sign = 1  # Update to positive sign
-            elif char == '-':
-                # Apply the current number and reset
-                result += current_sign * current_number
-                current_number = 0
-                current_sign = -1  # Update to negative sign
-            elif char == '(':
-                # Push the current result and sign onto the stack
+        for c in s:
+            if c.isdigit():
+                current_num = current_num * 10 + int(c)
+            elif c == "+":
+                result = result + current_sign * current_num
+                current_num = 0
+                current_sign = 1
+            elif c == "-":
+                result = result + current_sign * current_num
+                current_num = 0
+                current_sign = -1
+            elif c == "(":
                 stack.append(result)
                 stack.append(current_sign)
-                # Reset result and sign for the new subexpression
                 result = 0
                 current_sign = 1
-            elif char == ')':
-                # Apply the current number to the result
-                result += current_sign * current_number
-                current_number = 0
-                # Pop the sign and previous result from the stack
+            elif c == ")":
+                result = result + current_sign * current_num
+                current_num = 0
                 current_sign = stack.pop()
                 result = stack.pop() + current_sign * result
 
-        # Apply the last number in the string
-        result += current_sign * current_number
+        result += current_sign * current_num
+
         return result
+            
+
+            
 
         

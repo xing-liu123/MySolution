@@ -1,20 +1,19 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        for i in range(1, len(nums)):
-            nums[i] += nums[i - 1]
-
-        sum_map = {}
-        sum_map[0] = 1
-
+        n = len(nums)
+        sum_counts = defaultdict(int)
+        sum_counts[0] = 1
+        curr_sum = 0
         count = 0
 
-        for s in nums:
-            if s - k in sum_map:
-                count += sum_map[s - k]
-            
-            if s in sum_map:
-                sum_map[s] += 1
-            else:
-                sum_map[s] = 1
+        for i in range(n):
+            curr_sum += nums[i]
+            target = curr_sum - k
 
+            count += sum_counts[target]
+            sum_counts[curr_sum] += 1
+            
         return count
+        
+
+        

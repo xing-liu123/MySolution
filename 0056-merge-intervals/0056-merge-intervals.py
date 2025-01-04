@@ -3,12 +3,11 @@ class Solution:
         intervals.sort()
         res = []
 
-        for left, right in intervals:
-            if not res or left > res[-1][1]:
-                res.append([left, right])
+        for start, end in intervals:
+            if not res or start > res[-1][1]:
+                res.append([start, end])
             else:
-                res[-1][1] = max(right, res[-1][1])
+                res[-1][1] = max(res[-1][1], end)
 
         return res
-
             

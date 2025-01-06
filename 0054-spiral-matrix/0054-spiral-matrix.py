@@ -1,48 +1,44 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        list = []
-        m = len(matrix)
-        n = len(matrix[0])
+        res = []
 
-        if m == 1:
-            return matrix[0]
-        
-        if n == 1:
-            list = [item for row in matrix for item in row]
-            return list
+        m, n = len(matrix), len(matrix[0])
 
-        status = 0
+        size = m * n
+        row, col = 0, 0
+        direction = 0 if n > 1 else 1 # 0: right, 1: down, 2: left, 3: right
+        top, left, bottom, right = 1, 0, m - 1, n - 1
 
-        top = 1
-        left = 0
-        right = n - 1
-        bottom = m - 1
+        while len(res) < size:
+            print(row, col)
+            res.append(matrix[row][col])
 
-        i = 0
-        j = 0
-        while len(list) < m * n:
-            print(list)
-            list.append(matrix[i][j])
-           
-            if status == 0:
-                j += 1
-                if j == right:
+            if direction == 0:
+                col += 1
+
+                if col == right:
+                    direction = 1
                     right -= 1
-                    status = 1
-            elif status == 1:
-                i += 1
-                if i == bottom:
+
+            elif direction == 1:
+                row += 1
+
+                if row == bottom:
+                    direction = 2
                     bottom -= 1
-                    status = 2
-            elif status == 2:
-                j -= 1
-                if j == left:
+
+            elif direction == 2:
+                col -= 1
+
+                if col == left:
+                    direction = 3
                     left += 1
-                    status = 3
             else:
-                i -= 1
-                if i == top:
+                row -= 1
+
+                if row == top:
+                    direction = 0
                     top += 1
-                    status = 0
-        
-        return list
+
+        return res
+

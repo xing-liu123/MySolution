@@ -1,20 +1,21 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
+        n = len(s)
         char_counts = defaultdict(int)
-
-        left = 0
         longest = 0
+        left = 0
 
-        for right in range(len(s)):
-            c = s[right]
+        for right in range(n):
+            char_counts[s[right]] += 1
 
-            char_counts[c] += 1
-
-            while char_counts[c] > 1:
-                c_left = s[left]
-                char_counts[c_left] -= 1
+            while char_counts[s[right]] > 1:
+                char_counts[s[left]] -= 1
                 left += 1
 
             longest = max(longest, right - left + 1)
 
         return longest
+        
+
+
+        

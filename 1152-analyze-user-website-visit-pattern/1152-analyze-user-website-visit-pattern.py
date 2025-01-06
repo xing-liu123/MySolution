@@ -1,24 +1,37 @@
-from collections import defaultdict, Counter
-from itertools import combinations
-from typing import List
+class Visit:
+    def __init__(self, time, web):
+        self.time = time
+        self.web = web
+
 class Solution:
     def mostVisitedPattern(self, username: List[str], timestamp: List[int], website: List[str]) -> List[str]:
-        # Step 1: Sort by timestamp and group visits by username
-        sorted_data = sorted(zip(timestamp, username, website))
-        visit_map = defaultdict(list)
-        for _, user, web in sorted_data:
-            visit_map[user].append(web)
+        user_visit = defaultdict(list)
 
-        # Step 2: Generate all 3-sequences and count their occurrences
+        for user, time, web in zip(username, timestamp, website):
+            user_visit[user].append((time, web))
+
         pattern_count = Counter()
-        for visits in visit_map.values():
-            # Use set to avoid counting duplicate patterns for a single user
-            unique_patterns = set(combinations(visits, 3))
-            for pattern in unique_patterns:
-                pattern_count[pattern] += 1
 
-        # Step 3: Sort by count (descending), then lexicographically
-        sorted_patterns = sorted(pattern_count.items(), key=lambda x: (-x[1], x[0]))
+        for visit_list in user_visit.values():
+            visit_list.sort()
+            pattern_set = set()
 
-        # Step 4: Return the most frequent pattern
-        return list(sorted_patterns[0][0])
+            n = len(visit_list)
+
+            for i in range(n):
+                for j in range(i + 1, n):
+                    for k in range(j + 1, n):
+                        pattern = (visit_list[i][1], visit_list[j][1], visit_list[k][1])
+                        if not pattern in pattern_set:
+                            pattern_set.add(pattern)
+                            pattern_count[pattern] += 1
+            
+        sorted_pattern = sorted(pattern_count.items(), key=lambda x: (-x[1], x[0]))
+
+        return list(sorted_pattern[0][0])
+
+                
+
+        
+
+        

@@ -1,6 +1,6 @@
 class Solution:
     def reverseWords(self, s: str) -> str:
-        str_list = [string for string in s.split(" ") if string != ""]
+        str_list = s.strip().split()
 
         left, right = 0, len(str_list) - 1
 

@@ -1,23 +1,23 @@
 class Solution:
-    def __init__(self):
-        self.path = []
-        self.res = []
-        self.map = [["a", "b", "c"], ["d", "e", "f"], ["g", "h", "i"], ["j", "k", "l"], ["m", "n", "o"], ["p", "q", "r", "s"], ["t", "u", "v"], ["w", "x", "y", "z"]] 
-
-
     def letterCombinations(self, digits: str) -> List[str]:
+        path = []
+        res = []
         if len(digits) == 0:
-            return self.res
-            
-        self.backtracking(digits, 0)
-        return self.res
-    
-    def backtracking(self, digits: str, idx: int):
-        if idx == len(digits):
-            self.res.append(''.join(self.path))
-            return
+            return res
 
-        for d in self.map[int(digits[idx]) - 2]:
-            self.path.append(d)
-            self.backtracking(digits, idx + 1)
-            self.path.pop()
+        key_map = [["a", "b", "c"], ["d", "e", "f"], ["g", "h", "i"], ["j", "k", "l"], ["m", "n", "o"], ["p", "q", "r", "s"], ["t", "u", "v"], ["w", "x", "y", "z"]] 
+
+        def backtrack(idx):
+            if len(path) == len(digits):
+                res.append(''.join(path))
+                return
+
+            keys = key_map[ord(digits[idx]) - ord('2')]
+
+            for key in keys:
+                path.append(key)
+                backtrack(idx + 1)
+                path.pop()
+
+        backtrack(0)
+        return res

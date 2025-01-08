@@ -6,28 +6,29 @@ class Solution:
         if not endWord in word_set:
             return 0
 
-        alphabet = string.ascii_lowercase
-
         queue = deque([beginWord])
+
         length = 1
 
-        
         while queue:
-            length += 1
             size = len(queue)
-            
+            length += 1
+
             for _ in range(size):
                 word = queue.popleft()
 
                 for i in range(len(word)):
-                    for c in alphabet:
-                        next_word = word[:i] + c + word[i + 1:]
-
-                        if next_word == endWord:
-                            return length
+                    for j in range(26):
+                        next_word = word[:i] + chr(ord('a') + j) + word[i + 1:]
 
                         if next_word in word_set:
-                            word_set.remove(next_word)
-                            queue.append(next_word)
+                            if next_word == endWord:
+                                return length
 
+                            queue.append(next_word)
+                            word_set.remove(next_word)
+            print(queue)
         return 0
+                        
+
+            

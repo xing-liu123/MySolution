@@ -8,8 +8,6 @@ class Solution:
         if not head or not head.next:
             return head
 
-        dummy = ListNode(0, head)
-
         odd = head
         even = head.next
         even_head = even
@@ -17,13 +15,13 @@ class Solution:
         while even and even.next:
             odd.next = even.next
             odd = odd.next
-
             even.next = odd.next
             even = even.next
 
         odd.next = even_head
 
         return head
+        
         
 
         

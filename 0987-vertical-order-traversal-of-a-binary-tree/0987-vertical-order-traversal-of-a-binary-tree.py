@@ -6,23 +6,25 @@
 #         self.right = right
 class Solution:
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
-        columns = defaultdict(list)
+        nodes = []
 
-        def traverse(curr, curr_row, curr_col):
+        def traverse(curr, row, col):
             if not curr:
                 return
 
-            columns[curr_col].append((curr_row, curr.val))
-            traverse(curr.left, curr_row + 1, curr_col - 1)
+            nodes.append((col, row, curr.val))
+            traverse(curr.left, row + 1, col - 1)
 
-            traverse(curr.right, curr_row + 1, curr_col + 1)
+            traverse(curr.right, row + 1, col + 1)
 
         traverse(root, 0, 0)
 
-        columns = [columns[key] for key in sorted(columns.keys())]
-        res = []
-        for col in columns:
-            res.append([val for _, val in sorted(col)])
+        nodes.sort()
 
-        return res
+        columns = defaultdict(list)
+
+        for col, row, val in nodes:
+            columns[col].append(val)
+
+        return [columns[key] for key in sorted(columns)]
 

@@ -7,24 +7,20 @@ class Solution:
 
 
         def search(left, right, top, bottom):
+            if left > right or top > bottom:
+                return False
             
-            while left <= right and top <= bottom:
-                col = (left + right) // 2
-                row = (top + bottom) // 2
-                val = matrix[row][col]
+            col = (left + right) // 2
+            row = (top + bottom) // 2
+            val = matrix[row][col]
 
-                if val == target:
-                    return True
-                elif val > target:
-                    return (search(left, right, top, row - 1) or search(left, col - 1, row, bottom))
+            if val == target:
+                return True
+            elif val > target:
+                return (search(left, right, top, row - 1) or search(left, col - 1, row, bottom))       
+            else:
+                return (search(left, right, row + 1, bottom) or search(col + 1, right, top, row))
 
-                        
-
-                        
-                else:
-                    return (search(left, right, row + 1, bottom) or search(col + 1, right, top, row))
-
-            return False
 
         return search(0, n - 1, 0, m - 1)
                     

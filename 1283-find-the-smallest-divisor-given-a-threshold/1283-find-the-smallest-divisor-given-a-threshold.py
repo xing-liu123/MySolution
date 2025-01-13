@@ -4,6 +4,7 @@ class Solution:
         right = max(nums)
 
         def compute(div):
+
             res = 0
             for num in nums:
                 res += (num - 1) // div + 1
@@ -15,9 +16,7 @@ class Solution:
 
             res = compute(mid)
 
-            if res == threshold:
-                return mid
-            elif res > threshold:
+            if res > threshold:
                 left = mid + 1
             else:
                 right = mid - 1

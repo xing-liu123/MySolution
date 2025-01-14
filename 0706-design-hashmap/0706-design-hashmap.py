@@ -10,9 +10,26 @@ class MyHashMap:
     def hash(self, key: int):
         return key % self.capacity
 
+    def nextPrime(self, n):
+        def isPrime(x):
+            if x < 2:
+                return False
+            
+            for i in range(2, int(x ** 0.5) + 1):
+                if x % i == 0:
+                    return False
+
+            return True
+
+        while not isPrime(n):
+            n += 1
+
+        return n
+
+
     def rehash(self):
         old_backing_arr = self.backing_arr
-        self.capacity *= 2
+        self.capacity  = self.nextPrime(self.capacity * 2)
 
         self.backing_arr = [None] * self.capacity
 

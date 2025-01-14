@@ -1,7 +1,5 @@
 class Solution:
     def canMakeSubsequence(self, str1: str, str2: str) -> bool:
-        char_counts = Counter(str1)
-
         idx1 = idx2 = 0
 
         while idx1 < len(str1) and idx2 < len(str2):

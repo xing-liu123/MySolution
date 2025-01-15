@@ -26,20 +26,20 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        values = iter(data.split(','))  # Create an iterator for the values
+        values = iter(data.split(","))
 
         def build():
             val = next(values)
             if val == "#":
-                return None  # Null node
+                return None
 
-            node = TreeNode(int(val))  # Create a new node
-            node.left = build()  # Recursively build the left subtree
-            node.right = build()  # Recursively build the right subtree
+            node = TreeNode(int(val))
+            node.left = build()
+            node.right = build()
+
             return node
 
         return build()
-
         
 
 # Your Codec object will be instantiated and called as such:

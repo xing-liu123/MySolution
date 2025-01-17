@@ -1,24 +1,22 @@
 class Solution:
-    def __init__(self):
-        self.path = []
-        self.res = []
-        self.used = []
+
     def permute(self, nums: List[int]) -> List[List[int]]:
-        self.used = [0] * len(nums)
-        self.backtracking(nums)
-        return self.res
-    
-    def backtracking(self, nums: List[int]):
-        if len(self.path) == len(nums):
-            self.res.append(copy.copy(self.path))
-            return
+        path = []
+        res = []
+        used = [False] * len(nums)
 
-        for i in range(len(nums)):
-            if self.used[i]:
-                continue
+        def backtracking():
+            if len(path) == len(nums):
+                res.append(copy.copy(path))
+                return
 
-            self.path.append(nums[i])
-            self.used[i] = True
-            self.backtracking(nums)
-            self.path.pop()
-            self.used[i] = False
+            for i in range(len(nums)):
+                if not used[i]:
+                    path.append(nums[i])
+                    used[i] = True
+                    backtracking()
+                    used[i] = False
+                    path.pop()
+
+        backtracking()
+        return res

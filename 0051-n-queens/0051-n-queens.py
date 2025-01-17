@@ -3,26 +3,26 @@ class Solution:
         res = []
         board = [["."] * n for _ in range(n)]
 
-        def solve(currRow: int):
-            if currRow == n:
-                res.append([''.join(row) for row in board])
+        def solve(row):
+            if row == n:
+                res.append(["".join(r) for r in board])
                 return
-
+            
             for col in range(n):
-                if isValid(currRow, col):
-                    board[currRow][col] = "Q"
-                    solve(currRow + 1)
-                    board[currRow][col] = "."
+                if isValid(row, col):
+                    board[row][col] = "Q"
+                    solve(row + 1)
+                    board[row][col] = "."
 
-        def isValid(row: int, col: int) -> bool:
-            # Check this col
+        def isValid(row, col):
+            # check upper
             for i in range(row):
                 if board[i][col] == "Q":
                     return False
 
-            # Check upper left
-            i = row - 1
-            j = col - 1
+            # check upper-left
+
+            i, j = row - 1, col - 1
 
             while i >= 0 and j >= 0:
                 if board[i][j] == "Q":
@@ -30,9 +30,7 @@ class Solution:
                 i -= 1
                 j -= 1
 
-            # Check upper right
-            i = row - 1
-            j = col + 1
+            i, j = row - 1, col + 1
 
             while i >= 0 and j < n:
                 if board[i][j] == "Q":
@@ -43,4 +41,6 @@ class Solution:
             return True
 
         solve(0)
+
         return res
+        

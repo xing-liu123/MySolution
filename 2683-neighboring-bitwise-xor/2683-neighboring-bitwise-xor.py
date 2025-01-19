@@ -1,8 +1,8 @@
 class Solution:
     def doesValidArrayExist(self, derived: List[int]) -> bool:
         if len(derived) == 1:
-            return False
-            
+            return derived[0] == 0
+
         def isValid(prev, curr):
             start = prev
 

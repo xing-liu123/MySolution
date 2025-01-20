@@ -1,23 +1,26 @@
 class Solution:
     def doesValidArrayExist(self, derived: List[int]) -> bool:
-        if len(derived) == 1:
+        n = len(derived)
+        
+        if n == 1:
+            # Special case: only one element
             return derived[0] == 0
 
-        def isValid(prev, curr):
-            start = prev
+        # Try both possible starting points for original[0]
+        for start in [0, 1]:
+            current = start
+            valid = True
+            
+            for i in range(n):
+                # Compute the next element in original
+                next_val = current ^ derived[i]
+                current = next_val
 
-            for i in range(1, len(derived) - 1):
-                if derived[i] == 0:
-                    prev, curr = curr, curr
-                else:
-                    prev, curr = curr, 1 - curr
+                # For the last element, check cyclic consistency
+                if i == n - 1 and current != start:
+                    valid = False
+            
+            if valid:
+                return True
 
-            if derived[-1] == 1:
-                return start != curr
-            else:
-                return start == curr
-
-        if derived[0] == 1:
-            return isValid(1, 0) or isValid(0, 1)
-        else:
-            return isValid(0, 0) or isValid(1, 1)
+        return False

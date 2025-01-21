@@ -11,7 +11,6 @@ class Solution:
         last_char = None
 
         while max_heap:
-            print(max_heap)
             count, char = heappop(max_heap)
 
             res += char

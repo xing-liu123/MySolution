@@ -11,12 +11,10 @@ class Solution:
             if open_count < n:
                 path[idx] = "("
                 generate(idx + 1, open_count + 1, close_count)
-                path[idx] = ""
 
             if close_count < open_count:
                 path[idx] = ")"
                 generate(idx + 1, open_count, close_count + 1)
-                path[idx] = ""
         
         generate(0, 0, 0)
 

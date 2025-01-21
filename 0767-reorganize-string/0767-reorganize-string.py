@@ -1,38 +1,31 @@
-import heapq
+from collections import Counter
+from heapq import heapify, heappop, heappush
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        char_counts = defaultdict(int)
-
-        for c in s:
-            char_counts[c] += 1
+        char_counts = Counter(s)
 
         max_heap = [(-count, char) for char, count in char_counts.items()]
+        heapify(max_heap)
 
-        heapq.heapify(max_heap)
-
-        res = []
+        res = ""
         last_char = None
 
         while max_heap:
-            count, char = heapq.heappop(max_heap)
+            print(max_heap)
+            count, char = heappop(max_heap)
 
-            res.append(char)
-
+            res += char
             count += 1
 
             if last_char:
-                heapq.heappush(max_heap, last_char)
+                heappush(max_heap, last_char)
                 last_char = None
 
             if count < 0:
                 last_char = (count, char)
 
-        if last_char:
-            return ""
+        return res if not last_char else ""
 
-        return ''.join(res)
-                
-        
 
         
             

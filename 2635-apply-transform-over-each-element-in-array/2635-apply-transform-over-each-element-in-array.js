@@ -10,11 +10,15 @@ var map = function(arr, fn) {
     // }
 
     // for (let i = 0; i < arr.length; i++) {
-    //     newArr[i] = fn(arr[i], i)
+    //     newArr[i] = fn(arr[i], i);
     // }
 
-    for (const [i, val] of arr.entries()) {
-        newArr[i] = fn(val, i)
-    }
+    // for (const [i, val] of arr.entries()) {
+    //     newArr[i] = fn(val, i);
+    // }
+
+    arr.forEach((val, i) => {
+        newArr[i] = fn(val, i);
+    })
     return newArr;
 };

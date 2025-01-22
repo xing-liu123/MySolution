@@ -9,8 +9,12 @@ var map = function(arr, fn) {
     //     newArr[i] = fn(arr[i], Number(i));
     // }
 
-    for (let i = 0; i < arr.length; i++) {
-        newArr[i] = fn(arr[i], i)
+    // for (let i = 0; i < arr.length; i++) {
+    //     newArr[i] = fn(arr[i], i)
+    // }
+
+    for (const [i, val] of arr.entries()) {
+        newArr[i] = fn(val, i)
     }
     return newArr;
 };

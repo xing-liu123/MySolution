@@ -1,27 +1,85 @@
+from collections import deque
+
+class Trie:
+    def __init__(self):
+        self.parent = {}
+
+    def find(self, u):
+        if self.parent[u] != u:
+            self.parent[u] = self.find(self.parent[u])
+
+        return self.parent[u]
+
+    def join(self, u, v):
+        root_u = self.find(u)
+        root_v = self.find(v)
+
+        if root_u != root_v:
+            self.parent[root_u] = root_v
+
+    def add(self, u):
+        if u not in self.parent:
+            self.parent[u] = u
+
+
 class Solution:
 
     def numIslands(self, grid: List[List[str]]) -> int:
         m, n = len(grid), len(grid[0])
-        dr, dc = [1, -1, 0, 0], [0, 0, 1, -1] # right, left, up, down
-        count = 0
-
-        def dfs(row, col):
-            grid[row][col] = "0"
-
-            for k in range(4):
-                next_row = row + dr[k]
-                next_col = col + dc[k]
-
-                if 0 <= next_row < m and 0 <= next_col < n and grid[next_row][next_col] == "1":
-                    dfs(next_row, next_col)
         
+        trie = Trie()
+
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == "1":
-                    count += 1
-                    dfs(i, j)
+                    trie.add((i, j))
+                    if i > 0 and grid[i - 1][j] == "1":
+                        trie.join((i, j), (i - 1, j))
 
-        return count
+                    if j > 0 and grid[i][j - 1] == "1":
+                        trie.join((i, j), (i, j - 1))
+
+        unique_roots = set()
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == "1":
+                    unique_roots.add(trie.find((i, j)))
+
+        return len(unique_roots)
+
+        # def dfs(row, col):
+        #     grid[row][col] = "0"
+
+        #     for k in range(4):
+        #         next_row = row + dr[k]
+        #         next_col = col + dc[k]
+
+        #         if 0 <= next_row < m and 0 <= next_col < n and grid[next_row][next_col] == "1":
+        #             dfs(next_row, next_col)
+
+        # def bfs(row, col):
+        #     queue = deque([(row,col)])
+        #     grid[row][col] = "0"
+
+        #     while queue:
+        #         node = queue.popleft()
+
+        #         for k in range(4):
+        #             next_row = node[0] + dr[k]
+        #             next_col = node[1] + dc[k]
+
+        #             if 0 <= next_row < m and 0 <= next_col < n and grid[next_row][next_col] == "1":
+        #                 grid[next_row][next_col] = "0"
+        #                 queue.append((next_row, next_col))
+        
+        # for i in range(m):
+        #     for j in range(n):
+        #         if grid[i][j] == "1":
+        #             count += 1
+        #             # dfs(i, j)
+        #             bfs(i, j)
+
+        # return count
 
 
         # count = 0

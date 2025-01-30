@@ -5,19 +5,14 @@ class Solution:
         for x, y, r in circles:
             top = y + r
             bot = y - r
-            dx = 0
+            squaredR = r * r
 
-            print(top, bot)
+            for row in range(bot, top + 1):
+                 dx = 0
 
-            for row in range(bot, y + 1):
-                for col in range(x - dx, x + dx + 1):
-                    pointSet.add((col, row))
-                dx += 1
-
-            dx = 0
-            for row in range(top, y, -1):
-                for col in range(x - dx, x + dx + 1):
-                    pointSet.add((col, row))
-                dx += 1
+                 while dx ** 2 + (row - y) ** 2 <= squaredR:
+                    pointSet.add((x + dx, row))
+                    pointSet.add((x - dx, row))
+                    dx += 1
 
         return len(pointSet)

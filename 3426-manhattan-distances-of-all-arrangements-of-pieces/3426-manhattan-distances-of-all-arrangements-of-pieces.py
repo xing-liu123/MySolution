@@ -12,8 +12,8 @@ class Solution:
             return total
         
         # Calculate total distances in each dimension
-        row_dist = oneDimension(n)
-        col_dist = oneDimension(m)
+        row_dist = oneDimension(n) % MOD
+        col_dist = oneDimension(m) % MOD
         
         # Each distance in row can pair with n positions in column
         # Each distance in column can pair with m positions in row

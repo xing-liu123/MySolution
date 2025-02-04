@@ -5,36 +5,30 @@ class MedianFinder:
         self.minHeap = []
 
     def addNum(self, num: int) -> None:
-        if not self.maxHeap and not self.minHeap:
-            heapq.heappush(self.maxHeap, -num)
-            return
-        elif not self.minHeap:
-            if -self.maxHeap[0] <= num:
-                heapq.heappush(self.minHeap, num)
-            else:
-                heapq.heappush(self.minHeap, -heapq.heappop(self.maxHeap))
-                heapq.heappush(self.maxHeap, -num)
-        elif not self.maxHeap:
-            if self.minHeap[0] >= num:
-                heapq.heappush(self.maxHeap, -num)
-            else:
-                heapq.heappush(self.maxHeap, -heapq.heappop(self.minHeap))
-                heapq.heappush(self.minHeap, num)
-        else:
-            if (len(self.maxHeap) + len(self.minHeap)) % 2 == 1:
-                if num >= -self.maxHeap[0]:
-                    heapq.heappush(self.minHeap, num)
-                else:
-                    heapq.heappush(self.minHeap, -heapq.heappop(self.maxHeap))
-                    heapq.heappush(self.maxHeap, -num)
-            else:
-                if num <= self.minHeap[0]:
-                    heapq.heappush(self.maxHeap, -num)
-                else:
-                    heapq.heappush(self.maxHeap, -heapq.heappop(self.minHeap))
-                    heapq.heappush(self.minHeap, num)
-        
-        
+        # if not self.maxHeap and not self.minHeap:
+        #     heapq.heappush(self.maxHeap, -num)
+        #     return
+        # elif not self.minHeap:
+        #     if -self.maxHeap[0] <= num:
+        #         heapq.heappush(self.minHeap, num)
+        #     else:
+        #         heapq.heappush(self.minHeap, -heapq.heappop(self.maxHeap))
+        #         heapq.heappush(self.maxHeap, -num)
+        # elif not self.maxHeap:
+        #     if self.minHeap[0] >= num:
+        #         heapq.heappush(self.maxHeap, -num)
+        #     else:
+        #         heapq.heappush(self.maxHeap, -heapq.heappop(self.minHeap))
+        #         heapq.heappush(self.minHeap, num)
+        # else:
+        heapq.heappush(self.maxHeap, -num)
+
+        if len(self.maxHeap) - len(self.minHeap) == 2:
+            heapq.heappush(self.minHeap, -heapq.heappop(self.maxHeap))
+        elif len(self.minHeap) != 0 and -self.maxHeap[0] > self.minHeap[0]:
+            val = heapq.heappop(self.minHeap)
+            heapq.heappush(self.minHeap, -heapq.heappop(self.maxHeap))
+            heapq.heappush(self.maxHeap, -val)
         
 
 

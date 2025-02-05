@@ -10,19 +10,15 @@ class Solution:
         while i > 0 and nums[i] <= nums[i - 1]:
             i -= 1
 
-        if i == 0:
-            nums.sort()
-            return
+        if i > 0:
+            j = n - 1
 
-        idxToSwap = i
+            while nums[j] <= nums[i - 1]:
+                j -= 1
 
-        for k in range(i, n):
-            if nums[k] > nums[i - 1] and nums[k] <= nums[idxToSwap]:
-                idxToSwap = k
+            nums[i - 1], nums[j] = nums[j], nums[i - 1]
 
-        nums[i - 1], nums[idxToSwap] = nums[idxToSwap], nums[i - 1]
-
-        nums[i:] = sorted(nums[i:])
+        nums[i:] = reversed(nums[i:])
 
 
 

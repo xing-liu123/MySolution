@@ -1,47 +1,48 @@
 class Solution:
     def removeInvalidParentheses(self, s: str) -> List[str]:
-        def is_valid(string):
-            """Helper function to check if a string has balanced parentheses."""
+        def isValid(s):
             count = 0
-            for char in string:
-                if char == '(':
+
+            for c in s:
+                if c == "(":
                     count += 1
-                elif char == ')':
+                elif c == ")":
                     count -= 1
+
                     if count < 0:
                         return False
-            return count == 0  # Valid if all open '(' are closed
 
-        queue = deque([s])  # BFS queue
-        visited = set([s])  # Avoid duplicates
-        found = False  # Flag to stop BFS when valid strings are found
-        result = []
+            return count == 0
+
+        queue = deque([s])
+        seen = set([s])
+        found = False
+        res = []
 
         while queue:
-            level_size = len(queue)
-            
-            for _ in range(level_size):
-                curr = queue.popleft()
-                
-                if is_valid(curr):
-                    result.append(curr)
-                    found = True  # Once we find valid strings, we don’t process further deletions
-                
-                if found:
-                    continue  # Stop processing more levels
+            size = len(queue)
 
-                for i in range(len(curr)):
-                    if curr[i].isalpha():  # Skip non-parentheses characters
+            for _ in range(size):
+                string = queue.popleft()
+
+                if isValid(string):
+                    res.append(string)
+                    found = True
+
+                if found:
+                    continue
+
+                for i in range(len(string)):
+                    if string[i].isalpha():
                         continue
 
-                    new_str = curr[:i] + curr[i + 1:]  # Remove character at index i
-                    
-                    if new_str not in visited:
-                        queue.append(new_str)
-                        visited.add(new_str)
-            
-            if found:
-                break  # Stop BFS when we find the first valid set
+                    new_string = string[:i] + string[i + 1:]
 
-        return result
-        
+                    if not new_string in seen:
+                        seen.add(new_string)
+                        queue.append(new_string)
+
+            if found:
+                break
+
+        return res

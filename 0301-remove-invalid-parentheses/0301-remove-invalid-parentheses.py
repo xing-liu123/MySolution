@@ -1,43 +1,47 @@
 class Solution:
     def removeInvalidParentheses(self, s: str) -> List[str]:
-        stack = []
-        remove_count = 0
+        def is_valid(string):
+            """Helper function to check if a string has balanced parentheses."""
+            count = 0
+            for char in string:
+                if char == '(':
+                    count += 1
+                elif char == ')':
+                    count -= 1
+                    if count < 0:
+                        return False
+            return count == 0  # Valid if all open '(' are closed
 
-        for c in s:
-            if c == "(":
-                stack.append(c)
-            elif c == ")":
-                if not stack:
-                    remove_count += 1
-                else:
-                    stack.pop()
+        queue = deque([s])  # BFS queue
+        visited = set([s])  # Avoid duplicates
+        found = False  # Flag to stop BFS when valid strings are found
+        result = []
 
-        expected_length = len(s) - remove_count - len(stack)
+        while queue:
+            level_size = len(queue)
+            
+            for _ in range(level_size):
+                curr = queue.popleft()
+                
+                if is_valid(curr):
+                    result.append(curr)
+                    found = True  # Once we find valid strings, we don’t process further deletions
+                
+                if found:
+                    continue  # Stop processing more levels
 
-        res = set()
-        curr = []
+                for i in range(len(curr)):
+                    if curr[i].isalpha():  # Skip non-parentheses characters
+                        continue
 
-        def backtrack(left, right, idx1, idx2):
-            if idx1 == expected_length:
-                res.add(''.join(curr))
-                return
+                    new_str = curr[:i] + curr[i + 1:]  # Remove character at index i
+                    
+                    if new_str not in visited:
+                        queue.append(new_str)
+                        visited.add(new_str)
+            
+            if found:
+                break  # Stop BFS when we find the first valid set
 
-            for i in range(idx2, len(s)):
-                if s[i] == "(":
-                    curr.append("(")
-                    backtrack(left + 1, right, idx1 + 1, i + 1)
-                    curr.pop()
-                elif s[i] == ")":
-                    if right < left:
-                        curr.append(")")
-                        backtrack(left, right + 1, idx1 + 1, i + 1)
-                        curr.pop()
-                else:
-                    curr.append(s[i])
-                    backtrack(left, right, idx1 + 1, i + 1)
-                    curr.pop()
-
-        backtrack(0, 0, 0, 0)
-
-        return list(res)
+        return result
         

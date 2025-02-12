@@ -31,6 +31,7 @@ class Solution:
         #     else:
         #         low = partition1 + 1
 
+
         if len(nums1) > len(nums2):
             nums1, nums2 = nums2, nums1
 
@@ -42,22 +43,22 @@ class Solution:
             p1 = (low + high) // 2
             p2 = (m + n + 1) // 2 - p1
 
-            max_left1 = float("-inf") if p1 == 0 else nums1[p1 - 1]
-            min_right1 = float("inf") if p1 == m else nums1[p1]
+            maxLeft1 = float("-inf") if p1 == 0 else nums1[p1 - 1]
+            minRight1 = float("inf") if p1 == m else nums1[p1]
 
-            max_left2 = float("-inf") if p2 == 0 else nums2[p2 - 1]
-            min_right2 = float("inf") if p2 == n else nums2[p2]
+            maxLeft2 = float("-inf") if p2 == 0 else nums2[p2 - 1]
+            minRight2 = float("inf") if p2 == n else nums2[p2]
 
-            if max_left1 <= min_right2 and max_left2 <= min_right1:
+            if maxLeft1 <= minRight2 and maxLeft2 <= minRight1:
                 if (m + n) % 2 == 1:
-                    return max(max_left1, max_left2)
+                    return max(maxLeft1, maxLeft2)
                 else:
-                    return (max(max_left1, max_left2) + min(min_right1, min_right2)) / 2
+                    return (max(maxLeft1, maxLeft2) + min(minRight1, minRight2)) / 2
 
-            elif max_left1 > min_right2:
+            elif maxLeft1 > minRight2:
                 high = p1 - 1
             else:
-                low = p1 + 1            
-
-
+                low = p1 + 1
+                
+            
 

@@ -9,32 +9,36 @@ class Solution:
         curr = dummy
         carry = 0
 
-
-        while l1 or l2 or carry != 0:
+        while l1 or l2 or carry > 0:
             if not l1 and not l2:
                 curr.next = ListNode(carry)
-                carry = 0
+                break
             elif not l1:
-                next_sum = l2.val + carry
-                curr.next = ListNode(next_sum % 10)
-                carry = next_sum // 10
-                curr = curr.next
+                curr.next = l2
                 l2 = l2.next
+                curr = curr.next
+                currSum = curr.val + carry
+                carry = currSum // 10
+                curr.val = currSum % 10
             elif not l2:
-                next_sum = l1.val + carry
-                curr.next = ListNode(next_sum % 10)
-                carry = next_sum // 10
-                curr = curr.next
+                curr.next = l1
                 l1 = l1.next
+                curr = curr.next
+                currSum = curr.val + carry
+                carry = currSum // 10
+                curr.val = currSum % 10
             else:
-                next_sum = l1.val + l2.val + carry
-                curr.next = ListNode(next_sum % 10)
-                carry = next_sum // 10
-                curr = curr.next
+                curr.next = l1
                 l1 = l1.next
+                curr = curr.next
+                currSum = curr.val + carry + l2.val
                 l2 = l2.next
+                carry = currSum // 10
+                curr.val = currSum % 10
 
         return dummy.next
+
+
 
 
 

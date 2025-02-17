@@ -5,11 +5,12 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        print(len(lists))
         if len(lists) == 0:
             return None
-        
         elif len(lists) == 1:
             return lists[0]
+        
 
         mid = len(lists) // 2
 
@@ -23,24 +24,26 @@ class Solution:
             while node1 or node2:
                 if not node1:
                     curr.next = node2
-                    node2 = node2.next
-                    curr = curr.next
+                    break
                 elif not node2:
                     curr.next = node1
-                    node1 = node1.next
-                    curr = curr.next
-                elif node1.val <= node2.val:
-                    curr.next = node1
-                    node1 = node1.next
-                    curr = curr.next
+                    break
                 else:
-                    curr.next = node2
-                    node2 = node2.next
-                    curr = curr.next
-                
+                    if node1.val <= node2.val:
+                        curr.next = node1
+                        curr = curr.next
+                        node1 = node1.next
+                    else:
+                        curr.next = node2
+                        curr = curr.next
+                        node2 = node2.next
+
             return dummy.next
 
-        node = merge(left, right)
+        return merge(left, right)
+                
 
-        return node
+
+
+
 

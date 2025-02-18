@@ -5,22 +5,26 @@ class Solution:
         """
         n = len(nums)
 
-        i = n - 1
+        idx = n - 1
 
-        while i > 0 and nums[i] <= nums[i - 1]:
-            i -= 1
+        while idx > 0 and nums[idx - 1] >= nums[idx]:
+            idx -= 1
 
-        if i > 0:
-            j = n - 1
+        if idx == 0:
+            nums.reverse()
+            return 
 
-            while nums[j] <= nums[i - 1]:
-                j -= 1
+        
+        for j in range(n - 1, idx - 1, -1):
+            if nums[j] > nums[idx - 1]:
+                nums[idx - 1], nums[j] = nums[j], nums[idx - 1]
+                nums[idx:] = reversed(nums[idx:])
+                break
 
-            nums[i - 1], nums[j] = nums[j], nums[i - 1]
+            
+         
 
-        nums[i:] = reversed(nums[i:])
-
-
+        
 
         # n = len(nums)
 

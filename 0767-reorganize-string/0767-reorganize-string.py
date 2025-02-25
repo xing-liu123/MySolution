@@ -10,14 +10,12 @@ class Solution:
 
         lastChar = None
 
-        res = [""] * len(s)
-        currIdx = 0
+        res = ""
 
         while maxHeap:
             freq, char = heapq.heappop(maxHeap)
 
-            res[currIdx] = char
-            currIdx += 1
+            res += char
 
             if lastChar:
                 heapq.heappush(maxHeap, lastChar)
@@ -30,5 +28,5 @@ class Solution:
         if lastChar:
             return ""
 
-        return "".join(res)
+        return res
 

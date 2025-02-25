@@ -1,31 +1,34 @@
-from collections import Counter
-from heapq import heapify, heappop, heappush
+import heapq
+
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        char_counts = Counter(s)
+        counter = Counter(s) # Counts the frequency of each character
 
-        max_heap = [(-count, char) for char, count in char_counts.items()]
-        heapify(max_heap)
+        maxHeap = [(-freq, char) for char, freq in counter.items()]
 
-        res = ""
-        last_char = None
+        heapq.heapify(maxHeap)
 
-        while max_heap:
-            count, char = heappop(max_heap)
+        lastChar = None
 
-            res += char
-            count += 1
+        res = [""] * len(s)
+        currIdx = 0
 
-            if last_char:
-                heappush(max_heap, last_char)
-                last_char = None
+        while maxHeap:
+            freq, char = heapq.heappop(maxHeap)
 
-            if count < 0:
-                last_char = (count, char)
+            res[currIdx] = char
+            currIdx += 1
 
-        return res if not last_char else ""
+            if lastChar:
+                heapq.heappush(maxHeap, lastChar)
+                lastChar = None
 
+            freq += 1
+            if freq < 0:
+                lastChar = (freq, char)
 
-        
-            
+        if lastChar:
+            return ""
+
+        return "".join(res)
 

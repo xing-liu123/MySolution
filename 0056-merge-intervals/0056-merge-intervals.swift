@@ -5,11 +5,10 @@ class Solution {
         let sortedIntervals = intervals.sorted{$0[0] < $1[0]}
 
         for interval in sortedIntervals {
-            if let lastInterval = mergedIntervals.last, interval[0] <= lastInterval[1] {
-                mergedIntervals[mergedIntervals.count - 1][1] = max(lastInterval[1], interval[1])
-                    
-            } else {
+            if mergedIntervals.isEmpty || mergedIntervals[mergedIntervals.count - 1][1] < interval[0] {
                 mergedIntervals.append(interval)
+            } else {
+                mergedIntervals[mergedIntervals.count - 1][1] = max(mergedIntervals[mergedIntervals.count - 1][1], interval[1])
             }
             
         }

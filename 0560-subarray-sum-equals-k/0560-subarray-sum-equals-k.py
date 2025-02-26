@@ -4,15 +4,15 @@ class Solution:
         prefixCount = defaultdict(int)
         prefixCount[0] = 1
         count = 0
+        currSum = 0
 
         for i in range(n):
-            if i > 0:
-                nums[i] += nums[i - 1]
+            currSum += nums[i]
 
-            comple = nums[i] - k
+            comple = currSum - k
 
             count += prefixCount[comple]
-            prefixCount[nums[i]] += 1
+            prefixCount[currSum] += 1
 
         return count
 

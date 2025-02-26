@@ -63,33 +63,49 @@ class Solution:
         #                     res = s[i: j + 1]          
 
         # return res
+        # n = len(s)
+        # dp = [[False] * n for _ in range(n) ] # dp[i][j] denotes if s[i: j + 1] is palindrome
+
+        # for i in range(n):
+        #     dp[i][i] = True
+
+        # maxLen = 1
+        # res = s[0]
+
+        # for i in range(n - 1, -1, -1):
+        #     for j in range(i + 1, n):
+        #         if s[i] == s[j]:
+        #             if j == i + 1 or dp[i + 1][j - 1]:
+        #                 dp[i][j] = True
+
+        #                 if j - i + 1 > maxLen:
+        #                     maxLen = j - i + 1
+        #                     res = s[i: j + 1]
+
+        # return res
+
         n = len(s)
-        dp = [[False] * n for _ in range(n) ] # dp[i][j] denotes if s[i: j + 1] is palindrome
+
+        def expand(left, right):
+            while left >= 0 and right < n and s[left] == s[right]:
+                left -= 1
+                right += 1
+
+            return left + 1, right - 1
+
+        maxLen = 0
+        res = None
 
         for i in range(n):
-            dp[i][i] = True
+            oddLeft, oddRight = expand(i, i)
+            evenLeft, evenRight = expand(i, i + 1)
+            print(oddLeft, oddRight)
+            if oddRight - oddLeft + 1 > maxLen:
+                res = s[oddLeft: oddRight + 1]
+                maxLen = oddRight - oddLeft + 1 
 
-        maxLen = 1
-        res = s[0]
-
-        for i in range(n - 1, -1, -1):
-            for j in range(i + 1, n):
-                if s[i] == s[j]:
-                    if j == i + 1 or dp[i + 1][j - 1]:
-                        dp[i][j] = True
-
-                        if j - i + 1 > maxLen:
-                            maxLen = j - i + 1
-                            res = s[i: j + 1]
+            if evenRight - evenLeft + 1 > maxLen:
+                res = s[evenLeft: evenRight + 1]
+                maxLen = evenRight - evenLeft + 1
 
         return res
-
-
-
-
-
-            
-
-
-
-        

@@ -37,21 +37,27 @@ class Solution:
 
         # # Overall runtime, O(Nlog(M)), Space complexity: O(M) for counter and O(M) for heap, where M is number of unique characters
         # return res
-        counter = Counter(s)
-        maxFreq = max(counter.values())
-        if maxFreq > (len(s) + 1) // 2:
+        freqCounts = Counter(s)
+
+        if max(freqCounts.values()) > (len(s) + 1) // 2:
             return ""
-        
-        sortedChars = sorted(counter.items(), key=lambda x: -x[1])
-        res = [None] * len(s)
-        
-        index = 0
-        for char, freq in sortedChars:
+
+        sortedCounts = sorted(freqCounts.items(), key=lambda x: x[1], reverse=True)
+
+        res = [""] * len(s)
+
+        idx = 0
+
+        for char, freq in sortedCounts:
             for _ in range(freq):
-                res[index] = char
-                index += 2
-                if index >= len(s):
-                    index = 1
+                res[idx] = char
+                idx += 2
+
+                if idx >= len(res):
+                    idx = 1
+
+        return "".join(res)
+
+
         
-        return ''.join(res)
 

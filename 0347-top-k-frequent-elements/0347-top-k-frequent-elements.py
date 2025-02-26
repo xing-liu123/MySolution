@@ -43,7 +43,7 @@ class Solution:
             
         n = len(freq_list)
 
-        quickSelect(0, n - 1, k - 1)
+        quickSelect(0, n - 1, k)
 
         return [num for num, _ in freq_list[:k]]
 

@@ -6,40 +6,40 @@
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         dummy = ListNode()
-        curr = dummy
+
         carry = 0
 
-        while l1 or l2 or carry > 0:
-            if not l1 and not l2:
-                curr.next = ListNode(carry)
-                break
-            elif not l1:
+        curr = dummy
+
+        while l1 or l2 or carry != 0:
+            val1 = l1.val if l1 else 0
+            val2 = l2.val if l2 else 0
+            currSum = val1 + val2 + carry
+
+            currVal = currSum % 10
+            carry = currSum // 10
+
+            if l1:
+                l1.val = currVal
+                curr.next = l1
+            elif l2:
+                l2.val = currVal
                 curr.next = l2
-                l2 = l2.next
-                curr = curr.next
-                currSum = curr.val + carry
-                carry = currSum // 10
-                curr.val = currSum % 10
-            elif not l2:
-                curr.next = l1
-                l1 = l1.next
-                curr = curr.next
-                currSum = curr.val + carry
-                carry = currSum // 10
-                curr.val = currSum % 10
             else:
-                curr.next = l1
+                curr.next = ListNode(currVal)
+
+            curr = curr.next
+
+            if l1:
                 l1 = l1.next
-                curr = curr.next
-                currSum = curr.val + carry + l2.val
+            
+            if l2:
                 l2 = l2.next
-                carry = currSum // 10
-                curr.val = currSum % 10
 
         return dummy.next
+            
 
-
-
+            
 
 
 

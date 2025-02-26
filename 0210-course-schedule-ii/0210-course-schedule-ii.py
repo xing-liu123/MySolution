@@ -24,43 +24,70 @@ class Solution:
 
         # return order if len(order) == numCourses else []
 
-        graph = defaultdict(list)
+        # graph = defaultdict(list)
 
-        for course, preq in prerequisites:
-            graph[preq].append(course)
+        # for course, preq in prerequisites:
+        #     graph[preq].append(course)
 
 
-        order = []
-        has_cycle = False
+        # order = []
+        # has_cycle = False
 
-        visited = [0] * numCourses # 0: unvisited, 1: visiting, 2: visited
+        # visited = [0] * numCourses # 0: unvisited, 1: visiting, 2: visited
 
-        def dfs(course):
-            nonlocal has_cycle
+        # def dfs(course):
+        #     nonlocal has_cycle
 
-            if visited[course] == 1:
-                has_cycle = True
-                return
+        #     if visited[course] == 1:
+        #         has_cycle = True
+        #         return
             
-            if visited[course] == 2:
-                return
+        #     if visited[course] == 2:
+        #         return
 
-            visited[course] = 1
+        #     visited[course] = 1
 
-            for neighbor in graph[course]:
-                dfs(neighbor)
+        #     for neighbor in graph[course]:
+        #         dfs(neighbor)
 
-            order.append(course)
-            visited[course] = 2
+        #     order.append(course)
+        #     visited[course] = 2
 
         
-        for i in range(numCourses):
-            if visited[i] == 0:
-                dfs(i)
-                if has_cycle:
-                    return []
+        # for i in range(numCourses):
+        #     if visited[i] == 0:
+        #         dfs(i)
+        #         if has_cycle:
+        #             return []
 
-        return order[::-1]
+        # return order[::-1]
+
+        indegree = [0] * numCourses
+        graph = defaultdict(list)
+
+        for u, v in prerequisites:
+            indegree[u] += 1
+            graph[v].append(u)
+        
+        queue = deque([i for i in range(numCourses) if indegree[i] == 0])
+
+        res = []
+
+        while queue:
+            course = queue.popleft()
+            res.append(course)
+
+            for nextCourse in graph[course]:
+                indegree[nextCourse] -= 1
+
+                if indegree[nextCourse] == 0:
+                    queue.append(nextCourse)
+
+        return res if len(res) == numCourses else []
+
+
+
+
 
 
         

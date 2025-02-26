@@ -1,14 +1,17 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        curr_max = 0
-        curr_idx = 0
+        if len(nums) == 1:
+            return True
 
-        while curr_idx < len(nums) - 1 and curr_idx <= curr_max:
-            curr_max = max(curr_max, curr_idx + nums[curr_idx])
+        currMax = 0
 
-            if curr_max <= curr_idx:
+        for idx, step in enumerate(nums):
+            if currMax < idx:
                 return False
 
-            curr_idx += 1
+            currMax = max(currMax, idx + step)
 
-        return curr_idx == len(nums) - 1
+            if currMax >= len(nums) - 1:
+                return True
+
+        return False

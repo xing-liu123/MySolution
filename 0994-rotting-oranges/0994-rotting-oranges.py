@@ -46,31 +46,29 @@ class Solution:
         #     return -1
 
         # return time
-
-        m, n = len(grid), len(grid[0])
-        dr, dc = [1, -1, 0, 0], [0, 0, 1, -1]
         
-        rotten_count = 0
-        fresh_count = 0
+        m, n = len(grid), len(grid[0])
+        freshCount = 0
+        rottenCount = 0
 
         queue = deque()
 
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == 1:
-                    fresh_count += 1
-
+                    freshCount += 1
                 elif grid[i][j] == 2:
-                    rotten_count += 1
+                    rottenCount += 1
                     queue.append((i, j))
 
-        if fresh_count == 0:
+        if freshCount == 0:
             return 0
-        
-        if rotten_count == 0:
+        elif rottenCount == 0:
             return -1
 
         time = -1
+
+        dr, dc = [1, -1, 0, 0], [0, 0, -1, 1] # down, up, left, right
 
         while queue:
             size = len(queue)
@@ -80,12 +78,19 @@ class Solution:
                 row, col = queue.popleft()
 
                 for k in range(4):
-                    nr = row + dr[k]
-                    nc = col + dc[k]
+                    nextRow, nextCol = row + dr[k], col + dc[k]
 
-                    if 0 <= nr < m and 0 <= nc < n and grid[nr][nc] == 1:
-                        queue.append((nr, nc))
-                        grid[nr][nc] = 2
-                        fresh_count -= 1
+                    if 0 <= nextRow < m and 0 <= nextCol < n and grid[nextRow][nextCol] == 1:
+                        grid[nextRow][nextCol] = 2
+                        freshCount -= 1
+                        queue.append((nextRow, nextCol))
 
-        return time if fresh_count == 0 else -1
+        if freshCount == 0:
+            return time
+        
+        return -1
+
+
+        
+        
+

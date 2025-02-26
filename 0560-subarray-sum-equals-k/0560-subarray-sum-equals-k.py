@@ -1,19 +1,19 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
         n = len(nums)
-        sum_counts = defaultdict(int)
-        sum_counts[0] = 1
-        curr_sum = 0
+        prefixCount = defaultdict(int)
+        prefixCount[0] = 1
         count = 0
 
         for i in range(n):
-            curr_sum += nums[i]
-            target = curr_sum - k
+            if i > 0:
+                nums[i] += nums[i - 1]
 
-            count += sum_counts[target]
-            sum_counts[curr_sum] += 1
-            
+            comple = nums[i] - k
+
+            count += prefixCount[comple]
+            prefixCount[nums[i]] += 1
+
         return count
-        
 
         

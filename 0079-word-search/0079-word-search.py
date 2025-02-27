@@ -10,7 +10,7 @@ class Solution:
             if idx == len(word):
                 return True
 
-            if board[row][col] != word[idx]:
+            if not (0 <= row < m and 0 <= col < n) or board[row][col] != word[idx]:
                 return False
 
             board[row][col] = ""
@@ -19,10 +19,8 @@ class Solution:
                 next_row = row + dr[k]
                 next_col = col + dc[k]
 
-                if 0 <= next_row < m and 0 <= next_col < n:
-                    
-                        if search(next_row, next_col, idx + 1):
-                            return True
+                if search(next_row, next_col, idx + 1):
+                    return True
 
             board[row][col] = word[idx]
 

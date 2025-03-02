@@ -20,8 +20,11 @@ class UnionFind:
         rootV = self.find(v)
 
         if rootU != rootV:
-            self.counts[rootV] += self.counts[rootU]
+            if self.counts[rootU] > self.counts[rootV]:  # Merge smaller into larger
+                rootU, rootV = rootV, rootU
+
             self.parents[rootU] = rootV
+            self.counts[rootV] += self.counts[rootU]
             self.max = max(self.max, self.counts[rootV])
             
 

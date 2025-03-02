@@ -9,14 +9,12 @@ class Solution:
         currStart = 1
 
         while currReach < n - 1:
-            nextReach = currReach
+            nextReach = currStart + 1
 
             for i in range(currStart, currReach + 1):
                 nextReach = max(nextReach, i + nums[i])
 
-            currStart = currReach + 1
-            currReach = nextReach
             count += 1
+            currReach = nextReach
 
         return count
-

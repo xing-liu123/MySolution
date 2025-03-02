@@ -15,10 +15,10 @@ class Solution:
         if head in node_map:
             return node_map[head]
 
-        node = Node(head.val)
-        node_map[head] = node
-        node.next = self.copyRandomList(head.next)
-        node.random = self.copyRandomList(head.random)
+        nodeCopy = Node(head.val)
+        node_map[head] = nodeCopy
 
-        return node
+        nodeCopy.next = self.copyRandomList(head.next)
+        nodeCopy.random = self.copyRandomList(head.random)
 
+        return nodeCopy

@@ -22,13 +22,13 @@ class Solution:
         # backtrack(0)
         # return res
 
+        if len(digits) == 0:
+            return []
+
         key_map = [["a", "b", "c"], ["d", "e", "f"], ["g", "h", "i"], ["j", "k", "l"], ["m", "n", "o"], ["p", "q", "r", "s"], ["t", "u", "v"], ["w", "x", "y", "z"]]
 
-        comb = []
+        comb = [""] * len(digits)
         res = []
-
-        if len(digits) == 0:
-            return res
 
         def backtracking(idx):
             if idx == len(digits):
@@ -38,9 +38,8 @@ class Solution:
             chars = key_map[ord(digits[idx]) - ord('2')]
 
             for char in chars:
-                comb.append(char)
+                comb[idx] = char
                 backtracking(idx + 1)
-                comb.pop()
 
         backtracking(0)
 

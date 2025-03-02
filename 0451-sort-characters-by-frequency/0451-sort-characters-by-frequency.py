@@ -3,16 +3,30 @@ class Solution:
     def frequencySort(self, s: str) -> str:
         counts = Counter(s)
 
-        maxHeap = []
+        # maxHeap = []
+
+        # for char, count in counts.items():
+        #     heappush(maxHeap, (-count, char))
+
+        # res = ""
+
+        # while maxHeap:
+        #     count, char = heappop(maxHeap)
+
+        #     res += char * (-count)
+
+        # return res
+        maxFreq = max(counts.values())
+
+        buckets = [[] for _ in range(maxFreq + 1)]
 
         for char, count in counts.items():
-            heappush(maxHeap, (-count, char))
+            buckets[count].append(char)
 
         res = ""
 
-        while maxHeap:
-            count, char = heappop(maxHeap)
-
-            res += char * (-count)
+        for i in range(maxFreq, 0, -1):
+            for char in buckets[i]:
+                res += char * i
 
         return res

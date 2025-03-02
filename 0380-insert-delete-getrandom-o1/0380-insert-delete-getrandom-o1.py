@@ -21,6 +21,7 @@ class RandomizedSet:
             self.val_list[index] = last_val
             self.val_to_index[last_val] = index
             self.val_list.pop()
+            del self.val_to_index[val]
             return True
 
         return False

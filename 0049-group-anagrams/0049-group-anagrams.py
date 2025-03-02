@@ -3,9 +3,13 @@ class Solution:
         anagrams = defaultdict(list) # key is the sortedWord
  
         for word in strs:
-            sortedWord = str(sorted(word))
+            charCount = [0] * 26
+
+            for c in word:
+                idx = ord(c) - ord('a')
+                charCount[idx] += 1
             
-            anagrams[sortedWord].append(word)
+            anagrams[tuple(charCount)].append(word)
 
         return list(anagrams.values())
             

@@ -1,15 +1,5 @@
 class Solution:
     def frequencySort(self, s: str) -> str:
-        counts = defaultdict(int)
+        counts = Counter(s)
 
-        for c in s:
-            counts[c] += 1
-        
-        sortedCounts = dict(sorted(counts.items(), key=lambda x: x[1], reverse=True))
-
-        res = ""
-
-        for c, count in sortedCounts.items():
-            res += c * count
-        
-        return res
+        return "".join(sorted(list(s), key=lambda x: (counts[x], x), reverse=True))

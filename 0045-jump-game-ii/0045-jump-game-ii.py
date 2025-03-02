@@ -6,15 +6,16 @@ class Solution:
 
         count = 1
         currReach = nums[0]
-        currStart = 1
+        currStart = 0
 
         while currReach < n - 1:
-            nextReach = currStart + 1
+            nextReach = currStart
 
             for i in range(currStart, currReach + 1):
                 nextReach = max(nextReach, i + nums[i])
 
             count += 1
+            currStart = currReach + 1
             currReach = nextReach
 
         return count

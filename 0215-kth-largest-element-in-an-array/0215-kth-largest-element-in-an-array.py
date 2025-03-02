@@ -25,7 +25,7 @@ class Solution:
             pivotIdx = random.randint(left, right)
             pivotVal = nums[pivotIdx]
 
-            i, j, p = left, left, right
+            i, j, p = left, left, right # [left:i] > val, [i:p + 1] == val, [p + 1] < val
 
             while j <= p:
                 if nums[j] > pivotVal:

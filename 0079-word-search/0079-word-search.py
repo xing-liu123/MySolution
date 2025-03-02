@@ -25,7 +25,7 @@ class Solution:
 
         for i in range(m):
             for j in range(n):
-                if search(i, j, 0):
+                if board[i][j] == word[0] and search(i, j, 0):
                     return True
 
         return False

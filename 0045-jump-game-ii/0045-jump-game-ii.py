@@ -1,22 +1,11 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
         n = len(nums)
-        if n == 1:
-            return 0
+        dp = [sys.maxsize] * n
+        dp[0] = 0
 
-        count = 1
-        currReach = nums[0]
-        currStart = 1
+        for i in range(n):
+            for j in range(i + 1, min(i + nums[i] + 1, n)):
+                dp[j] = min(dp[j], dp[i] + 1)
 
-        while currReach < n - 1:
-            nextReach = currReach
-
-            for i in range(currStart, currReach + 1):
-                nextReach = max(nextReach, i + nums[i])
-
-            currStart = currReach + 1
-            currReach = nextReach
-            count += 1
-
-        return count
-
+        return dp[-1]

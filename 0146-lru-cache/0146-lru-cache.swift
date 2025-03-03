@@ -3,7 +3,7 @@ class Node {
     let key: Int
     var val: Int
     var next: Node?
-    var prev: Node?
+    weak var prev: Node?
 
     init(_ key: Int = -1, _ val: Int = -1) {
         self.key = key

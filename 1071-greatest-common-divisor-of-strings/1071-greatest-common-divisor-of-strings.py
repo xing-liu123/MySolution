@@ -3,9 +3,10 @@ class Solution:
         res = ""
 
         for i in range(min(len(str1), len(str2))):
-            sub = str1[:i + 1]
+            
 
-            if len(str1) % len(sub) == 0 and len(str2) % len(sub) == 0:
+            if len(str1) % (i + 1) == 0 and len(str2) % (i + 1) == 0:
+                sub = str1[:i + 1]
                 len1 = len(str1) // len(sub)
                 len2 = len(str2) // len(sub)
                 if str1 == sub * len1 and str2 == sub * len2:

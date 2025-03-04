@@ -1,20 +1,18 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
+        
         if len(s) != len(t):
             return False
 
-        charCount = {}
+        charCount = [0] * 26
 
         for c in s:
-            charCount[c] = charCount.get(c, 0) + 1
-
+            charCount[ord(c) - ord('a')] += 1
+        
         for c in t:
-            if not c in charCount:
-                return False
+            charCount[ord(c) - ord('a')] -= 1
 
-            if charCount[c] == 0:
+            if charCount[ord(c) - ord('a')] < 0:
                 return False
-
-            charCount[c] -= 1
 
         return True

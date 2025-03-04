@@ -1,42 +1,43 @@
-from collections import deque
-
-
 class Solution:
     def snakesAndLadders(self, board: List[List[int]]) -> int:
         n = len(board)
-        step = 0
-        visited = set()
-        queue = deque([1])
-        visited.add(1)
+        dist = n * n
+
+        def getPosition(num):
+            row = (num - 1) // n
+            col = (num - 1) % n
+            if row % 2 == 1:
+                col = n - col - 1
+            
+            row = n - 1 - row
+            
+            return row, col
+
+        queue = deque([(1, 0)])
+        visited = set([1])
 
         while queue:
-            size = len(queue)
-            step += 1
+            
+            num, count = queue.popleft()
 
-            for _ in range(size):
-                curr = queue.popleft()
+            if num == dist:
+                return count
 
-                for i in range(1, 7):
-                    next_pos = curr + i
+            for i in range(1, 7):
+                nextNum = num + i
 
-                    if next_pos <= n * n:
-                        x = (n * n - next_pos) // n
-                        y = (
-                            n - (n * n - next_pos) % n - 1
-                            if (n - x) % 2 != 0
-                            else (n * n - next_pos) % n
-                        )
+                if nextNum > dist:
+                    break
 
-                        
-                        if board[x][y] != -1:
-                            next_pos = board[x][y]
+                row, col = getPosition(nextNum)
 
-                        # print("curr: ", curr, " next: ", next_pos, " Step: ", step)
-                        if next_pos == n * n:
-                            return step
+                if board[row][col] != -1:
+                    nextNum = board[row][col]
 
-                        if not next_pos in visited:
-                            queue.append(next_pos)
-                            visited.add(next_pos)
+                if not nextNum in visited:
+                    queue.append((nextNum, count + 1))
+                    visited.add(nextNum)
 
         return -1
+                
+       

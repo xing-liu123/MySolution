@@ -9,20 +9,22 @@ class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if not root:
             return None
-        
+
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)
 
-        if root.val == p.val or root.val == q.val:
+        if left == p and (right == q or root == q) or left == q and (right == p or root == p):
             return root
-
-        if right and left and (right.val == p.val and left.val == q.val or right.val == q.val and left.val == p.val):
+        elif root == p or root == q:
             return root
-
-        if right:
-            return right
-
-        if left:
+        elif left == p or left == q:
             return left
-
-        return None
+        elif right == p or right == q:
+            return right
+        elif left:
+            return left
+        elif right:
+            return right
+        else:
+            return None
+        

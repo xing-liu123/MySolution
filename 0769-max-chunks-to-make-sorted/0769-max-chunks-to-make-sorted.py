@@ -6,8 +6,9 @@ class Solution:
         chunks = 0
 
         for right in range(n):
-            if right > currRight:
-                chunks += 1
+            
             currRight = max(currRight, arr[right])
+            if currRight == right:
+                chunks += 1
 
-        return chunks + 1
+        return chunks

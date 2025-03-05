@@ -18,7 +18,7 @@ class Solution:
                 if not nextCity in minDist or min(dist, nextDist) < minDist[nextCity]:
                     queue.append((nextCity, min(dist, nextDist)))
                     minDist[nextCity] = min(dist, nextDist)
-        print(minDist)
+                    
         return minDist[n]
         
 

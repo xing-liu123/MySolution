@@ -1,30 +1,25 @@
 class Solution:
     def minScore(self, n: int, roads: List[List[int]]) -> int:
-        parents = [i for i in range(n + 1)]
+        graph = defaultdict(list)
 
-        def find(u) -> int:
-            if parents[u] != u:
-                parents[u] = find(parents[u])
-            
-            return parents[u]
+        for a, b, dist in roads:
+            graph[a].append((b, dist))
+            graph[b].append((a, dist))
 
-        def union(u, v):
-            root_u = find(u)
-            root_v = find(v)
+        minDist = {}
+        minDist[1] = sys.maxsize
 
-            if root_u != root_v:
-                parents[root_u] = parents[root_v]
+        queue = deque([(1, sys.maxsize)])
 
-        for u, v, _ in roads:
-            if find(u) != find(v):
-                union(u, v)
+        while queue:
+            city, dist = queue.popleft()
+
+            for nextCity, nextDist in graph[city]:
+                if not nextCity in minDist or min(dist, nextDist) < minDist[nextCity]:
+                    queue.append((nextCity, min(dist, nextDist)))
+                    minDist[nextCity] = min(dist, nextDist)
+        print(minDist)
+        return minDist[n]
         
-        res = sys.maxsize
 
-        for u, v, z in roads:
-            if find(u) == find(1):
-                res = min(res, z)
 
-        return res
-
- 

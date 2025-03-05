@@ -19,24 +19,38 @@ class WordDictionary:
         curr.end = True
 
     def search(self, word: str) -> bool:
-        stack = [(self.root, word)]
+        def dfs(node, pos):
+            if pos == len(word):
+                return node.end
 
-        while stack:
-            currNode, currWord = stack.pop()
+            char = word[pos]
 
-            if not currWord:
-                if currNode.end:
-                    return True
-                continue
+            if char == ".":
+                return any(dfs(child, pos + 1) for child in node.children.values())
+            elif char in node.children:
+                return dfs(node.children[char], pos + 1)
+
+            return False
+
+        return dfs(self.root, 0)
+        # stack = [(self.root, word)]
+
+        # while stack:
+        #     currNode, currWord = stack.pop()
+
+        #     if not currWord:
+        #         if currNode.end:
+        #             return True
+        #         continue
             
-            if currWord[0] == ".":
-                for nextNode in currNode.children.values():
-                    stack.append((nextNode, currWord[1:]))
-            else:
-                if currWord[0] in currNode.children:
-                    stack.append((currNode.children[currWord[0]], currWord[1:]))
+        #     if currWord[0] == ".":
+        #         for nextNode in currNode.children.values():
+        #             stack.append((nextNode, currWord[1:]))
+        #     else:
+        #         if currWord[0] in currNode.children:
+        #             stack.append((currNode.children[currWord[0]], currWord[1:]))
 
-        return False
+        # return False
         
 
 

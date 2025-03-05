@@ -1,24 +1,24 @@
 class Solution:
     def maximumSum(self, nums: List[int]) -> int:
-        digitSums = defaultdict(list)
-
+        digitSums = defaultdict(lambda: [0, 0])  # Store top 2 largest numbers
         res = -1
 
         for num in nums:
-            digitSum = sum(int(val) for val in str(num))
-            numList = digitSums[digitSum]
-            if len(numList) == 0:
-                numList.append(num)
-            elif len(numList) == 1:
-                numList.append(num)
-                res = max(res, numList[0] + numList[1])
-            elif len(numList) == 2:
-                if numList[0] <= numList[1] and numList[0] < num:
-                    numList[0] = num
-                elif numList[1] <= numList[0] and numList[1] < num:
-                    numList[1] = num
+            digitSum = sum(int(d) for d in str(num))  # Compute digit sum
+            max1, max2 = digitSums[digitSum]
 
-                res = max(res, numList[0] + numList[1])
+            # Update top two largest numbers in this digit sum group
+            if num > max1:
+                max1, max2 = num, max1  # Shift down
+            elif num > max2:
+                max2 = num  # Replace second largest
+
+            digitSums[digitSum] = [max1, max2]  # Store updated values
+            
+            # Compute max sum if we have at least two numbers
+            if max2 > 0:
+                res = max(res, max1 + max2)
+
         return res
 
             

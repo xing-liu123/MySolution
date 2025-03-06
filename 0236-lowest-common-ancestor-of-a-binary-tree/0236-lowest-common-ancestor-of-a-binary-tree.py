@@ -13,18 +13,16 @@ class Solution:
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)
 
-        if left == p and (right == q or root == q) or left == q and (right == p or root == p):
+        if root.val == p.val or root.val == q.val:
             return root
-        elif root == p or root == q:
+
+        if left and right and (left.val == p.val and right.val == q.val or left.val == q.val and right.val == p.val):
             return root
-        elif left == p or left == q:
+
+        if left:
             return left
-        elif right == p or right == q:
-            return right
-        elif left:
-            return left
-        elif right:
-            return right
-        else:
-            return None
         
+        if right:
+            return right
+
+        return None

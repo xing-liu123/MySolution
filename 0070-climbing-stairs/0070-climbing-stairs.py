@@ -1,5 +1,6 @@
 class Solution:
-    @lru_cache(None)
+    def __init__(self):
+        self.cache = {}
     def climbStairs(self, n: int) -> int:
         # dp = [0] * (n + 1)
 
@@ -14,4 +15,10 @@ class Solution:
         if n == 0 or n == 1:
             return 1
 
-        return self.climbStairs(n - 1) + self.climbStairs(n - 2)
+        if n in self.cache:
+            return self.cache[n]
+
+
+        res =  self.climbStairs(n - 1) + self.climbStairs(n - 2)
+        self.cache[n] = res
+        return res

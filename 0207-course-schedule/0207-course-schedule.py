@@ -51,8 +51,8 @@ class Solution:
             visitedCount += 1
 
         for i in range(numCourses):
-            
-            dfs(i)
+            if not visited[i]:
+                dfs(i)
 
         return not hasCycle and visitedCount == numCourses
 

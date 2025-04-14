@@ -7,7 +7,7 @@ class Solution:
         left = 0
 
         for right in range(n):
-            if s[right] in lastSeen and left < lastSeen[s[right]] + 1:
+            if s[right] in lastSeen:
                 left = lastSeen[s[right]] + 1
             lastSeen[s[right]] = right
 

@@ -30,34 +30,65 @@ class Solution:
         # return 0
 
         from collections import deque
-        
+
         wordSet = set(wordList)
 
         if not endWord in wordSet:
             return 0
 
         queue = deque([beginWord])
-        count = 0
+        count = 1
 
         while queue:
-            size = len(queue)
             count += 1
+            size = len(queue)
 
             for _ in range(size):
                 word = queue.popleft()
 
-                for i in range(len(word)):
-                    for c in string.ascii_lowercase:
-                        nextWord = word[:i] + c + word[i + 1:]
+                for idx in range(len(word)):
+                    for c in ascii_lowercase:
+                        newWord = word[:idx] + c + word[idx + 1:]
 
-                        if nextWord in wordSet:
-                            if nextWord == endWord:
-                                return count + 1
+                        if newWord == endWord:
+                            return count
 
-                            queue.append(nextWord)
-                            wordSet.remove(nextWord)
-
+                        if newWord in wordSet:
+                            queue.append(newWord)
+                            wordSet.remove(newWord)
+        
         return 0
+
+
+        # from collections import deque
+        
+        # wordSet = set(wordList)
+
+        # if not endWord in wordSet:
+        #     return 0
+
+        # queue = deque([beginWord])
+        # count = 0
+
+        # while queue:
+        #     size = len(queue)
+        #     count += 1
+
+        #     for _ in range(size):
+        #         word = queue.popleft()
+
+        #         for i in range(len(word)):
+        #             for c in string.ascii_lowercase:
+        #                 nextWord = word[:i] + c + word[i + 1:]
+
+        #                 if nextWord in wordSet:
+        #                     if nextWord == endWord:
+        #                         return count + 1
+
+        #                     queue.append(nextWord)
+        #                     wordSet.remove(nextWord)
+
+        # return 0
 
 
         

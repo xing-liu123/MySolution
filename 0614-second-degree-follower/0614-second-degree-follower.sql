@@ -1,11 +1,9 @@
 # Write your MySQL query statement below
-SELECT
-  f.followee AS follower,         -- the user
-  COUNT(*)    AS num   -- how many people follow them
-FROM Follow AS f
-WHERE f.followee IN (             -- they must follow someone
-  SELECT DISTINCT follower
-  FROM Follow
+SELECT f.followee AS follower, COUNT(*) as num
+FROM Follow as f
+WHERE f.followee in (
+    SELECT DISTINCT follower
+    FROM Follow
 )
 GROUP BY f.followee
-ORDER BY follower;
+ORDER BY f.followee

@@ -20,7 +20,7 @@ class Solution:
 
         for i in range(2, len(nums)):
             z = y
-            y = max(y, nums[i] + x)
+            y = max(y, x + nums[i])
             x = z
-
+        
         return max(x, y)

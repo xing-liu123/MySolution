@@ -17,7 +17,7 @@ class RandomizedSet:
         if val in self.val_to_index:
             index = self.val_to_index[val]
             last_val = self.val_list[-1]
-            last_val_index = self.val_to_index[last_val]
+            # last_val_index = self.val_to_index[last_val]
             self.val_list[index] = last_val
             self.val_to_index[last_val] = index
             self.val_list.pop()

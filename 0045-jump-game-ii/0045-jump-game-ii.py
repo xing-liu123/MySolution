@@ -9,7 +9,7 @@ class Solution:
         currStart = 0
 
         while currReach < n - 1:
-            nextReach = currStart
+            nextReach = 0
 
             for i in range(currStart, currReach + 1):
                 nextReach = max(nextReach, i + nums[i])

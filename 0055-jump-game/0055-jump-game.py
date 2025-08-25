@@ -9,7 +9,7 @@ class Solution:
             if currMax < idx:
                 return False
 
-            currMax = max(currMax, idx + step)
+            currMax = max(currMax, idx + step) # max point we could reach after we reached index i
 
             if currMax >= len(nums) - 1:
                 return True

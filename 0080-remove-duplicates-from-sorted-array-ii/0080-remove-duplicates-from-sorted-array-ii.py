@@ -1,20 +1,13 @@
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        n = len(nums)
+        # if len(nums) <= 2:
+        #     return len(nums)
 
-        if n == 1:
-            return 1
+        left = 1
 
-        prev1 = nums[0]
-        prev2 = nums[1]
-
-        i = 2
-
-        for j in range(2, n):
-            if nums[j] != prev1:
-                prev1 = prev2
-                prev2 = nums[j]
-                nums[i] = nums[j]
-                i += 1
+        for right in range(2, len(nums)):
+            if not (nums[left - 1] == nums[left] and nums[left] == nums[right]):
+                left += 1
+                nums[left] = nums[right]
         
-        return i
+        return left + 1

@@ -14,9 +14,10 @@ class Solution:
             wordCount[word] += 1
 
         left = 0
-        currWordCount = defaultdict(int)
+        
 
         def isValid(left, right):
+            currWordCount = defaultdict(int)
             for i in range(left, right + 1, wordLength):
                 currWord = s[i: i + wordLength]
                 if not currWord in wordCount:
@@ -31,6 +32,5 @@ class Solution:
             if isValid(left, right):
                 res.append(left)
             left += 1
-            currWordCount = defaultdict(int)
 
         return res

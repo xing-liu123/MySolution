@@ -23,4 +23,4 @@ class Solution:
             y = max(y, x + nums[i])
             x = z
         
-        return max(x, y)
+        return y

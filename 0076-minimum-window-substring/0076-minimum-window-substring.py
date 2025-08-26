@@ -14,24 +14,27 @@ class Solution:
         for c in t:
             charCount[c] += 1
 
+        need = len(charCount)
+
         left = 0
         currCharCount = defaultdict(int)
+        formed = 0
 
-        def hasAllChars(count1, count2):
-            for key in count2.keys():
-                if not key in count1 or count1[key] < count2[key]:
-                    return False
-            
-            return True
+        for right, c in enumerate(s):
+            currCharCount[c] += 1
 
-        for right in range(m):
-            currCharCount[s[right]] += 1
+            if c in charCount and currCharCount[c] == charCount[c]:
+                formed += 1
 
-            while right - left + 1 >= n and hasAllChars(currCharCount, charCount):
+            while need == formed:
                 if right - left + 1 < minWindow:
                     minWindow = right - left + 1
                     res = s[left: right + 1]
-                currCharCount[s[left]] -= 1
+
+                deleteC = s[left]
+                currCharCount[deleteC] -= 1
+                if deleteC in charCount and currCharCount[deleteC] < charCount[deleteC]:
+                    formed -= 1
                 left += 1
 
         return res

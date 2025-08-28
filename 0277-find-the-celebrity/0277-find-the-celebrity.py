@@ -4,30 +4,17 @@
 
 class Solution:
     def findCelebrity(self, n: int) -> int:
-        canBe = [True] * n
-        for i in range(n):
-            for j in range(n):
-                if i == j:
-                    continue
-                
-                know = knows(i, j)
-                if know:
-                    canBe[i] = False
-                    break
-                else:
-                    canBe[j] = False
+        cand = 0
 
-        for i in range(n):
-            if canBe[i]:
-                isValid = True
-                for j in range(n):
-                    if not knows(j, i):
-                        isValid = False
-                        canBe[j] = False
-                        break
-                if isValid:
-
-                    return i
+        for i in range(1, n):
+            if knows(cand, i):
+                cand = i
         
-        return -1
-            
+        for i in range(n):
+            if i == cand:
+                continue
+
+            if knows(cand, i) or not knows(i, cand):
+                return -1
+
+        return cand

@@ -1,8 +1,6 @@
 from collections import Counter
 class Solution:
     def reorderedPowerOf2(self, n: int) -> bool:
-
-
         strN = str(n)
         counts = Counter(strN)
 

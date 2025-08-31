@@ -5,7 +5,6 @@ class Solution:
         counts = Counter(strN)
 
         curr = 1
-        countSet = set()
 
         while len(str(curr)) <= len(strN):
             currCounts = Counter(str(curr))

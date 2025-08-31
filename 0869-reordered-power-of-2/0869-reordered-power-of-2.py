@@ -13,7 +13,6 @@ class Solution:
             currCounts = Counter(str(curr))
 
             if counts == currCounts:
-                print(counts)
                 return True
 
             curr *= 2

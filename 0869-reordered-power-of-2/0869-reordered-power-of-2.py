@@ -1,15 +1,14 @@
 from collections import Counter
 class Solution:
     def reorderedPowerOf2(self, n: int) -> bool:
-        strN = str(n)
-        counts = Counter(strN)
+        strN = sorted(str(n))
 
         curr = 1
 
         while len(str(curr)) <= len(strN):
-            currCounts = Counter(str(curr))
+            currStr = sorted(str(curr))
 
-            if counts == currCounts:
+            if strN == currStr:
                 return True
 
             curr *= 2

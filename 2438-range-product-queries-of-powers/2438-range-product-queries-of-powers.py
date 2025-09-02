@@ -2,22 +2,20 @@ class Solution:
     def productQueries(self, n: int, queries: List[List[int]]) -> List[int]:
         MOD = 10**9 + 7
 
-        powers = []
-
-        i = 0
-        while n:
-            if n & 1:
-                powers.append(1 << i)
-
-            n >>= 1
+        exps = []
+        i, m = 0, n
+        while m:
+            if m & 1:
+                exps.append(i)   # power is 2**i
+            m >>= 1
             i += 1
 
-        for i in range(1, len(powers)):
-            powers[i] = (powers[i] * powers[i - 1])
+        ps = [0]
+        for e in exps:
+            ps.append(ps[-1] + e)
 
         res = []
-
-        for left, right in queries:
-            res.append(powers[right]//(powers[left - 1] if left >= 1 else 1) % MOD)
-
+        for l, r in queries:
+            s = ps[r + 1] - ps[l]          # sum of exponents in [l..r]
+            res.append(pow(2, s, MOD))     # 2^s mod MOD
         return res

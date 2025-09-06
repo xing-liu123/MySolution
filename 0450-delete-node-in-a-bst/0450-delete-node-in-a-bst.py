@@ -6,31 +6,59 @@
 #         self.right = right
 class Solution:
     def deleteSuccesor(self, curr, dummy):
+        # if not curr.left:
+        #     dummy.val = curr.val
+        #     return curr.right
+
+        # curr.left = self.deleteSuccesor(curr.left, dummy)
+        # return curr
         if not curr.left:
             dummy.val = curr.val
             return curr.right
-
+        
         curr.left = self.deleteSuccesor(curr.left, dummy)
         return curr
 
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        # if not root:
+        #     return None
+
+        # if root.val == key:
+        #     if not root.left and not root.right:
+        #         return None
+        #     elif root.left and not root.right:
+        #         return root.left
+        #     elif root.right and not root.left:
+        #         return root.right
+        #     else:
+        #         dummy = TreeNode(0)
+        #         root.right = self.deleteSuccesor(root.right, dummy)
+        #         root.val = dummy.val
+        # elif root.val < key:
+        #     root.right = self.deleteNode(root.right, key)
+        # else:
+        #     root.left = self.deleteNode(root.left, key)
+
+        # return root
+
         if not root:
             return None
 
         if root.val == key:
             if not root.left and not root.right:
                 return None
-            elif root.left and not root.right:
-                return root.left
-            elif root.right and not root.left:
+            elif not root.left:
                 return root.right
+            elif not root.right:
+                return root.left
             else:
-                dummy = TreeNode(0)
+                dummy = TreeNode(-1)
                 root.right = self.deleteSuccesor(root.right, dummy)
                 root.val = dummy.val
-        elif root.val < key:
-            root.right = self.deleteNode(root.right, key)
-        else:
+        
+        elif root.val > key:
             root.left = self.deleteNode(root.left, key)
+        else:
+            root.right = self.deleteNode(root.right, key)
 
         return root

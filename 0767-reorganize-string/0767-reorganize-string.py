@@ -39,25 +39,20 @@ class Solution:
         # return res
         freqCounts = Counter(s)
 
-        if max(freqCounts.values()) > (len(s) + 1) // 2:
+        if max(count for _, count in freqCounts.items()) > (len(s) + 1)//2:
             return ""
 
-        sortedCounts = sorted(freqCounts.items(), key=lambda x: x[1], reverse=True)
+        sortedFreqCounts = sorted(freqCounts.items(), key=lambda x: x[1], reverse=True)
 
         res = [""] * len(s)
-
         idx = 0
-
-        for char, freq in sortedCounts:
-            for _ in range(freq):
+        for char, count in sortedFreqCounts:
+            for _ in range(count):
                 res[idx] = char
                 idx += 2
-
-                if idx >= len(res):
+                if idx >= len(s):
                     idx = 1
 
-        return "".join(res)
+            
 
-
-        
-
+        return ''.join(res)

@@ -3,22 +3,20 @@ class Solution:
         dr, dc = [1, -1, 0, 0], [0, 0, 1, -1] # up, down, right, left
         m, n = len(grid), len(grid[0])
 
-        count = 0
-
-        def dfs(currRow, currCol):
-            grid[currRow][currCol] = "0"
+        def dfs(row, col):
+            grid[row][col] = "0"
 
             for k in range(4):
-                newRow, newCol = currRow + dr[k], currCol + dc[k]
+                nr, nc = row + dr[k], col + dc[k]
 
-                if 0 <= newRow < m and 0 <= newCol < n and grid[newRow][newCol] == "1":
-                    dfs(newRow, newCol)
-
+                if 0 <= nr < m and 0 <= nc < n and grid[nr][nc] == "1":
+                    dfs(nr, nc)
+        
+        count = 0
         for i in range(m):
             for j in range(n):
-                # a new island is found
                 if grid[i][j] == "1":
-                    dfs(i, j)
                     count += 1
+                    dfs(i, j)
 
         return count

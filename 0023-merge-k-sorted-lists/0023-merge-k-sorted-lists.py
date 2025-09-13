@@ -59,41 +59,59 @@ class Solution:
 
         # return dummy.next
 
-        if len(lists) == 0:
-            return None
-        elif len(lists) == 1:
-            return lists[0]
+        # if len(lists) == 0:
+        #     return None
+        # elif len(lists) == 1:
+        #     return lists[0]
         
-        mid = len(lists) // 2
+        # mid = len(lists) // 2
 
-        left = self.mergeKLists(lists[:mid])
-        right = self.mergeKLists(lists[mid:])
+        # left = self.mergeKLists(lists[:mid])
+        # right = self.mergeKLists(lists[mid:])
 
-        leftCurr = left
-        rightCurr = right
+        # leftCurr = left
+        # rightCurr = right
+        # dummy = ListNode(-1)
+        # curr = dummy
+
+        # while leftCurr and rightCurr:
+        #     if leftCurr.val < rightCurr.val:
+        #         curr.next = leftCurr
+        #         leftCurr = leftCurr.next
+        #     else:
+        #         curr.next = rightCurr
+        #         rightCurr = rightCurr.next
+            
+        #     curr = curr.next
+        
+        # if leftCurr:
+        #     curr.next = leftCurr
+        
+        # if rightCurr:
+        #     curr.next = rightCurr
+
+        # return dummy.next
+            
+
+        counter = count()
+
+        heap = [(head.val, next(counter), head) for head in lists if head]
+        heapq.heapify(heap)
+
         dummy = ListNode(-1)
         curr = dummy
 
-        while leftCurr and rightCurr:
-            if leftCurr.val < rightCurr.val:
-                curr.next = leftCurr
-                leftCurr = leftCurr.next
-            else:
-                curr.next = rightCurr
-                rightCurr = rightCurr.next
+        while heap:
+            _, _, head = heapq.heappop(heap)
+
+            curr.next = head
+
+            if head.next:
+                heapq.heappush(heap, (head.next.val, next(counter), head.next))
             
             curr = curr.next
-        
-        if leftCurr:
-            curr.next = leftCurr
-        
-        if rightCurr:
-            curr.next = rightCurr
 
         return dummy.next
-            
-
-
 
 
 

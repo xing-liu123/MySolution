@@ -29,7 +29,6 @@ class Solution:
         # for course, preq in prerequisites:
         #     graph[preq].append(course)
 
-
         # order = []
         # has_cycle = False
 
@@ -62,30 +61,69 @@ class Solution:
 
         # return order[::-1]
 
-        indegree = [0] * numCourses
-        graph = defaultdict(list)
+        # indegree = [0] * numCourses
+        # graph = defaultdict(list)
 
-        for u, v in prerequisites:
-            indegree[u] += 1
-            graph[v].append(u)
+        # # O(m) where m is the len(prerequisites)
+        # for u, v in prerequisites:
+        #     indegree[u] += 1
+        #     graph[v].append(u)
         
-        queue = deque([i for i in range(numCourses) if indegree[i] == 0])
+        # queue = deque([i for i in range(numCourses) if indegree[i] == 0])
 
-        res = []
+        # res = []
 
-        while queue:
-            course = queue.popleft()
-            res.append(course)
+        # # Since each course will be append and pop out from heap once, the run time is O(numCourse) * avg(edges of each node))))
+        # while queue:
+        #     course = queue.popleft()
+        #     res.append(course)
 
-            for nextCourse in graph[course]:
-                indegree[nextCourse] -= 1
+        #     for nextCourse in graph[course]:
+        #         indegree[nextCourse] -= 1
 
-                if indegree[nextCourse] == 0:
-                    queue.append(nextCourse)
+        #         if indegree[nextCourse] == 0:
+        #             queue.append(nextCourse)
 
-        return res if len(res) == numCourses else []
+        # return res if len(res) == numCourses else []
 
 
+        graph = defaultdict(list)
+        
+        for course, preq in prerequisites:
+            graph[preq].append(course)
+        
+        visited = [0] * numCourses
+        hasCycle = False
+        order = []
+
+        def dfs(curr):
+            nonlocal hasCycle
+
+            if visited[curr] == 1:
+                hasCycle = True
+                return
+
+            if visited[curr] == 2:
+                return
+
+            visited[curr] = 1
+
+            for nextCourse in graph[curr]:
+                dfs(nextCourse)
+
+            order.append(curr)
+            visited[curr] = 2
+
+        for i in range(numCourses):
+            if visited[i] == 0:
+                dfs(i)
+                if hasCycle:
+                    return []
+
+        if len(order) < numCourses:
+            return []
+
+        return order[::-1]
 
 
 

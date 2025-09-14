@@ -3,6 +3,7 @@ class Solution:
         m, n = len(board), len(board[0])
         dr, dc = [1, -1, 0, 0], [0, 0, 1, -1]
 
+        # @lru_cache(None)
         def search(row, col, idx):
             if idx == len(word):
                 return True

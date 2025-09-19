@@ -7,6 +7,26 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        # if not root:
+        #     return None
+
+        # left = self.lowestCommonAncestor(root.left, p, q)
+        # right = self.lowestCommonAncestor(root.right, p, q)
+
+        # if root.val == p.val or root.val == q.val:
+        #     return root
+
+        # if left and right and (left.val == p.val and right.val == q.val or left.val == q.val and right.val == p.val):
+        #     return root
+
+        # if left:
+        #     return left
+        
+        # if right:
+        #     return right
+
+        # return None
+
         if not root:
             return None
 
@@ -16,13 +36,11 @@ class Solution:
         if root.val == p.val or root.val == q.val:
             return root
 
-        if left and right and (left.val == p.val and right.val == q.val or left.val == q.val and right.val == p.val):
+        if left and (left.val == p.val or left.val == q.val) and right and (right.val == p.val or right.val == q.val):
             return root
-
-        if left:
+        elif left:
             return left
-        
-        if right:
+        elif right:
             return right
-
-        return None
+        else:
+            return None

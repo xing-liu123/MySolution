@@ -8,6 +8,7 @@ class Solution:
         steps = 0
         visited = set()
         visited.add((0, 0))
+        x, y = abs(x), abs(y)
 
         while queue:
             size = len(queue)
@@ -21,7 +22,7 @@ class Solution:
                 for move in moves:
                     nx, ny = cx + move[0], cy + move[1]
 
-                    if not (nx, ny) in visited:
+                    if not (nx, ny) in visited and 0 <= nx <= x + 2 and 0 <= ny <= y + 2:
                         queue.append((nx, ny))
                         visited.add((nx, ny))
             steps += 1

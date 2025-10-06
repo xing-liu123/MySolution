@@ -1,40 +1,51 @@
+from collections import defaultdict
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
         graph = defaultdict(list)
+        res = defaultdict(float)
 
-        for i in range(len(equations)):
-            u, v = equations[i]
-            graph[u].append((v, values[i]))
-            graph[v].append((u, 1 / values[i]))
+        for (u, v), value in zip(equations, values):
+            graph[u].append(v)
+            graph[v].append(u)
+            res[(u, v)] = value
+            res[(v, u)] = 1.0 / value
 
-        visited = dict()
+        def dfs(curr, start, end, currVal, visited):
+            if curr == end:
+                return
+            
+            visited.add(curr)
 
-        def dfs(curr):
-            visited[curr] = dict()
-            visited[curr][curr] = 1
+            for nextNode in graph[curr]:
+                if nextNode not in visited:
+                    res[(start, nextNode)] = currVal * res[(curr, nextNode)]
+                    dfs(nextNode, start, end, res[(start, nextNode)], visited)
 
-            for next_node, dist in graph[curr]:
-                if not next_node in visited:
-                    dfs(next_node)
-                for next_next, next_dist in visited[next_node].items():
-                    visited[curr][next_next] = dist * next_dist
-
-        res = []
-
+        results = []
         for u, v in queries:
-            if not u in graph or not v in graph:
-                res.append(-1)
+            if u not in graph or v not in graph:
+                results.append(-1.0)
+                continue
+
+            if u == v:
+                results.append(1.0)
+                continue
+
+            if (u, v) in res:
+                results.append(res[(u, v)])
             else:
-                if not u in visited or not v in visited[u]:
-                    dfs(u)
+                dfs(u, u, v, 1, set())
 
-                if v in visited[u]:
-                    res.append(visited[u][v])
+                if (u, v) in res:
+                    results.append(res[(u, v)])
                 else:
-                    res.append(-1)
+                    results.append(-1)
+
+        return results
+
+
         
-        return res
+            
 
 
-
-
+            
